@@ -1,7 +1,5 @@
 ---
 import Logo from '@components/molecules/Logo.astro';
-import { categoryIds, toolName } from '@/data/categories';
-import { checkIds } from '@/data/checks';
 
 interface Props {
   miniView?: boolean;
@@ -9,40 +7,17 @@ interface Props {
 
 const { miniView = false } = Astro.props;
 
-const repo = 'github.com/lissy93/web-check';
-const github = `https://${repo}`;
-
-const licenseText = 'MIT';
-const licenseLink = `${github}/blob/master/LICENSE`;
-
-const aboutLink = '/about';
 const projectName = 'Web Check';
-
-const authorName = 'Alicia Sykes';
-const authorLink = 'https://aliciasykes.com';
+const siteUrl = 'https://kmucha.pl';
+const siteLabel = 'kmucha.pl';
 const currentYear = new Date().getFullYear();
 
+// Kolejne pozycje lub całe kolumny linków możesz dopisywać tutaj
 const linkGroups = [
   {
-    title: 'Tools',
-    links: categoryIds.map((id) => ({ label: toolName(id), href: `/${id}` })),
-  },
-  {
-    title: 'Docs',
+    title: 'Linki',
     links: [
-      { label: `All ${checkIds.length} checks`, href: '/checks' },
-      { label: 'Glossary', href: '/glossary' },
-      { label: 'Self-hosting', href: '/self-hosted-setup' },
-      { label: 'API', href: '/web-check-api' },
-    ],
-  },
-  {
-    title: 'Project',
-    links: [
-      { label: 'About', href: aboutLink },
-      { label: 'Source code', href: github },
-      { label: 'Report an issue', href: `${github}/issues` },
-      { label: 'Sponsor', href: 'https://github.com/sponsors/Lissy93' },
+      { label: siteLabel, href: siteUrl },
     ],
   },
 ];
@@ -57,17 +32,21 @@ const linkGroups = [
           {projectName}
         </a>
         <p>
-          The all-in-one OSINT and security tool, for revealing the inner workings of any website.
+          Kompleksowe narzędzie pozwalające przeanalizować budowę oraz konfigurację dowolnej strony internetowej.
         </p>
       </div>
-      <nav aria-label="Footer">
+      <nav aria-label="Stopka">
         {linkGroups.map((group) => (
           <div>
             <h2>{group.title}</h2>
             <ul>
               {group.links.map((link) => (
                 <li>
-                  <a href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined}>
+                  <a
+                    href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  >
                     {link.label}
                   </a>
                 </li>
@@ -80,21 +59,10 @@ const linkGroups = [
   )}
   <div class="bar">
     <p>
-      View source at{' '}
-      <a href={github} target="_blank">
-        {repo}
+      © {currentYear}{' '}
+      <a href={siteUrl} target="_blank" rel="noopener noreferrer">
+        {siteLabel}
       </a>
-    </p>
-    <p>
-      <a href={aboutLink}>{projectName}</a> is licensed under{' '}
-      <a href={licenseLink} target="_blank">
-        {licenseText}
-      </a>{' '}
-      - ©{' '}
-      <a href={authorLink} target="_blank">
-        {authorName}
-      </a>{' '}
-      {currentYear}
     </p>
   </div>
 </footer>
@@ -109,6 +77,7 @@ const linkGroups = [
     gap: $gap;
     padding: 3rem calc((100% - var(--page-width)) / 2);
     background: var(--background-raised);
+    border-top: 1px solid var(--border);
     @include mobile-down {
       display: grid;
     }
@@ -118,12 +87,12 @@ const linkGroups = [
       a {
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.6rem;
         font-size: 1.2rem;
         font-weight: 700;
         color: var(--text-color);
         :global(.logo) {
-          width: 1.5em;
+          width: 1.6em;
         }
       }
       p {
@@ -151,7 +120,7 @@ const linkGroups = [
       font-size: 0.85rem;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--primary-increased-contrast);
+      color: color-mix(in srgb, var(--primary-increased-contrast) 75%, var(--text-color));
     }
     ul {
       display: grid;
@@ -173,20 +142,20 @@ const linkGroups = [
       transition: color 0.25s ease;
       &:hover,
       &:focus-visible {
-        color: var(--primary-increased-contrast);
+        color: color-mix(in srgb, var(--primary-increased-contrast) 75%, var(--text-color));
       }
     }
   }
   .bar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     gap: 0.25rem 1rem;
     flex-wrap: wrap;
-    padding: 0.25rem 1rem;
+    padding: 0.4rem 1rem;
     font-size: 0.85rem;
     line-height: 1.5;
     background: var(--primary-increased-contrast);
-    color: var(--background);
+    color: #ffffff;
     p {
       margin: 0;
     }
