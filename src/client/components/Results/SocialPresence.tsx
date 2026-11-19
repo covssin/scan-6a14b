@@ -30,34 +30,34 @@ const LABELS: Record<string, string> = { X: 'X (Twitter)' };
 const verification = (profile: any): RowProps => {
   if (profile.checked === false) {
     return {
-      val: 'Unknown',
+      val: 'Nieznana',
       status: 'info',
-      reason: 'The network could not be reached, so this account was not checked',
+      reason: 'Nie udało się połączyć z serwisem, więc konto nie zostało zweryfikowane',
     };
   }
   if (!profile.exists) {
-    return { val: false, reason: 'This handle does not resolve to a live account' };
+    return { val: false, reason: 'Ten identyfikator nie prowadzi do aktywnego konta' };
   }
   if (profile.domainVerified) {
     return {
       val: true,
-      reason: 'The handle is this domain, so the network has verified control of it',
+      reason: 'Nazwa profilu odpowiada tej domenie, więc kontrola nad nią została potwierdzona',
     };
   }
   if (profile.linksBack) {
     return {
       val: true,
       reason: profile.websiteVerified
-        ? 'The profile links back to this site, and the network has verified the link'
-        : 'The profile links back to this site',
+        ? 'Profil zawiera zweryfikowany link powrotny do tej witryny'
+        : 'Profil zawiera link powrotny do tej witryny',
     };
   }
   return {
     val: false,
     status: 'warning',
     reason: profile.website
-      ? `The profile links to ${profile.website} instead`
-      : 'The profile lists no website to check against',
+      ? `Profil wskazuje na inny adres: ${profile.website}`
+      : 'Profil nie zawiera adresu strony internetowej do weryfikacji',
   };
 };
 
@@ -83,7 +83,7 @@ const SocialPresenceCard = (props: {
           }
         >
           <Row>
-            <span className="lbl">Handle</span>
+            <span className="lbl">Profil</span>
             <span className="val">
               <a target="_blank" rel="noreferrer" href={profile.url}>
                 {profile.avatar && <img className="avatar" src={profile.avatar} alt="" />}@
@@ -91,17 +91,17 @@ const SocialPresenceCard = (props: {
               </a>
             </span>
           </Row>
-          {profile.name && <Row lbl="Name" val={profile.name} />}
-          {profile.joined && <Row lbl="Joined" val={profile.joined} />}
+          {profile.name && <Row lbl="Nazwa" val={profile.name} />}
+          {profile.joined && <Row lbl="Dołączył(a)" val={profile.joined} />}
           {profile.count !== undefined && (
             <Row
-              lbl={profile.network === 'GitHub' ? 'Repositories' : 'Posts'}
+              lbl={profile.network === 'GitHub' ? 'Repozytoria' : 'Wpisy'}
               val={num(profile.count)}
             />
           )}
-          {profile.followers !== undefined && <Row lbl="Followers" val={num(profile.followers)} />}
-          {profile.website && !profile.linksBack && <Row lbl="Website" val={profile.website} />}
-          <Row lbl="Verification" term="social-verification" {...verification(profile)} />
+          {profile.followers !== undefined && <Row lbl="Obserwujący" val={num(profile.followers)} />}
+          {profile.website && !profile.linksBack && <Row lbl="Strona WWW" val={profile.website} />}
+          <Row lbl="Weryfikacja" term="social-verification" {...verification(profile)} />
         </Section>
       ))}
     </Card>

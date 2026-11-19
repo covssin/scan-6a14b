@@ -39,15 +39,14 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <Card>
           {this.props.title && <Heading color={colors.primary}>{this.props.title}</Heading>}
-          <ErrorText>This component errored unexpectedly</ErrorText>
+          <ErrorText>Wystąpił nieoczekiwany błąd komponentu</ErrorText>
           <p>
-            Usually this happens if the result from the server was not what was expected. Check the
-            logs for more info. If you continue to experience this issue, please raise a ticket on
-            the repository.
+            Zwykle dzieje się tak, gdy odpowiedź z serwera ma nieoczekiwany format. Sprawdź logi w
+            konsoli przeglądarki, aby uzyskać więcej informacji.
           </p>
           {this.state.errorMessage && (
             <details>
-              <summary>Error Details</summary>
+              <summary>Szczegóły błędu</summary>
               <div>{this.state.errorMessage}</div>
             </details>
           )}

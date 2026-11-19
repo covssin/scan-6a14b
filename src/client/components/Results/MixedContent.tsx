@@ -5,11 +5,11 @@ import { integrityFindings, mixedFindings } from 'client/analysis/rules/mixed-co
 
 // Sum up the mixed content, noting when the page's CSP upgrades it to https
 const mixedSummary = (d: any, count: number): RowProps => {
-  if (!d.url.startsWith('https:')) return { val: 'N/A, page is HTTP' };
+  if (!d.url.startsWith('https:')) return { val: 'Nie dotyczy (strona działa po HTTP)' };
   const result = fromFindings(mixedFindings(d));
-  if (!count) return { val: 'None', ...result };
+  if (!count) return { val: 'Brak', ...result };
   return {
-    val: d.upgradeInsecureRequests ? `${count} upgraded by CSP` : `${count} found`,
+    val: d.upgradeInsecureRequests ? `CSP uaktualnia: ${count}` : `Wykryto: ${count}`,
     ...result,
   };
 };
@@ -23,17 +23,17 @@ const MixedContentCard = (props: { data: any; title: string; actionButtons: any 
   const summary = mixedSummary(props.data, mixed);
   const unhashed = versioned.length + unversioned.length;
   const lists: [string, string[]][] = [
-    ['Insecure Scripts, Styles & Frames', active],
-    ['Insecure Images & Media', passive],
-    ['Insecure Form Targets', forms],
-    ['Versioned Scripts Without SRI', versioned],
-    ['Unversioned Scripts Without SRI', unversioned],
-    ['SRI Scripts Missing crossorigin', missingCrossorigin],
+    ['Nieszyfrowane skrypty, style i ramki', active],
+    ['Nieszyfrowane obrazy i multimedia', passive],
+    ['Nieszyfrowane cele formularzy', forms],
+    ['Wersjonowane skrypty bez SRI', versioned],
+    ['Niewersjonowane skrypty bez SRI', unversioned],
+    ['Skrypty SRI bez atrybutu crossorigin', missingCrossorigin],
   ];
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
-      <Row lbl="Page" val={url} />
-      <Row lbl="Mixed Content" term="mixed-content" {...summary} />
+      <Row lbl="Strona" val={url} />
+      <Row lbl="Mieszana zawartość" term="mixed-content" {...summary} />
       {https && (upgradeInsecureRequests || mixed > 0) && (
         <Row
           lbl="Upgrade Insecure Requests"
@@ -42,11 +42,11 @@ const MixedContentCard = (props: { data: any; title: string; actionButtons: any 
           term="upgrade-insecure-requests"
         />
       )}
-      <Row lbl="Third-Party Scripts in HTML" val={thirdPartyScripts} />
+      <Row lbl="Skrypty podmiotów trzecich w HTML" val={thirdPartyScripts} />
       {thirdPartyScripts > 0 && (
         <Row
-          lbl="Using SRI"
-          val={`${thirdPartyScripts - unhashed} of ${thirdPartyScripts}`}
+          lbl="Zabezpieczone przez SRI"
+          val={`${thirdPartyScripts - unhashed} z ${thirdPartyScripts}`}
           term="sri"
           {...fromFindings(integrityFindings(props.data))}
         />
@@ -54,7 +54,7 @@ const MixedContentCard = (props: { data: any; title: string; actionButtons: any 
       {integrityPolicy && (
         <Row
           lbl="Integrity-Policy"
-          val={unhashed ? `Blocks ${unhashed} script(s)` : 'Enforced'}
+          val={unhashed ? `Blokuje skryptów: ${unhashed}` : 'Egzekwowana'}
           status={unhashed ? 'error' : 'pass'}
           term="integrity-policy"
         />

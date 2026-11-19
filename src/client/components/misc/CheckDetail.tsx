@@ -107,11 +107,11 @@ const Status = styled(StyledCard)`
 
 // How a check ended up, when it has nothing to show
 const OUTCOMES: Record<LoadingState, string> = {
-  loading: 'is still running',
-  error: 'failed',
-  'timed-out': 'timed out',
-  skipped: 'was skipped',
-  success: 'found nothing to show',
+  loading: 'wciąż trwa',
+  error: 'zakończył się błędem',
+  'timed-out': 'przekroczył limit czasu',
+  skipped: 'został pominięty',
+  success: 'nie zwrócił danych do wyświetlenia',
 };
 
 interface Props {
@@ -127,7 +127,7 @@ interface Props {
 // One check's results in full, beside what it looks at and why
 const CheckDetail = ({ card, data, entry, ready, findings, retry, actions = [] }: Props) => {
   const { state = 'loading', error, timeTaken } = entry || {};
-  const took = timeTaken ? ` after ${formatNumber(timeTaken)} ms` : '';
+  const took = timeTaken ? ` po ${formatNumber(timeTaken)} ms` : '';
   const sorted = [...findings].sort(
     (a, b) => SEVERITIES.indexOf(a.severity) - SEVERITIES.indexOf(b.severity),
   );
@@ -140,7 +140,7 @@ const CheckDetail = ({ card, data, entry, ready, findings, retry, actions = [] }
         </div>
         <Actions
           actions={[
-            { label: `Re-fetch ${card.title} data`, icon: faRotateRight, onClick: retry },
+            { label: `Odśwież dane: ${card.title}`, icon: faRotateRight, onClick: retry },
             ...actions,
           ]}
         />
@@ -148,22 +148,22 @@ const CheckDetail = ({ card, data, entry, ready, findings, retry, actions = [] }
       <div aria-busy={state === 'loading'}>
         {sorted.length > 0 && (
           <>
-            <h3>Findings</h3>
+            <h3>Wnioski i uwagi</h3>
             <FindingList findings={sorted} />
           </>
         )}
-        <h3>Results</h3>
+        <h3>Wyniki</h3>
         {ready ? (
           <ErrorBoundary key={card.id} title={card.title}>
             <card.Component data={data} />
           </ErrorBoundary>
         ) : (
           <Status role="status">
-            <p>{`This check ${OUTCOMES[state]}${took}.`}</p>
+            <p>{`Ten test ${OUTCOMES[state]}${took}.`}</p>
             {error && <pre>{error}</pre>}
             {state !== 'loading' && (
               <Button onClick={retry} styles="width: fit-content;">
-                Try again
+                Spróbuj ponownie
               </Button>
             )}
           </Status>

@@ -51,40 +51,40 @@ const SslCertCard = (props: { data: any; title: string; actionButtons: any }): J
     .filter(Boolean);
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
-      {subject && <Row lbl="Subject" val={subject.CN} />}
-      {issuer?.O && <Row lbl="Issuer" val={issuer.O} />}
+      {subject && <Row lbl="Podmiot" val={subject.CN} />}
+      {issuer?.O && <Row lbl="Wystawca" val={issuer.O} />}
       {typeof sslCert.isValid === 'boolean' && (
         <Row
-          lbl="Trusted"
+          lbl="Zaufany"
           val={sslCert.isValid}
-          no={`No (${sslCert.authError})`}
+          no={`Nie (${sslCert.authError})`}
           reason={REASONS[sslCert.authError]}
           term="certificate-trust"
         />
       )}
-      {key && <Row lbl="Public Key" val={key} />}
+      {key && <Row lbl="Klucz publiczny" val={key} />}
       {valid_to && (
         <Row
-          lbl="Expires"
+          lbl="Wygasa"
           val={valid_to}
           term="certificate-expiry"
           {...fromFinding(checkExpiry(valid_to))}
         />
       )}
-      {valid_from && <Row lbl="Renewed" val={valid_from} />}
-      {days > 0 && <Row lbl="Lifetime" val={`${formatNumber(days)} days`} />}
-      {serialNumber && <Row lbl="Serial Num" val={serialNumber} />}
-      {fingerprint && <Row lbl="Fingerprint" val={fingerprint} />}
+      {valid_from && <Row lbl="Wystawiony / odnowiony" val={valid_from} />}
+      {days > 0 && <Row lbl="Okres ważności" val={`${formatNumber(days)} dni`} />}
+      {serialNumber && <Row lbl="Numer seryjny" val={serialNumber} />}
+      {fingerprint && <Row lbl="Odcisk palca" val={fingerprint} />}
       {altNames.length > 0 && (
         <ExpandableRow
-          lbl="Alternative Names"
+          lbl="Alternatywne nazwy (SAN)"
           val={altNames.length}
           rowList={altNames.map((name: string) => ({ lbl: name }))}
         />
       )}
-      {sslCert.chain?.length > 0 && <ListRow title="Certificate Chain" list={sslCert.chain} />}
+      {sslCert.chain?.length > 0 && <ListRow title="Łańcuch certyfikatów" list={sslCert.chain} />}
       {ext_key_usage && (
-        <ListRow title="Extended Key Usage" list={getExtendedKeyUsage(ext_key_usage)} />
+        <ListRow title="Rozszerzone użycie klucza" list={getExtendedKeyUsage(ext_key_usage)} />
       )}
     </Card>
   );

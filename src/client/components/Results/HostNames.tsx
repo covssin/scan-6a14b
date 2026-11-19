@@ -10,8 +10,8 @@ const HostNamesCard = (props: {
   const hosts = props.data;
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
-      {hosts.domains.length > 0 && <ListRow list={hosts.domains} title="Domains" />}
-      {hosts.hostnames.length > 0 && <ListRow list={hosts.hostnames} title="Hosts" />}
+      {hosts.domains.length > 0 && <ListRow list={hosts.domains} title="Domeny" />}
+      {hosts.hostnames.length > 0 && <ListRow list={hosts.hostnames} title="Hosty" />}
     </Card>
   );
 };

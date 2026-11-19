@@ -1,23 +1,19 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Server Location',
+  title: 'Lokalizacja serwera',
   categories: ['server'],
-  summary: 'Where in the world the server is physically hosted',
+  summary: 'Przybliżone położenie geograficzne serwera na podstawie adresu IP',
   description:
-    "Maps the server's IP to a physical location using a geolocation database, which " +
-    'associates address ranges with known data centres and ISPs. From the coordinates ' +
-    'you also get the country, region and timezone. The address also belongs to a ' +
-    'network, numbered by its ASN, which names who runs the infrastructure.',
+    'Mapuje adres IP serwera na lokalizację geograficzną przy użyciu bazy geolokalizacyjnej, ' +
+    'podając kraj, region, współrzędne, strefę czasową oraz operatora sieci (ASN).',
   use:
-    'Where a site is hosted hints at where its audience or its operator is. It also ' +
-    'decides latency, and anything that turns on jurisdiction: data residency rules, ' +
-    'sanctions, or whose courts a request would go through. Bear in mind this locates ' +
-    'the data centre, not the company.',
+    'Lokalizacja serwera wpływa na opóźnienia sieciowe oraz jurysdykcję prawną dotyczącą przechowywania danych. ' +
+    'Należy pamiętać, że wynik wskazuje lokalizację centrum danych, a nie siedzibę firmy.',
   resources: [
     { title: 'IP Locator', link: 'https://geobytes.com/iplocator/' },
     {
-      title: 'Internet Geolocation - Wiki',
+      title: 'Geolokalizacja internetowa - Wiki',
       link: 'https://en.wikipedia.org/wiki/Internet_geolocation',
     },
   ],

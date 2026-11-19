@@ -1,14 +1,14 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Data Breaches',
+  title: 'Wycieki danych',
   categories: ['security', 'privacy'],
-  summary: 'Known data breaches of the site, as recorded by Have I Been Pwned',
+  summary: 'Znane wycieki danych powiązane z domeną według bazy Have I Been Pwned',
   description:
-    'Searches for past data breaches from this domain, using records from Have I Been Pwned. ' +
-    'Shows how many affected users, as well as list of what data was compromised, by whom and when.',
+    'Wyszukuje historyczne wycieki danych powiązane z badaną domeną w bazie Have I Been Pwned. ' +
+    'Pokazuje liczbę poszkodowanych kont, datę incydentu oraz rodzaj ujawnionych informacji.',
   use:
-    'If a site has leaked its users before, and you had an account there, assume ' +
-    'your details from that time are out in the wild.',
+    'Jeśli serwis ujawnił w przeszłości dane użytkowników, a posiadałeś tam konto, należy założyć, ' +
+    'że użyte wówczas dane i hasła krążą w sieci.',
   resources: [{ title: 'HIBP - Pwned Websites', link: 'https://haveibeenpwned.com/PwnedWebsites' }],
 } satisfies Check;

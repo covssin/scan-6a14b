@@ -1,6 +1,5 @@
 import type { Analyzer } from '../types';
 
-// Warn when no CAA issue tag limits which CAs can issue certificates
 const caaRecords: Analyzer = (d) => {
   const records: any[] = Array.isArray(d.records) ? d.records : [];
   const issue = records.filter((r) => r.tag === 'issue');
@@ -8,19 +7,19 @@ const caaRecords: Analyzer = (d) => {
     return [
       {
         severity: 'warning',
-        title: records.length ? 'CAA records have no issue tag' : 'No CAA records',
-        detail: 'Any certificate authority can issue certificates for this domain',
+        title: records.length ? 'Rekordy CAA nie zawierają tagu issue' : 'Brak rekordów CAA',
+        detail: 'Dowolny urząd certyfikacji może wystawić certyfikat dla tej domeny',
       },
     ];
   }
   const issuers = [...new Set(issue.map((r) => r.value.split(';')[0].trim()).filter(Boolean))];
   if (!issuers.length) {
-    return [{ severity: 'info', title: 'CAA blocks all certificate issuance' }];
+    return [{ severity: 'info', title: 'Rekord CAA blokuje wydawanie wszystkich certyfikatów' }];
   }
   return [
     {
       severity: 'pass',
-      title: `CAA limits issuance to ${issuers.length} CA(s)`,
+      title: `CAA ogranicza wydawanie certyfikatów do ${issuers.length} CA`,
       detail: issuers.join(', '),
     },
   ];

@@ -68,8 +68,8 @@ const ResultsContent = styled.section`
 const makeActionButtons = (title: string, expand: () => void, refresh: () => void) => (
   <ActionButtons
     actions={[
-      { label: `Expand ${title}`, icon: faUpRightAndDownLeftFromCenter, onClick: expand },
-      { label: `Re-fetch ${title} data`, icon: faRotateRight, onClick: refresh },
+      { label: `Rozwiń: ${title}`, icon: faUpRightAndDownLeftFromCenter, onClick: expand },
+      { label: `Odśwież dane: ${title}`, icon: faRotateRight, onClick: refresh },
     ]}
   />
 );
@@ -254,11 +254,11 @@ const Results = (props: { address?: string }): JSX.Element => {
             {...expanded}
             actions={[
               {
-                label: 'Open in its own page',
+                label: 'Otwórz na osobnej stronie',
                 icon: faArrowUpRightFromSquare,
                 href: `/${expanded.card.id}/${normalizeAddress(address)}`,
               },
-              { label: 'Close', icon: faXmark, onClick: closeDetail },
+              { label: 'Zamknij', icon: faXmark, onClick: closeDetail },
             ]}
           />
         )}

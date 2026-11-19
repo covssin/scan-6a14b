@@ -275,9 +275,9 @@ interface JobListItemProps {
 }
 
 const REASON_LABEL: Partial<Record<LoadingState, string>> = {
-  error: '■ Show Error',
-  'timed-out': '■ Show Timeout Reason',
-  skipped: '■ Show Skip Reason',
+  error: '■ Pokaż błąd',
+  'timed-out': '■ Przyczyna przekroczenia czasu',
+  skipped: '■ Powód pominięcia',
 };
 
 // One row in the details list, showing job state, time and any actions
@@ -290,11 +290,11 @@ const JobListItem = ({ job, showDetails }: JobListItemProps): ReactNode => {
       <button type="button" className="docs" onClick={() => showDetails(id)}>
         {STATE_META[state].emoji} {name}
       </button>
-      <StateLabel color={STATE_META[state].color}> ({state})</StateLabel>
-      <i>{timeTaken && state !== 'loading' ? ` Took ${formatNumber(timeTaken)} ms` : ''}</i>
+      <StateLabel color={STATE_META[state].color}> ({state === 'success' ? 'ukończono' : state === 'loading' ? 'trwa' : state === 'error' ? 'błąd' : state === 'timed-out' ? 'limit czasu' : 'pominięto'})</StateLabel>
+      <i>{timeTaken && state !== 'loading' ? ` Czas: ${formatNumber(timeTaken)} ms` : ''}</i>
       {canRetry && (
         <FailedJobActionButton type="button" onClick={retry}>
-          ↻ Retry
+          ↻ Ponów
         </FailedJobActionButton>
       )}
       {reasonLabel && (
@@ -319,8 +319,8 @@ const LoadSummary = ({ jobs, elapsedMs, onOpen }: LoadSummaryProps): ReactNode =
   const issues = c.error + c['timed-out'] + c.skipped;
   const sec = formatNumber(elapsedMs / 1000, { digits: 1 });
   const text = c.loading
-    ? `Loading ${total - c.loading} of ${total}` + (elapsedMs < 15000 ? ` (${sec}s)` : '')
-    : `Finished ${total} lookups in ${sec}s`;
+    ? `Ładowanie ${total - c.loading} z ${total}` + (elapsedMs < 15000 ? ` (${sec} s)` : '')
+    : `Ukończono ${total} testów w ${sec} s`;
   return (
     <span className="summary">
       {text}
@@ -328,7 +328,7 @@ const LoadSummary = ({ jobs, elapsedMs, onOpen }: LoadSummaryProps): ReactNode =
         <>
           {' · '}
           <button type="button" className="extras" onClick={onOpen}>
-            {issues} {issues === 1 ? 'issue' : 'issues'}
+            {issues} {issues === 1 ? 'uwaga' : issues < 5 ? 'uwagi' : 'uwag'}
           </button>
         </>
       )}
@@ -339,10 +339,10 @@ const LoadSummary = ({ jobs, elapsedMs, onOpen }: LoadSummaryProps): ReactNode =
 type ChipKey = Exclude<LoadingState, 'loading'>;
 
 const CHIP_LABEL: Record<ChipKey, string> = {
-  success: 'successful',
-  skipped: 'skipped',
-  'timed-out': 'timed out',
-  error: 'failed',
+  success: 'zakończonych sukcesem',
+  skipped: 'pominiętych',
+  'timed-out': 'przekroczyło czas',
+  error: 'zakończonych błędem',
 };
 
 interface SummaryTextProps {
@@ -361,14 +361,14 @@ const SummaryText = ({ jobs, elapsedMs }: SummaryTextProps): ReactNode => {
   const chip = (k: ChipKey) =>
     c[k] > 0 && (
       <span key={k} className={k}>
-        {c[k]} {c[k] === 1 ? 'job' : 'jobs'} {CHIP_LABEL[k]}{' '}
+        {c[k]} {CHIP_LABEL[k]}{' '}
       </span>
     );
   const cls = !isDone ? 'loading-info' : hasIssues ? 'error-info' : 'success-info';
   const heading = !isDone
-    ? `Loading ${total - c.loading} / ${total} Jobs`
+    ? `Wykonywanie ${total - c.loading} / ${total} testów`
     : !hasIssues
-      ? `${c.success} Jobs Completed Successfully`
+      ? `Pomyślnie ukończono ${c.success} testów`
       : null;
   const keys: ChipKey[] = !isDone
     ? ['skipped', 'timed-out', 'error']
@@ -379,7 +379,7 @@ const SummaryText = ({ jobs, elapsedMs }: SummaryTextProps): ReactNode => {
     <SummaryContainer className={cls}>
       {heading && <b>{heading}</b>}
       {keys.map(chip)}
-      <span className="elapsed">{isDone ? `Done in ${elapsed}` : elapsed}</span>
+      <span className="elapsed">{isDone ? `Ukończono w ${elapsed}` : elapsed}</span>
     </SummaryContainer>
   );
 };
@@ -414,7 +414,7 @@ const ProgressLoader = ({ loadStatus, showDetails }: ProgressLoaderProps): React
               onOpen={() => setHideLoader(false)}
             />
             <ShowLoadStateButton type="button" onClick={() => setHideLoader(false)}>
-              Show Load State
+              Pokaż status zadań
             </ShowLoadStateButton>
           </ReShowRow>
         </div>
@@ -434,7 +434,7 @@ const ProgressLoader = ({ loadStatus, showDetails }: ProgressLoaderProps): React
             </ProgressBarContainer>
             <SummaryText jobs={loadStatus} elapsedMs={elapsedMs} />
             <Details>
-              <summary>Show Details</summary>
+              <summary>Pokaż szczegóły</summary>
               <ul>
                 {loadStatus.map((job) => (
                   <JobListItem key={job.id} job={job} showDetails={showDetails} />
@@ -442,18 +442,18 @@ const ProgressLoader = ({ loadStatus, showDetails }: ProgressLoaderProps): React
               </ul>
               {loadStatus.some((j) => j.state === 'error') && (
                 <p className="error">
-                  <b>Check the browser console for logs and more info</b>
+                  <b>Sprawdź konsolę przeglądarki, aby zobaczyć szczegółowe logi</b>
                   <br />
-                  It's normal for some jobs to fail, either because the host doesn't return the
-                  required info, or restrictions in the lambda function, or hitting an API limit.
+                  To naturalne, że część testów kończy się błędem — np. gdy badany serwer nie
+                  udostępnia określonych danych lub osiągnięto limit zewnętrznego API.
                 </p>
               )}
               <AboutPageLink href="/checks" target="_blank" rel="noreferrer">
-                Learn More about Web-Check
+                Dowiedz się więcej o testach SCAN_KMucha
               </AboutPageLink>
             </Details>
             <DismissButton type="button" onClick={() => setHideLoader(true)}>
-              Dismiss
+              Ukryj
             </DismissButton>
           </LoadCard>
         </div>

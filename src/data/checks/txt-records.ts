@@ -1,30 +1,22 @@
 import type { Check } from '.';
 
 export default {
-  title: 'TXT Records',
+  title: 'Rekordy TXT',
   categories: ['domain', 'email'],
-  summary: 'TXT records, including domain verification and policy entries',
+  summary: 'Wpisy tekstowe DNS, w tym tokeny weryfikacyjne i polityki pocztowe',
   description:
-    'TXT records let a domain publish arbitrary text in DNS. In practice they are ' +
-    'used for proving ownership of the domain to third parties, and for email ' +
-    'authentication policies such as SPF and DMARC.',
+    'Rekordy TXT przechowują dowolne ciągi znaków w systemie DNS — wykorzystywane do weryfikacji własności ' +
+    'domeny w usługach zewnętrznych oraz publikowania polityk SPF i DMARC.',
   use:
-    'TXT records are a running inventory of the services an organisation uses. ' +
-    'Verification strings from Google Workspace, Microsoft 365, Atlassian, Zoom and ' +
-    'dozens of others each carry a recognisable prefix, so the record set often names ' +
-    'the internal toolchain outright.',
+    'Zestaw rekordów TXT stanowi przegląd usług zewnętrznych zintegrowanych z domeną (np. Google Workspace, ' +
+    'Microsoft 365, narzędzia marketingowe i analityczne).',
   resources: [
     {
-      title: 'TXT Records (via Cloudflare Learning)',
+      title: 'Rekordy TXT (Cloudflare)',
       link: 'https://www.cloudflare.com/learning/dns/dns-records/dns-txt-record/',
     },
-    { title: 'TXT Records - Wiki', link: 'https://en.wikipedia.org/wiki/TXT_record' },
     {
-      title: 'RFC-1464 - TXT Records',
-      link: 'https://datatracker.ietf.org/doc/html/rfc1464',
-    },
-    {
-      title: 'TXT Record Lookup (via MxToolbox)',
+      title: 'TXT Record Lookup (MxToolbox)',
       link: 'https://mxtoolbox.com/TXTLookup.aspx',
     },
   ],

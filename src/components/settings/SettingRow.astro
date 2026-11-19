@@ -29,7 +29,7 @@ const Label = hasField ? 'label' : 'span';
       {hint && (
         <span class="hint" id={hintId}>
           {hint}
-          {media && <span class="forced">Turned on in your device settings</span>}
+          {media && <span class="forced">Włączono w ustawieniach urządzenia</span>}
         </span>
       )}
     </span>
@@ -53,7 +53,7 @@ const Label = hasField ? 'label' : 'span';
     )}
     {isList && (
       <span class="count">
-        <span class="skipped-count">None skipped</span>
+        <span class="skipped-count">Pominięte: brak</span>
         <Icon name="chevron" size={0.7} />
       </span>
     )}

@@ -43,7 +43,7 @@ const CopyButton = ({ text, name }: { text: string; name?: string }) => {
   // The clipboard is only there over HTTPS or on localhost
   if (!navigator.clipboard) return null;
 
-  const label = copied ? 'Copied' : name ? `Copy ${name}` : 'Copy';
+  const label = copied ? 'Skopiowano' : name ? `Kopiuj: ${name}` : 'Kopiuj';
   const copy = (e: MouseEvent) => {
     e.preventDefault(); // So a click in a row's summary doesn't toggle its details
     navigator.clipboard.writeText(text).then(() => {

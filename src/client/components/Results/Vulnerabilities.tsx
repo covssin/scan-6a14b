@@ -29,9 +29,9 @@ const VulnerabilitiesCard = (props: {
   const [finding] = checkVulns(props.data);
   return (
     <Card heading={props.title} actionButtons={props.actionButtons} styles={cardStyles}>
-      <Row lbl="Known CVEs" val={vulns.length || 'None'} term="cve" {...fromFinding(finding)} />
+      <Row lbl="Znane podatności CVE" val={vulns.length || 'Brak'} term="cve" {...fromFinding(finding)} />
       {exploited > 0 && (
-        <Row lbl="Actively exploited" val={exploited} status="error" term="known-exploited" />
+        <Row lbl="Aktywnie wykorzystywane" val={exploited} status="error" term="known-exploited" />
       )}
       <div className="cves">
         {vulns.map((v) => (
@@ -40,7 +40,7 @@ const VulnerabilitiesCard = (props: {
               <a href={`https://nvd.nist.gov/vuln/detail/${v.id}`} target="_blank" rel="noreferrer">
                 {v.id}
               </a>{' '}
-              {v.kev && <b title="In CISA's Known Exploited Vulnerabilities catalog">Exploited</b>}
+              {v.kev && <b title="W katalogu aktywnie wykorzystywanych podatności CISA KEV">Wykorzystywana</b>}
             </span>
             <small>
               {[

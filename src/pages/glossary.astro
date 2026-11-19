@@ -7,7 +7,7 @@ import { termGroups } from '@/data/glossary';
 const page = new URL(Astro.url.pathname.replace(/\/$/, ''), Astro.site).href;
 
 const description =
-  'Quick reference for website security and OSINT terms, like HSTS, DMARC and DNSSEC.';
+  'Podręczny słownik pojęć związanych z bezpieczeństwem stron internetowych i OSINT, takich jak HSTS, DMARC czy DNSSEC.';
 
 const groups = termGroups.map((group) => ({
   ...group,
@@ -18,7 +18,7 @@ const groups = termGroups.map((group) => ({
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'DefinedTermSet',
-  name: 'Web Security Glossary',
+  name: 'Słownik bezpieczeństwa stron WWW',
   url: page,
   hasDefinedTerm: termGroups.flatMap((group) =>
     Object.entries(group.terms).map(([id, term]) => ({
@@ -33,19 +33,19 @@ const schema = {
 ---
 
 <PageLayout
-  title="Web Security Glossary | Web Check"
+  title="Słownik pojęć | SCAN_KMucha"
   description={description}
-  keywords="web security glossary, tls terms, hsts, csp, dmarc, dnssec, ssl certificate"
+  keywords="słownik bezpieczeństwa, pojęcia tls, hsts, csp, dmarc, dnssec, certyfikat ssl"
   breadcrumbs={[
-    { name: 'Web Check', item: '' },
-    { name: 'Glossary', item: 'glossary' },
+    { name: 'SCAN_KMucha', item: '' },
+    { name: 'Słownik pojęć', item: 'glossary' },
   ]}
   customSchemaJson={schema}
 >
   <section class="intro">
-    <h1>Web security glossary</h1>
-    <p class="tagline">Quick reference for the terms used for website security and OSINT.</p>
-    <nav aria-label="Glossary sections">
+    <h1>Słownik pojęć bezpieczeństwa</h1>
+    <p class="tagline">Szybkie wyjaśnienie najważniejszych terminów używanych w audytach bezpieczeństwa stron i analizie OSINT.</p>
+    <nav aria-label="Sekcje słownika">
       <PillLinks links={groups.map((group) => ({ label: group.title, href: `#${group.id}` }))} />
     </nav>
   </section>

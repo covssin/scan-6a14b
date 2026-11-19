@@ -35,24 +35,24 @@ const ServerLocationCard = (props: {
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
       {(postCode || city || region) && (
-        <Row lbl="City" val={[postCode, city, region].filter(Boolean).join(', ')} />
+        <Row lbl="Miasto" val={[postCode, city, region].filter(Boolean).join(', ')} />
       )}
       {country && (
         <Row>
-          <span className="lbl">Country</span>
+          <span className="lbl">Kraj</span>
           <CountryValue>
             {country}
             {countryCode && <Flag countryCode={countryCode} width={28} />}
           </CountryValue>
         </Row>
       )}
-      {timezone && <Row lbl="Timezone" val={timezone} />}
-      {isp && <Row lbl="Network" val={isp} />}
+      {timezone && <Row lbl="Strefa czasowa" val={timezone} />}
+      {isp && <Row lbl="Sieć" val={isp} />}
       {asn && <Row lbl="ASN" val={`AS${asn}`} link={`https://bgp.he.net/AS${asn}`} />}
       <MapRow>
-        <LocationMap lat={coords.latitude} lon={coords.longitude} label={`Server (${isp})`} />
+        <LocationMap lat={coords.latitude} lon={coords.longitude} label={`Serwer (${isp})`} />
         <SmallText>
-          Latitude: {coords.latitude}, Longitude: {coords.longitude}{' '}
+          Szerokość geogr.: {coords.latitude}, Długość geogr.: {coords.longitude}{' '}
         </SmallText>
       </MapRow>
     </Card>

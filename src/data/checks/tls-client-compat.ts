@@ -1,18 +1,15 @@
 import type { Check } from '.';
 
 export default {
-  title: 'TLS Client Compatibility',
+  title: 'Kompatybilność klientów TLS',
   categories: ['security'],
-  summary: 'Whether Chrome, Safari, Java and older Android can still connect',
+  summary: 'Symulacja połączeń z różnych przeglądarek, systemów i urządzeń',
   description:
-    'Replays the handshake the way a panel of real clients would perform it, covering ' +
-    'Chrome, Firefox, Safari, Edge, OpenSSL, Java, iOS and Android across a spread of ' +
-    'versions. For each, it reports the protocol and cipher that would be agreed, or ' +
-    'that the client cannot connect at all.',
+    'Symuluje uzgadnianie połączenia TLS dla zestawu przeglądarek i systemów (Chrome, Firefox, Safari, ' +
+    'Edge, Java, Android, iOS), pokazując wynegocjowany protokół i szyfr lub brak możliwości połączenia.',
   use:
-    'Tightening a TLS configuration always locks somebody out, and this shows who. ' +
-    'Worth running before you drop an old protocol version, and again afterwards to ' +
-    'confirm you dropped only what you meant to.',
-  resources: [{ title: 'SSL Test (via SSL Labs)', link: 'https://www.ssllabs.com/ssltest/' }],
+    'Pozwala upewnić się, że zaostrzenie konfiguracji szyfrowania na serwerze nie odcięło dostępu ' +
+    'docelowym grupom użytkowników.',
+  resources: [{ title: 'SSL Test (SSL Labs)', link: 'https://www.ssllabs.com/ssltest/' }],
   screenshot: 'https://pixelflare.cc/alicia/web-check/wc-tls-handshake',
 } satisfies Check;

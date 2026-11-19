@@ -1,32 +1,19 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Social Tags',
+  title: 'Tagi społecznościowe i meta',
   categories: ['seo'],
-  summary: 'Open Graph and Twitter tags used when the site is shared',
+  summary: 'Znaczniki Open Graph oraz Twitter Card używane przy udostępnianiu linku',
   description:
-    'Reads the meta tags that tell search engines and social platforms how to present ' +
-    'the page: title, description, preview image, author, canonical URL and linked ' +
-    'social accounts. Most follow either the Open Graph or Twitter Card conventions.',
+    'Odczytuje znaczniki meta określające sposób prezentacji strony w wyszukiwarkach i mediach ' +
+    'społecznościowych: tytuł, opis, obraz podglądu, autora, adres kanoniczny i powiązane konta.',
   use:
-    'This is how a site describes itself when it thinks a machine is reading. The ' +
-    'preview title and description often differ from the on-page copy, and the tags ' +
-    'regularly name authors, social accounts or a parent organisation that appear ' +
-    'nowhere else.',
+    'Pozwala sprawdzić, jak witryna prezentuje się po udostępnieniu linku na Facebooku, LinkedInie, X ' +
+    'czy w komunikatorach, oraz czy poprawnie ustawiono adres kanoniczny.',
   resources: [
-    { title: 'SocialSharePreview.com', link: 'https://socialsharepreview.com/' },
-    {
-      title: 'The guide to social meta tags',
-      link: 'https://css-tricks.com/essential-meta-tags-social-media/',
-    },
-    { title: 'Web.dev metadata tags', link: 'https://web.dev/learn/html/metadata/' },
     { title: 'Open Graph Protocol', link: 'https://ogp.me/' },
     {
-      title: 'Twitter Cards (archived)',
-      link: 'https://web.archive.org/web/20250119104329/https://developer.x.com/en/docs/x-for-websites/cards/overview/abouts-cards',
-    },
-    {
-      title: 'Facebook Open Graph',
+      title: 'Facebook Open Graph Docs',
       link: 'https://developers.facebook.com/docs/sharing/webmasters',
     },
   ],

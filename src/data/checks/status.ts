@@ -1,14 +1,13 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Server Status',
+  title: 'Status serwera',
   categories: ['server', 'performance'],
-  summary: 'Whether the site is up, and how quickly it responded',
+  summary: 'Dostępność witryny, kod odpowiedzi HTTP oraz czas reakcji serwera',
   description:
-    'Checks whether the server is reachable, what status code it returns, and how ' +
-    'long it took to answer. That time splits into finding the server in DNS, ' +
-    'connecting, the TLS handshake, waiting for the server, then downloading the page.',
-  use: 'A baseline. If this one fails, most of the other checks are measuring nothing.',
+    'Sprawdza, czy serwer odpowiada na żądania, jaki kod statusu HTTP zwraca oraz ile milisekund ' +
+    'zajęło nawiązanie połączenia i otrzymanie odpowiedzi.',
+  use: 'Podstawowy test diagnostyczny — jeśli serwer nie odpowiada, pozostałe moduły nie będą w stanie pobrać danych.',
   resources: [],
   screenshot: 'https://pixelflare.cc/alicia/web-check/wc-status',
 } satisfies Check;

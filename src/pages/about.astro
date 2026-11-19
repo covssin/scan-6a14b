@@ -3,36 +3,33 @@ import PageLayout from '@layouts/Page.astro';
 import { about, supportUs, fairUse, privacy, license } from '@/data/about';
 import { checkIds } from '@/data/checks';
 
-const authorName = 'Alicia Sykes';
-const authorLink = 'https://aliciasykes.com';
-const repoLink = 'https://github.com/lissy93/web-check';
-const licenseLink = `${repoLink}/blob/master/LICENSE`;
+const siteName = 'kmucha.pl';
+const siteLink = 'https://kmucha.pl';
 const currentYear = new Date().getFullYear();
 
 const elsewhere = [
-  { title: `All ${checkIds.length} checks, explained`, link: '/checks' },
-  { title: 'Run your own instance', link: '/self-hosted-setup' },
-  { title: 'Use the API', link: '/web-check-api' },
+  { title: `Wszystkie testy (${checkIds.length}) — opisy`, link: '/checks' },
+  { title: 'Własna instancja (Self-hosting)', link: '/self-hosted-setup' },
+  { title: 'Dokumentacja API', link: '/web-check-api' },
 ];
 ---
 
 <PageLayout
-  title="About | Web Check"
-  description="What Web Check is, who makes it, how to support it, and its terms of use."
-  keywords="web check, about, open source, mit license, fair use, privacy"
+  title="O projekcie | SCAN_KMucha"
+  description="Czym jest SCAN_KMucha, jak działa oraz jakie są zasady korzystania z narzędzia."
+  keywords="SCAN_KMucha, o projekcie, OSINT, bezpieczeństwo stron, audyt, prywatność"
   breadcrumbs={[
-    { name: 'Web Check', item: '' },
-    { name: 'About', item: 'about' },
+    { name: 'SCAN_KMucha', item: '' },
+    { name: 'O projekcie', item: 'about' },
   ]}
 >
   <section class="intro">
-    <h1>About Web Check</h1>
+    <h1>O projekcie SCAN_KMucha</h1>
     {about.map((paragraph) => (
       <p>{paragraph}</p>
     ))}
     <p>
-      It's built and maintained by <a href={authorLink}>{authorName}</a>, and the source is on{' '}
-      <a href={repoLink}>GitHub</a>.
+      Projekt rozwijany w ramach <a href={siteLink}>{siteName}</a>.
     </p>
     <ul class="elsewhere">
       {elsewhere.map((link) => (
@@ -44,14 +41,14 @@ const elsewhere = [
   </section>
 
   <section>
-    <h2>Support the project</h2>
+    <h2>Wsparcie i rozwój</h2>
     {supportUs.map((paragraph) => (
       <p set:html={paragraph} />
     ))}
   </section>
 
   <section>
-    <h2>Fair use</h2>
+    <h2>Zasady uczciwego użytkowania</h2>
     <ul>
       {fairUse.map((rule) => (
         <li>{rule}</li>
@@ -60,19 +57,18 @@ const elsewhere = [
   </section>
 
   <section>
-    <h2>Privacy</h2>
+    <h2>Prywatność</h2>
     {privacy.map((paragraph) => (
       <p>{paragraph}</p>
     ))}
   </section>
 
   <section>
-    <h2>License</h2>
+    <h2>Licencja</h2>
     <p>
-      Web Check is distributed under the <a href={licenseLink}>MIT license</a>, ©{' '}
-      <a href={authorLink}>{authorName}</a>
-      {currentYear}. It's free to use, modify and distribute in both personal and commercial
-      settings.
+      SCAN_KMucha jest udostępniany na licencji MIT, ©{' '}
+      <a href={siteLink}>{siteName}</a> {currentYear}. Oprogramowanie oparte na otwartym kodzie
+      źródłowym Web-Check.
     </p>
     <pre>{license}</pre>
   </section>

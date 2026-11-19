@@ -21,17 +21,17 @@ const TERMS: Record<string, TermId> = {
 };
 
 // Lighthouse's words for its green, orange and red scores
-const SCORE_TEXT = { pass: 'Pass', warning: 'Average', error: 'Fail' };
+const SCORE_TEXT = { pass: 'Dobry', warning: 'Średni', error: 'Słaby' };
 
 // A category's score as a percentage, with the analyzer's status for it
 const categoryValue = (score?: number | null): RowProps =>
   typeof score === 'number'
     ? { val: `${Math.round(score * 100)}%`, status: toStatus(scoreSeverity(score)) }
-    : { val: 'N/A' };
+    : { val: 'Brak danych' };
 
 // An audit's value, coloured the way Lighthouse colours its scores
 const auditValue = ({ score, displayValue }: Audit): RowProps => {
-  if (typeof score !== 'number') return { val: displayValue || 'N/A' };
+  if (typeof score !== 'number') return { val: displayValue || 'Brak danych' };
   const status = score >= 0.9 ? 'pass' : score >= 0.5 ? 'warning' : 'error';
   return { val: displayValue || SCORE_TEXT[status], status };
 };

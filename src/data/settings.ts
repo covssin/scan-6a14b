@@ -21,9 +21,10 @@ export interface Section {
   settings: Setting[];
 }
 
-const localeNames = new Intl.DisplayNames(['en'], { type: 'language' });
+const localeNames = new Intl.DisplayNames(['pl'], { type: 'language' });
 
 const locales = [
+  'pl-PL',
   'de-DE',
   'en-GB',
   'en-US',
@@ -38,23 +39,23 @@ const locales = [
 
 export const sections: Section[] = [
   {
-    title: 'Display',
+    title: 'Wygląd',
     settings: [
-      { key: 'theme', label: 'Theme', control: 'theme' },
+      { key: 'theme', label: 'Motyw', control: 'theme' },
       {
         key: 'language',
-        label: 'Language',
+        label: 'Język',
         control: 'select',
-        options: [{ value: 'en', label: 'English' }],
-        default: 'en',
+        options: [{ value: 'pl', label: 'Polski' }],
+        default: 'pl',
       },
       {
         key: 'locale',
-        label: 'Locale',
-        hint: 'Used for dates, numbers and currencies',
+        label: 'Format regionalny',
+        hint: 'Używany do formatowania dat, liczb i walut',
         control: 'select',
         options: [
-          { value: 'auto', label: 'Match browser' },
+          { value: 'auto', label: 'Zgodny z przeglądarką' },
           ...locales.map((value) => ({ value, label: localeNames.of(value) ?? value })),
         ],
         default: 'auto',
@@ -62,73 +63,73 @@ export const sections: Section[] = [
     ],
   },
   {
-    title: 'Accessibility',
+    title: 'Dostępność',
     settings: [
       {
         key: 'reducedMotion',
-        label: 'Reduce motion',
-        hint: 'Turns off animations and transitions',
+        label: 'Ogranicz ruch',
+        hint: 'Wyłącza animacje i płynne przejścia',
         control: 'toggle',
         default: false,
         media: '(prefers-reduced-motion: reduce)',
       },
       {
         key: 'highContrast',
-        label: 'High contrast',
-        hint: 'Stronger text, borders and focus rings',
+        label: 'Wysoki kontrast',
+        hint: 'Wyraźniejszy tekst, obramowania i obrysy fokusu',
         control: 'toggle',
         default: false,
         media: '(prefers-contrast: more)',
       },
       {
         key: 'textSize',
-        label: 'Text size',
+        label: 'Rozmiar tekstu',
         control: 'segmented',
         options: [
-          { value: 'small', label: 'Small', icon: 'font', size: 0.6 },
-          { value: 'default', label: 'Default', icon: 'font', size: 0.75 },
-          { value: 'large', label: 'Large', icon: 'font', size: 0.9 },
-          { value: 'larger', label: 'Larger', icon: 'font', size: 1.05 },
+          { value: 'small', label: 'Mały', icon: 'font', size: 0.6 },
+          { value: 'default', label: 'Domyślny', icon: 'font', size: 0.75 },
+          { value: 'large', label: 'Duży', icon: 'font', size: 0.9 },
+          { value: 'larger', label: 'Bardzo duży', icon: 'font', size: 1.05 },
         ],
         default: 'default',
       },
     ],
   },
   {
-    title: 'Configuration',
+    title: 'Konfiguracja',
     settings: [
       {
         key: 'skippedChecks',
-        label: 'Skipped checks',
-        hint: 'These get left out of every scan',
+        label: 'Pominięte testy',
+        hint: 'Wybrane moduły będą pomijane podczas każdego skanowania',
         control: 'checks',
         default: [],
       },
     ],
   },
   {
-    title: 'Privacy',
+    title: 'Prywatność',
     settings: [
       {
         key: 'errorMonitoring',
-        label: 'Error monitoring',
-        hint: 'Sends anonymous error reports, so we can fix bugs',
+        label: 'Monitorowanie błędów',
+        hint: 'Wysyła anonimowe raporty o błędach, aby ułatwić ich naprawę',
         control: 'toggle',
         default: false,
       },
       {
         key: 'trafficStats',
-        label: 'Basic traffic stats',
-        hint: 'Counts page views, with no personal data',
+        label: 'Podstawowe statystyki ruchu',
+        hint: 'Zlicza odsłony stron bez zbierania danych osobowych',
         control: 'toggle',
         default: true,
       },
       {
         key: 'clearData',
-        label: 'Clear all data',
-        hint: 'Wipes your settings and anything else saved in this browser',
+        label: 'Wyczyść wszystkie dane',
+        hint: 'Usuwa ustawienia oraz wszystkie dane zapisane lokalnie w tej przeglądarce',
         control: 'action',
-        button: 'Clear data',
+        button: 'Wyczyść dane',
       },
     ],
   },

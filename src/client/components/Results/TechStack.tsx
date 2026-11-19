@@ -90,8 +90,8 @@ const TechStackCard = (props: { data: any; title: string; actionButtons: any }):
                 {tech.name}
                 <span className="tech-version">{tech.version ? `(v${tech.version})` : ''}</span>
               </Heading>
-              <span className="tech-confidence" title={`${tech.confidence}% certain`}>
-                Certainty: {tech.confidence}%
+              <span className="tech-confidence" title={`Pewność wykrycia: ${tech.confidence}%`}>
+                Pewność: {tech.confidence}%
               </span>
               <span className="tech-categories">
                 {tech.categories.map(
@@ -110,7 +110,7 @@ const TechStackCard = (props: { data: any; title: string; actionButtons: any }):
               <div>
                 <p className="tech-description">{tech.description}</p>
                 <p className="tech-website">
-                  Learn more at: <a href={tech.website}>{tech.website}</a>
+                  Więcej informacji: <a href={tech.website}>{tech.website}</a>
                 </p>
               </div>
             </div>

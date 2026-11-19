@@ -6,9 +6,9 @@ const SubdomainsCard = (props: { data: any; title: string; actionButtons: any })
   const { domain, count, truncated, subdomains = [], source } = props.data;
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
-      <Row lbl="Base Domain" val={domain} />
-      <Row lbl="Subdomains Found" val={formatNumber(count)} />
-      {truncated && <Row lbl="Showing" val={`First ${formatNumber(subdomains.length)}`} />}
+      <Row lbl="Domena główna" val={domain} />
+      <Row lbl="Znalezione subdomeny" val={formatNumber(count)} />
+      {truncated && <Row lbl="Wyświetlono" val={`Pierwsze ${formatNumber(subdomains.length)}`} />}
       {subdomains.map((sub: string) => (
         <Row key={sub}>
           <a href={`https://${sub}`} target="_blank" rel="noreferrer">
@@ -16,7 +16,7 @@ const SubdomainsCard = (props: { data: any; title: string; actionButtons: any })
           </a>
         </Row>
       ))}
-      {source && <Note>Source: Certificate Transparency logs via {source}</Note>}
+      {source && <Note>Źródło: rejestry Certificate Transparency ({source})</Note>}
     </Card>
   );
 };

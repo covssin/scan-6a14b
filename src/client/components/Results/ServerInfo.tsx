@@ -11,14 +11,14 @@ const ServerInfoCard = (props: {
   const { org, asn, isp, os, ports, ip, loc, type } = info;
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
-      {org && <Row lbl="Organization" val={org} />}
-      {isp && isp !== org && <Row lbl="Service Provider" val={isp} />}
-      {os && <Row lbl="Operating System" val={os} />}
-      {asn && <Row lbl="ASN Code" val={asn} />}
-      {ports && <Row lbl="Ports" val={ports} />}
+      {org && <Row lbl="Organizacja" val={org} />}
+      {isp && isp !== org && <Row lbl="Dostawca usług (ISP)" val={isp} />}
+      {os && <Row lbl="System operacyjny" val={os} />}
+      {asn && <Row lbl="Kod ASN" val={asn} />}
+      {ports && <Row lbl="Porty" val={ports} />}
       {ip && <Row lbl="IP" val={ip} />}
-      {type && <Row lbl="Type" val={type} />}
-      {loc && <Row lbl="Location" val={loc} />}
+      {type && <Row lbl="Typ" val={type} />}
+      {loc && <Row lbl="Lokalizacja" val={loc} />}
     </Card>
   );
 };

@@ -7,15 +7,14 @@ export const REQUIRED: Array<[string, string]> = [
   ['twitterCard', 'Twitter Card'],
 ];
 
-// Flag missing share-preview metadata
 const socialTags: Analyzer = (d) => {
   const missing = REQUIRED.filter(([k]) => !d[k]).map(([, l]) => l);
-  if (!missing.length) return [{ severity: 'pass', title: 'Social share metadata complete' }];
+  if (!missing.length) return [{ severity: 'pass', title: 'Kompletne znaczniki udostępniania (Open Graph / Twitter)' }];
   return [
     {
       severity: 'warning',
-      title: `Missing social tags: ${missing.length}`,
-      detail: `Add ${missing.join(', ')} for cleaner share previews`,
+      title: `Brakujące tagi społecznościowe: ${missing.length}`,
+      detail: `Dodaj ${missing.join(', ')}, aby poprawić podgląd linków w social mediach`,
     },
   ];
 };

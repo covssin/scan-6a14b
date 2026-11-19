@@ -1,20 +1,18 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Carbon Footprint',
+  title: 'Ślad węglowy',
   categories: ['seo', 'performance'],
-  summary: 'Estimated CO2 from the data needed to load the page',
+  summary: 'Szacowana emisja CO2 wynikająca z ilości danych przesyłanych przy ładowaniu strony',
   description:
-    'Estimates the carbon cost of loading the page from the amount of data ' +
-    'transferred, and assumptions about the energy used to store, serve and deliver ' +
-    'it. Heavier pages cost more.',
+    'Szacuje ślad węglowy pojedynczego załadowania strony na podstawie objętości przesyłanych danych ' +
+    'oraz uśrednionego zużycia energii przez centra danych, sieci przesyłowe i urządzenia użytkowników.',
   use:
-    "It's a proxy for page weight as much as anything, so it moves with performance. " +
-    "Beyond that it's a number you can point at when arguing for a lighter site, and " +
-    'one of the few externalities of web development anyone bothers to measure.',
+    'Jest to bezpośrednie odzwierciedlenie wagi strony, więc poprawa wydajności automatycznie obniża wynik. ' +
+    'Stanowi konkretny argument przy optymalizacji nadmiarowych skryptów i multimediów.',
   resources: [
     {
-      title: 'WebsiteCarbon - Carbon Calculator',
+      title: 'WebsiteCarbon - Kalkulator śladu węglowego',
       link: 'https://www.websitecarbon.com/',
     },
     {
@@ -23,10 +21,6 @@ export default {
     },
     { title: 'The Eco Friendly Web Alliance', link: 'https://ecofriendlyweb.org/' },
     { title: 'Reset.org', link: 'https://en.reset.org/' },
-    {
-      title: 'Your website is killing the planet - via Wired',
-      link: 'https://www.wired.com/story/internet-carbon-footprint/',
-    },
   ],
   screenshot: 'https://pixelflare.cc/alicia/web-check/wc-carbon',
 } satisfies Check;

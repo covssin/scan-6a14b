@@ -2,58 +2,55 @@ import type { Analyzer, Result } from '../types';
 import { daysUntil } from '../helpers';
 import { formatNumber } from 'client/utils/format';
 
-// Plain reasons for the validation errors sites most often get
 export const REASONS: Record<string, string> = {
-  UNABLE_TO_VERIFY_LEAF_SIGNATURE: "Server doesn't send its intermediate certificate",
-  UNABLE_TO_GET_ISSUER_CERT_LOCALLY: "Server doesn't send its intermediate certificate",
-  DEPTH_ZERO_SELF_SIGNED_CERT: 'Self-signed, not issued by a trusted authority',
-  SELF_SIGNED_CERT_IN_CHAIN: "Chain ends at a root browsers don't trust",
-  ERR_TLS_CERT_ALTNAME_INVALID: "Certificate doesn't cover this hostname",
+  UNABLE_TO_VERIFY_LEAF_SIGNATURE: 'Serwer nie przesyła certyfikatu pośredniego (Intermediate CA)',
+  UNABLE_TO_GET_ISSUER_CERT_LOCALLY: 'Serwer nie przesyła certyfikatu pośredniego (Intermediate CA)',
+  DEPTH_ZERO_SELF_SIGNED_CERT: 'Certyfikat samopodpisany (Self-Signed), niewydany przez zaufany urząd',
+  SELF_SIGNED_CERT_IN_CHAIN: 'Łańcuch certyfikatów kończy się niezaufanym certyfikatem głównym',
+  ERR_TLS_CERT_ALTNAME_INVALID: 'Certyfikat nie obejmuje tej nazwy domenowej',
 };
 
-// A problem with when the certificate expires, or null when it's over a month away
 export const checkExpiry = (validTo: unknown): Result | null => {
   const days = daysUntil(validTo);
   if (days === null || days > 30) return null;
   if (days < 0) {
     return {
       severity: 'critical',
-      title: 'SSL certificate expired',
-      detail: `Expired ${formatNumber(-days)} day(s) ago`,
+      title: 'Certyfikat SSL wygasł',
+      detail: `Wygasł ${formatNumber(-days)} dni temu`,
     };
   }
   if (days <= 7) {
     return {
       severity: 'critical',
-      title: 'SSL certificate expiring within a week',
-      detail: `Expires in ${days} day(s), renew immediately`,
+      title: 'Certyfikat SSL wygasa w ciągu tygodnia',
+      detail: `Wygasa za ${days} dni — odnów natychmiast`,
     };
   }
   if (days <= 14) {
     return {
       severity: 'issue',
-      title: 'SSL certificate expiring soon',
-      detail: `Expires in ${days} day(s), schedule renewal`,
+      title: 'Certyfikat SSL wkrótce wygasa',
+      detail: `Wygasa za ${days} dni — zaplanuj odnowienie`,
     };
   }
   return {
     severity: 'warning',
-    title: 'SSL certificate renews within a month',
-    detail: `Expires in ${days} day(s)`,
+    title: 'Certyfikat SSL wymaga odnowienia w ciągu miesiąca',
+    detail: `Wygasa za ${days} dni`,
   };
 };
 
-// Check certificate validity and expiry window
 const ssl: Analyzer = (d) => {
   const out: ReturnType<Analyzer> = [];
   if (d.isValid === false) {
     out.push({
       severity: 'critical',
-      title: 'SSL certificate invalid',
-      detail: REASONS[d.authError] || d.authError || 'Certificate failed validation',
+      title: 'Nieprawidłowy certyfikat SSL',
+      detail: REASONS[d.authError] || d.authError || 'Walidacja certyfikatu nie powiodła się',
     });
   } else if (d.isValid === true) {
-    out.push({ severity: 'pass', title: 'SSL certificate valid' });
+    out.push({ severity: 'pass', title: 'Certyfikat SSL jest prawidłowy' });
   }
   const expiry = checkExpiry(d.valid_to);
   if (expiry) out.push(expiry);

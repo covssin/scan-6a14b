@@ -27,8 +27,8 @@ const MalwareCard = (props: { data: any; title: string; actionButtons: any }): J
         <Row
           lbl="Google Safe Browsing"
           val={!safeBrowsing.unsafe}
-          yes="Safe"
-          no="Unsafe"
+          yes="Bezpieczna"
+          no="Zagrożenie"
           term="safe-browsing"
         />
       )}
@@ -36,78 +36,78 @@ const MalwareCard = (props: { data: any; title: string; actionButtons: any }): J
         <Row
           lbl="Cloudmersive"
           val={cloudmersive.CleanResult}
-          yes="Safe"
-          no="Unsafe"
+          yes="Bezpieczna"
+          no="Zagrożenie"
           term="threat-scan"
         />
       )}
       {(!cloudmersive.error || safeBrowsing.details) && (
         <Row
-          lbl="Threat Type"
-          val={safeBrowsing.details?.[0]?.threatType || cloudmersive.WebsiteThreatType || 'None'}
+          lbl="Typ zagrożenia"
+          val={safeBrowsing.details?.[0]?.threatType || cloudmersive.WebsiteThreatType || 'Brak'}
         />
       )}
       {!phishTank.error && (
         <Row
-          lbl="Phishing Status"
+          lbl="Status phishingu"
           val={!phished}
-          yes="No Phishing Found"
-          no="Phishing Identified"
+          yes="Nie wykryto phishingu"
+          no="Wykryto phishing"
           term="phishing"
         />
       )}
       {phishTank.url0?.valid === 'true' && phishTank.url0.phish_detail_page && (
         <Row
-          lbl="Phish Info"
+          lbl="Szczegóły phishingu"
           val={phishTank.url0.phish_id}
           link={phishTank.url0.phish_detail_page}
         />
       )}
       {urlHaus.query_status === 'no_results' && (
-        <Row lbl="Malware Status" val="No Malware Found" status="pass" term="malware" />
+        <Row lbl="Status malware" val="Nie wykryto złośliwego oprogramowania" status="pass" term="malware" />
       )}
       {urlHaus.query_status === 'ok' && (
         <>
-          <Row lbl="Status" val="Malware Identified" status="error" term="malware" />
-          <Row lbl="First Seen" val={convertToDate(urlHaus.firstseen)} />
-          <Row lbl="Bad URLs Count" val={formatNumber(urlHaus.url_count)} />
+          <Row lbl="Status" val="Wykryto złośliwe oprogramowanie" status="error" term="malware" />
+          <Row lbl="Pierwsze wykrycie" val={convertToDate(urlHaus.firstseen)} />
+          <Row lbl="Liczba szkodliwych URL" val={formatNumber(urlHaus.url_count)} />
         </>
       )}
       {typeof netApi.listed_now === 'boolean' && (
         <Row
-          lbl="NetAPI Compromised Feed"
+          lbl="Baza przejętych stron NetAPI"
           val={!netApi.listed_now}
-          yes={netApi.listed_ever ? 'Not Listed Now' : 'Not Listed'}
-          no="Listed"
+          yes={netApi.listed_ever ? 'Obecnie brak na liście' : 'Brak na liście'}
+          no="Na liście"
           term="malware"
         />
       )}
       {netApi.listed_now && (
         <>
-          <Row lbl="Listed Since" val={netApi.first_seen} />
-          <Row lbl="Matched Entry" val={netApi.matched_value} />
-          {netApi.block_reason && <Row lbl="Reason" val={netApi.block_reason} />}
+          <Row lbl="Na liście od" val={netApi.first_seen} />
+          <Row lbl="Dopasowany wpis" val={netApi.matched_value} />
+          {netApi.block_reason && <Row lbl="Powód" val={netApi.block_reason} />}
         </>
       )}
       {urlHaus.urls && (
-        <Section title="Reported URLs" collapsible>
+        <Section title="Zgłoszone adresy URL" collapsible>
           {urlHaus.urls.map((urlResult: any) => {
             const rows = [
               { lbl: 'ID', val: urlResult.id },
               { lbl: 'Status', val: urlResult.url_status },
-              { lbl: 'Date Added', val: convertToDate(urlResult.date_added) },
-              { lbl: 'Threat Type', val: urlResult.threat },
-              { lbl: 'Reported By', val: urlResult.reporter },
+              { lbl: 'Data dodania', val: convertToDate(urlResult.date_added) },
+              { lbl: 'Typ zagrożenia', val: urlResult.threat },
+              { lbl: 'Zgłoszono przez', val: urlResult.reporter },
               {
-                lbl: 'Takedown Time',
+                lbl: 'Czas usunięcia',
                 val:
                   urlResult.takedown_time_seconds &&
-                  `${formatNumber(urlResult.takedown_time_seconds)} seconds`,
+                  `${formatNumber(urlResult.takedown_time_seconds)} s`,
               },
               { lbl: 'Larted', val: urlResult.larted },
-              { lbl: 'Tags', val: (urlResult.tags || []).join(', ') },
-              { lbl: 'Reference', val: urlResult.urlhaus_reference },
-              { lbl: 'File Path', val: urlResult.url },
+              { lbl: 'Tagi', val: (urlResult.tags || []).join(', ') },
+              { lbl: 'Odnośnik', val: urlResult.urlhaus_reference },
+              { lbl: 'Ścieżka pliku', val: urlResult.url },
             ];
             return (
               <ExpandableRow

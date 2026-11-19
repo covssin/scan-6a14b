@@ -52,7 +52,7 @@ const reducer = (s: JobsState, a: Action): JobsState => {
 
 const isTimeout = (msg = '') => /timed[- ]?out/i.test(msg);
 
-const noIpMsg = "Skipped, because the target's IP address could not be found";
+const noIpMsg = "Pominięto, ponieważ nie udało się ustalić adresu IP celu";
 
 const apiBase = (import.meta.env.PUBLIC_API_ENDPOINT || '/api') as string;
 
@@ -122,7 +122,7 @@ const useJobs = (address: string, addressType: AddressType, jobs: JobSpec[]) => 
         .catch((err: any) => {
           if (controller.signal.aborted || err?.name === 'AbortError') return;
           const timeTaken = Date.now() - startTime;
-          const message = err?.message || 'Unknown error';
+          const message = err?.message || 'Nieznany błąd';
           if (job.id === 'get-ip') {
             skipIpJobs(noIpMsg);
             return;
@@ -152,11 +152,11 @@ const useJobs = (address: string, addressType: AddressType, jobs: JobSpec[]) => 
       const allowed = job.expectedAddressTypes;
       if (allowed && !allowed.includes(addressType)) {
         if (addressType === 'ipV4' || addressType === 'ipV6') {
-          return 'This check requires a domain name and cannot be run against an IP address';
+          return 'Ten test wymaga nazwy domenowej i nie może zostać uruchomiony dla samego adresu IP';
         }
-        return `This check is only available for ${allowed.join(', ')} input`;
+        return `Ten test jest dostępny wyłącznie dla danych wejściowych typu: ${allowed.join(', ')}`;
       }
-      return 'This check is not applicable for the current input';
+      return 'Ten test nie ma zastosowania dla podanego formatu danych';
     },
     [addressType],
   );
@@ -164,7 +164,7 @@ const useJobs = (address: string, addressType: AddressType, jobs: JobSpec[]) => 
   // Initial fan-out: fire non-IP jobs immediately, mark unsupported as skipped
   useEffect(() => {
     if (keys.disableEverything) {
-      const reason = 'Web-Check has been temporarily disabled on this instance';
+      const reason = 'Narzędzie SCAN_KMucha zostało tymczasowo wyłączone na tej instancji';
       jobs.forEach((j) => skipJob(j, reason));
       return;
     }
@@ -232,7 +232,7 @@ const useJobs = (address: string, addressType: AddressType, jobs: JobSpec[]) => 
         type: 'error',
         cardIds: stuck,
         outcome: 'timed-out',
-        error: 'Client-side timeout reached',
+        error: 'Przekroczono limit czasu oczekiwania po stronie klienta',
         timeTaken: Date.now() - startTime,
       });
       stuck.forEach((id) => {

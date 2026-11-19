@@ -1,23 +1,18 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Global Ranking',
+  title: 'Ranking globalny',
   categories: ['seo'],
-  summary: 'Tranco rank, if the site is in the global top million',
+  summary: 'Pozycja domeny w rankingu Tranco (jeśli znajduje się w globalnym milionie)',
   description:
-    "Looks up the domain's position in the Tranco list, which combines rankings from " +
-    'Umbrella, Majestic, Quantcast, the Chrome User Experience Report and Cloudflare ' +
-    'Radar into one deliberately stable top-million list. Sites outside that million ' +
-    'have no rank.',
+    'Sprawdza pozycję domeny na liście Tranco, która łączy dane z Umbrella, Majestic, Quantcast, ' +
+    'Chrome UX Report oraz Cloudflare Radar w stabilny ranking miliona najpopularniejszych witryn.',
   use:
-    'A rough sense of scale, most useful for comparing domains rather than as a ' +
-    'number in isolation. Tranco averages over time, so it moves slowly, which is the ' +
-    'point: it resists the day-to-day churn that made earlier lists unusable for ' +
-    'research.',
+    'Pozwala oszacować skalę ruchu i rozpoznawalność domeny na tle innych serwisów.',
   resources: [
-    { title: 'Tranco List', link: 'https://tranco-list.eu/' },
+    { title: 'Lista Tranco', link: 'https://tranco-list.eu/' },
     {
-      title: 'Tranco Research Paper',
+      title: 'Publikacja naukowa Tranco',
       link: 'https://tranco-list.eu/assets/tranco-ndss19.pdf',
     },
   ],

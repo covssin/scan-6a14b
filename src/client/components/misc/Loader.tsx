@@ -190,10 +190,10 @@ const Chip = (props: { x: number; y: number; done: number; total: number }): JSX
       <rect className="chip" x={left} y={top} width={CHIP.width} height={CHIP.height} rx={6} />
       <circle className="via" cx={left + 14} cy={top + 14} r={4} />
       <text className="chip-label" x={props.x} y={props.y - 8} textAnchor="middle">
-        Crunching data
+        Analiza danych
       </text>
       <text className="chip-count" x={props.x} y={props.y + 14} textAnchor="middle">
-        {props.done} / {props.total} checks
+        {props.done} / {props.total} testów
       </text>
     </g>
   );
@@ -222,7 +222,7 @@ const Loader = (props: { show: boolean; jobs: LoadingJob[] }): JSX.Element => {
 
   return (
     <LoaderContainer className={show ? '' : 'finished'}>
-      <svg ref={boardRef} role="img" aria-label={`Crunching data, ${done} of ${jobs.length} done`}>
+      <svg ref={boardRef} role="img" aria-label={`Analiza danych, ukończono ${done} z ${jobs.length}`}>
         {traces.map(({ job, path, pad, bend, label }, i) => (
           <g key={job.id} className={`trace ${job.state}`}>
             <path className="wire" d={path} />
@@ -243,9 +243,9 @@ const Loader = (props: { show: boolean; jobs: LoadingJob[] }): JSX.Element => {
         {width > 0 && <Chip x={width / 2} y={height / 2} done={done} total={jobs.length} />}
       </svg>
       <p>
-        It may take up to a minute for all jobs to complete
+        Zakończenie wszystkich testów może potrwać do minuty
         <br />
-        You can view preliminary results as they come in below
+        Wstępne wyniki pojawiają się na bieżąco poniżej
       </p>
     </LoaderContainer>
   );

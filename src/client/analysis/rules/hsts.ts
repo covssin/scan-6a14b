@@ -1,9 +1,7 @@
 import type { Analyzer } from '../types';
 
-// One year, the shortest max-age the HSTS preload list accepts
 export const MIN_MAX_AGE = 31536000;
 
-// The max-age and flags an HSTS header sets
 export const parseHsts = (header: string) => {
   const lower = header.toLowerCase();
   return {
@@ -13,14 +11,13 @@ export const parseHsts = (header: string) => {
   };
 };
 
-// Check HSTS presence, max-age, includeSubDomains, preload
 const hsts: Analyzer = (d) => {
   if (!d.hstsHeader) {
     return [
       {
         severity: 'issue',
-        title: 'No HSTS header',
-        detail: 'Add Strict-Transport-Security to enforce HTTPS for clients',
+        title: 'Brak nagłówka HSTS',
+        detail: 'Dodaj Strict-Transport-Security, aby wymusić połączenia HTTPS',
       },
     ];
   }
@@ -29,25 +26,25 @@ const hsts: Analyzer = (d) => {
   if (maxAge < MIN_MAX_AGE) {
     out.push({
       severity: 'warning',
-      title: 'HSTS max-age under a year',
-      detail: `Current max-age is ${maxAge}, raise it to ${MIN_MAX_AGE} for preload eligibility`,
+      title: 'HSTS max-age krótsze niż rok',
+      detail: `Obecne max-age wynosi ${maxAge} — zwiększ do ${MIN_MAX_AGE}, aby spełnić wymogi listy preload`,
     });
   }
   if (!includeSubDomains) {
     out.push({
       severity: 'warning',
-      title: 'HSTS missing includeSubDomains',
-      detail: 'Add includeSubDomains to protect every subdomain',
+      title: 'HSTS bez dyrektywy includeSubDomains',
+      detail: 'Dodaj includeSubDomains, aby objąć ochroną także subdomeny',
     });
   }
   if (!preload) {
     out.push({
       severity: 'info',
-      title: 'HSTS missing preload directive',
-      detail: 'Add preload to qualify for the HSTS preload list',
+      title: 'HSTS bez dyrektywy preload',
+      detail: 'Dodaj preload, aby zakwalifikować domenę na listę HSTS Preload',
     });
   }
-  if (d.compatible) out.push({ severity: 'pass', title: 'HSTS preload compatible' });
+  if (d.compatible) out.push({ severity: 'pass', title: 'Zgodność z listą HSTS Preload' });
   return out;
 };
 

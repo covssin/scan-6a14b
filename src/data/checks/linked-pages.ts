@@ -1,17 +1,15 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Linked Pages',
+  title: 'Odnośniki na stronie',
   categories: ['seo'],
-  summary: "Internal and external links found in the page's anchor tags",
+  summary: 'Linki wewnętrzne i zewnętrzne znalezione w znacznikach strony',
   description:
-    'Collects every link on the page from its anchor tags, separated into internal ' +
-    'and external destinations.',
+    'Zbiera wszystkie odnośniki ze znaczników kotwicy na badanej stronie i dzieli je na linki wewnętrzne ' +
+    'oraz prowadzące do domen zewnętrznych.',
   use:
-    'Internal links show how a site is organised, and occasionally point at pages ' +
-    'nobody meant to publish. External links show who the site trusts enough to send ' +
-    'visitors to, which matters for reputation and for spotting a compromise, since ' +
-    'injected spam links show up here first.',
+    'Linki wewnętrzne obrazują strukturę serwisu, a zewnętrzne pokazują, dokąd witryna kieruje odwiedzających — ' +
+    'co pomaga także wykryć ewentualne wstrzyknięte linki spamowe.',
   resources: [{ title: 'W3C Link Checker', link: 'https://validator.w3.org/checklink' }],
   screenshot: 'https://pixelflare.cc/alicia/web-check/wc-links',
 } satisfies Check;

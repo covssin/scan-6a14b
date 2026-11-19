@@ -103,14 +103,14 @@ const resources: Resource[] = [
     title: 'Hudson Rock',
     link: 'https://hudsonrock.com/free-tools/?=webcheck',
     icon: 'https://pixelflare.cc/alicia/icons/hudson-rock.png/w128',
-    description: 'Identify Infostealer infection data related to domains and emails',
+    description: 'Wykrywa dane z infekcji typu infostealer powiązane z domenami i adresami e-mail',
     categories: ['security'],
   },
   {
     title: 'SSL Labs Test',
     link: 'https://ssllabs.com/ssltest/analyze.html',
     icon: 'https://pixelflare.cc/alicia/icons/qualys-ssl-labs.png/w128',
-    description: 'Analyzes the SSL configuration of a server and grades it',
+    description: 'Analizuje konfigurację SSL/TLS serwera i przyznaje jej ocenę',
     searchLink: 'https://www.ssllabs.com/ssltest/analyze.html?d={DOMAIN}',
     categories: ['security', 'server'],
   },
@@ -118,7 +118,7 @@ const resources: Resource[] = [
     title: 'Virus Total',
     link: 'https://virustotal.com',
     icon: 'https://pixelflare.cc/alicia/icons/virustotal.png/w128',
-    description: 'Checks a URL against multiple antivirus engines',
+    description: 'Sprawdza adres URL i domenę w kilkudziesięciu silnikach antywirusowych',
     searchLink: 'https://www.virustotal.com/gui/domain/{DOMAIN}',
     categories: ['security'],
   },
@@ -126,7 +126,7 @@ const resources: Resource[] = [
     title: 'Shodan',
     link: 'https://shodan.io/',
     icon: 'https://pixelflare.cc/alicia/icons/shodan.png/w128',
-    description: 'Search engine for Internet-connected devices',
+    description: 'Wyszukiwarka urządzeń i serwerów podłączonych do internetu',
     searchLink: 'https://www.shodan.io/search/report?query={DOMAIN}',
     categories: ['security', 'server'],
   },
@@ -134,7 +134,7 @@ const resources: Resource[] = [
     title: 'Archive',
     link: 'https://archive.org/',
     icon: 'https://pixelflare.cc/alicia/icons/internet-archive.png/w128',
-    description: 'View previous versions of a site via the Internet Archive',
+    description: 'Przeglądaj archiwalne wersje witryny w Internet Archive',
     searchLink: 'https://web.archive.org/web/*/{URL}',
     categories: ['seo'],
   },
@@ -142,7 +142,7 @@ const resources: Resource[] = [
     title: 'URLScan',
     link: 'https://urlscan.io/',
     icon: 'https://pixelflare.cc/alicia/icons/urlscan.png/w128',
-    description: 'Scans a URL and provides information about the page',
+    description: 'Skanuje adres URL i prezentuje szczegółową analizę techniczną strony',
     searchLink: 'https://urlscan.io/domain/{DOMAIN}',
     categories: ['security', 'privacy'],
   },
@@ -150,7 +150,7 @@ const resources: Resource[] = [
     title: 'Sucuri SiteCheck',
     link: 'https://sitecheck.sucuri.net/',
     icon: 'https://pixelflare.cc/alicia/icons/sucuri.png/w128',
-    description: 'Checks a URL against blacklists and known threats',
+    description: 'Weryfikuje witrynę na czarnych listach i pod kątem znanych zagrożeń',
     searchLink: 'https://sitecheck.sucuri.net/results/{DOMAIN}',
     categories: ['security'],
   },
@@ -158,7 +158,7 @@ const resources: Resource[] = [
     title: 'Domain Tools',
     link: 'https://whois.domaintools.com/',
     icon: 'https://pixelflare.cc/alicia/icons/domaintools.png/w128',
-    description: 'Run a WhoIs lookup on a domain',
+    description: 'Sprawdza dane rejestracyjne domeny w bazie WHOIS',
     searchLink: 'https://whois.domaintools.com/{DOMAIN}',
     categories: ['domain', 'privacy'],
   },
@@ -166,7 +166,7 @@ const resources: Resource[] = [
     title: 'NS Lookup',
     link: 'https://nslookup.io/',
     icon: 'https://pixelflare.cc/alicia/icons/nslookup.png/w128',
-    description: 'View DNS records for a domain',
+    description: 'Podgląd rekordów DNS dla wybranej domeny',
     searchLink: 'https://www.nslookup.io/domains/{DOMAIN}/dns-records/',
     categories: ['domain', 'email'],
   },
@@ -174,7 +174,7 @@ const resources: Resource[] = [
     title: 'DNS Checker',
     link: 'https://dnschecker.org/',
     icon: 'https://pixelflare.cc/alicia/icons/dns-checker.png/w128',
-    description: 'Check global DNS propagation across multiple servers',
+    description: 'Sprawdza globalną propagację rekordów DNS na wielu serwerach',
     searchLink: 'https://dnschecker.org/#A/{DOMAIN}',
     categories: ['domain'],
   },
@@ -182,7 +182,7 @@ const resources: Resource[] = [
     title: 'Censys',
     link: 'https://search.censys.io/',
     icon: 'https://pixelflare.cc/alicia/icons/censys.png/w128',
-    description: 'Lookup hosts associated with a domain',
+    description: 'Wyszukuje hosty i usługi powiązane z domeną',
     searchLink: 'https://search.censys.io/search?resource=hosts&q={DOMAIN}',
     categories: ['security', 'server'],
   },
@@ -190,7 +190,7 @@ const resources: Resource[] = [
     title: 'Page Speed Insights',
     link: 'https://developers.google.com/speed/pagespeed/insights/',
     icon: 'https://pixelflare.cc/alicia/icons/page-speed-insights.png/w128',
-    description: 'Checks the performance, accessibility and SEO of a page on mobile + desktop',
+    description: 'Mierzy wydajność, dostępność i SEO strony na urządzeniach mobilnych oraz komputerach',
     searchLink: 'https://developers.google.com/speed/pagespeed/insights/?url={URL}',
     categories: ['performance', 'seo'],
   },
@@ -198,7 +198,7 @@ const resources: Resource[] = [
     title: 'Built With',
     link: 'https://builtwith.com/',
     icon: 'https://pixelflare.cc/alicia/icons/built-with.png/w128',
-    description: 'View the tech stack of a website',
+    description: 'Identyfikuje technologie użyte do budowy strony',
     searchLink: 'https://builtwith.com/{DOMAIN}',
     categories: ['server', 'privacy'],
   },
@@ -206,14 +206,14 @@ const resources: Resource[] = [
     title: 'DNS Dumpster',
     link: 'https://dnsdumpster.com/',
     icon: 'https://pixelflare.cc/alicia/icons/dnsdumpster.png/w128',
-    description: "DNS recon tool, to map out a domain from it's DNS records",
+    description: 'Narzędzie rekonesansu DNS mapujące infrastrukturę na podstawie rekordów domeny',
     categories: ['domain', 'security'],
   },
   {
     title: 'BGP Tools',
     link: 'https://bgp.tools/',
     icon: 'https://pixelflare.cc/alicia/icons/bgp-tools.png/w128',
-    description: 'View realtime BGP data for any ASN, Prefix or DNS',
+    description: 'Wyświetla dane routingu BGP w czasie rzeczywistym dla ASN, prefiksu lub DNS',
     searchLink: 'https://bgp.tools/dns/{DOMAIN}',
     categories: ['server', 'domain'],
   },
@@ -221,7 +221,7 @@ const resources: Resource[] = [
     title: 'Similar Web',
     link: 'https://similarweb.com/',
     icon: 'https://pixelflare.cc/alicia/icons/similar-web.png/w128',
-    description: 'View approx traffic and engagement stats for a website',
+    description: 'Szacunkowe statystyki ruchu i zaangażowania użytkowników witryny',
     searchLink: 'https://similarweb.com/website/{DOMAIN}/',
     categories: ['seo'],
   },
@@ -229,7 +229,7 @@ const resources: Resource[] = [
     title: 'Blacklist Checker',
     link: 'https://blacklistchecker.com/',
     icon: 'https://pixelflare.cc/alicia/icons/black-list-checker.png/w128',
-    description: 'Check if a domain, IP or email is present on the top blacklists',
+    description: 'Sprawdza obecność domeny, IP lub adresu e-mail na głównych listach blokujących',
     searchLink: 'https://blacklistchecker.com/check?input={DOMAIN}',
     categories: ['security', 'email'],
   },
@@ -237,7 +237,7 @@ const resources: Resource[] = [
     title: 'Cloudflare Radar',
     link: 'https://radar.cloudflare.com/',
     icon: 'https://pixelflare.cc/alicia/icons/cloudflare.png/w128',
-    description: 'View traffic source locations for a domain through Cloudflare',
+    description: 'Analiza ruchu i danych technicznych domeny w Cloudflare Radar',
     searchLink: 'https://radar.cloudflare.com/domains/domain/{DOMAIN}',
     categories: ['seo'],
   },
@@ -246,7 +246,7 @@ const resources: Resource[] = [
     link: 'https://developer.mozilla.org/en-US/observatory',
     icon: 'https://pixelflare.cc/alicia/icons/mozilla.png/w128',
     description:
-      'Assesses website security posture by analyzing various security headers and practices',
+      'Ocenia poziom bezpieczeństwa witryny na podstawie nagłówków HTTP i dobrych praktyk',
     searchLink: 'https://developer.mozilla.org/en-US/observatory/analyze?host={DOMAIN}',
     categories: ['security', 'privacy'],
   },
@@ -254,7 +254,7 @@ const resources: Resource[] = [
     title: 'AbuseIPDB',
     link: 'https://abuseipdb.com/',
     icon: 'https://pixelflare.cc/alicia/icons/abuseipdb.png/w128',
-    description: 'Check if a domain or IP has been reported for abusive activity',
+    description: 'Sprawdza, czy domena lub adres IP były zgłaszane za nadużycia w sieci',
     searchLink: 'https://www.abuseipdb.com/check?query={DOMAIN}',
     categories: ['security', 'server'],
   },
@@ -262,7 +262,7 @@ const resources: Resource[] = [
     title: 'IBM X-Force Exchange',
     link: 'https://exchange.xforce.ibmcloud.com/',
     icon: 'https://pixelflare.cc/alicia/icons/ibm-x-force-exchange.png/w128',
-    description: 'View shared human and machine generated threat intelligence',
+    description: 'Baza wiedzy o zagrożeniach i reputacji adresów URL oraz IP',
     searchLink: 'https://exchange.xforce.ibmcloud.com/url/{URL_ENCODED}',
     categories: ['security'],
   },
@@ -270,7 +270,7 @@ const resources: Resource[] = [
     title: 'URLVoid',
     link: 'https://urlvoid.com/',
     icon: 'https://pixelflare.cc/alicia/icons/urlvoid.png/w128',
-    description: 'Checks a website across 30+ blocklist engines and website reputation services',
+    description: 'Weryfikuje reputację strony w ponad 30 serwisach bezpieczeństwa',
     searchLink: 'https://urlvoid.com/scan/{DOMAIN}',
     categories: ['security'],
   },
@@ -278,7 +278,7 @@ const resources: Resource[] = [
     title: 'URLhaus',
     link: 'https://urlhaus.abuse.ch/',
     icon: 'https://pixelflare.cc/alicia/icons/urlhaus.png/w128',
-    description: "Checks if the site is in URLhaus's malware URL exchange",
+    description: 'Sprawdza, czy strona figuruje w bazie złośliwych adresów URLhaus',
     searchLink: 'https://urlhaus.abuse.ch/browse.php?search={URL_ENCODED}',
     categories: ['security'],
   },
@@ -286,14 +286,14 @@ const resources: Resource[] = [
     title: 'ANY.RUN',
     link: 'https://any.run/',
     icon: 'https://pixelflare.cc/alicia/icons/anyrun.png/w128',
-    description: 'An interactive malware and web sandbox',
+    description: 'Interaktywne środowisko piaskownicy (sandbox) do analizy stron i złośliwego kodu',
     categories: ['security'],
   },
   {
     title: 'Blacklight',
     link: 'https://themarkup.org/blacklight',
     icon: 'https://pixelflare.cc/alicia/icons/the-markup.png/w128',
-    description: 'Reveals the trackers, cookies and fingerprinting a site uses on its visitors',
+    description: 'Ujawnia trackery, pliki cookie i techniki śledzenia stosowane na stronie',
     searchLink: 'https://themarkup.org/blacklight?url={DOMAIN}',
     categories: ['privacy', 'security'],
   },
@@ -329,7 +329,7 @@ const AdditionalResources = ({
     : resources;
   if (!shown.length) return null;
   return (
-    <Card heading="External Tools for Further Research" styles={CardStyles}>
+    <Card heading="Zewnętrzne narzędzia do dalszej analizy" styles={CardStyles}>
       <ResourceListOuter>
         {shown.map((resource, index) => {
           return (
@@ -344,7 +344,7 @@ const AdditionalResources = ({
                 <span
                   className="resource-link"
                   onClick={() => window.open(resource.link, '_blank')}
-                  title={`Open: ${resource.link}`}
+                  title={`Otwórz: ${resource.link}`}
                 >
                   {new URL(resource.link).hostname}
                 </span>
@@ -360,14 +360,8 @@ const AdditionalResources = ({
         })}
       </ResourceListOuter>
       <Note>
-        These tools are not affiliated with Web-Check. Please use them at your own risk.
-        <br />
-        At the time of listing, all of the above were available and free to use - if this changes,
-        please report it via GitHub (
-        <a target="_blank" rel="noreferrer" href="https://github.com/lissy93/web-check">
-          lissy93/web-check
-        </a>
-        ).
+        Powyższe narzędzia zewnętrzne nie są powiązane ze SCAN_KMucha — korzystasz z nich na własną
+        odpowiedzialność.
       </Note>
     </Card>
   );

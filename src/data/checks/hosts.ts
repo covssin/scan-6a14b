@@ -1,17 +1,15 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Associated Hosts',
+  title: 'Powiązane hosty',
   categories: ['server'],
-  summary: 'Other hostnames Shodan has seen on the same IP address',
+  summary: 'Inne nazwy hostów zaobserwowane przez Shodan na tym samym adresie IP',
   description:
-    'Lists the other hostnames Shodan has recorded against the same IP address, ' +
-    'alongside domains and subdomains linked to the target through its DNS records.',
+    'Wyświetla inne nazwy domenowe powiązane z tym samym adresem IP w bazie Shodan oraz hosty ' +
+    'wynikające z rekordów DNS badanego celu.',
   use:
-    'Shared hosting muddies this, since a thousand unrelated sites can sit behind one ' +
-    'address. On dedicated infrastructure it is a fast way to find the rest of an ' +
-    "organisation's estate: staging environments, retired marketing sites, and " +
-    'internal tools that were never meant to face the internet.',
+    'Na hostingu współdzielonym na jednym IP działa wiele niepowiązanych stron, ale na infrastrukturze ' +
+    'dedykowanej pozwala to odkryć środowiska testowe, zapomniane mikrostrony i panele wewnętrzne.',
   resources: [
     {
       title: 'Reverse DNS Lookup - Wiki',
@@ -21,8 +19,7 @@ export default {
       title: 'OWASP - Enumerate Applications on Webserver',
       link: 'https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver/',
     },
-    { title: 'DNS Enumeration - DNS Dumpster', link: 'https://dnsdumpster.com/' },
-    { title: 'Subdomain Finder', link: 'https://subdomainfinder.c99.nl/' },
+    { title: 'DNS Dumpster', link: 'https://dnsdumpster.com/' },
   ],
   screenshot: 'https://pixelflare.cc/alicia/web-check/wc-hosts',
 } satisfies Check;

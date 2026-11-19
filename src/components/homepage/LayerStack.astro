@@ -10,14 +10,14 @@ interface Layer {
 
 // The layers of a site, top to bottom, with example findings on each
 const layers: Layer[] = [
-  { name: 'Page', wireframe: true },
+  { name: 'Strona', wireframe: true },
   {
-    name: 'Scripts',
+    name: 'Skrypty',
     rows: [
-      ['app.js', 'first party'],
-      ['gtm.js', 'ad tracker', 'bad'],
-      ['fbevents.js', 'social tracker', 'bad'],
-      ['hotjar.js', 'analytics'],
+      ['app.js', 'własny skrypt'],
+      ['gtm.js', 'tracker reklamowy', 'bad'],
+      ['fbevents.js', 'tracker społecznościowy', 'bad'],
+      ['hotjar.js', 'analityka'],
       ['fonts.gstatic', 'cdn'],
     ],
   },
@@ -36,17 +36,17 @@ const layers: Layer[] = [
     rows: [
       ['protocol', 'TLS 1.3', 'good'],
       ['cipher', 'AES_256_GCM'],
-      ['issuer', "Let's Encrypt R11"],
+      ['wystawca', "Let's Encrypt R11"],
       ['chain', 'R11 → ISRG X1'],
-      ['expires', 'in 61 days', 'good'],
+      ['wygasa', 'za 61 dni', 'good'],
     ],
   },
   {
-    name: 'Network',
+    name: 'Sieć',
     rows: [
       ['ip', '93.184.215.14'],
       ['asn', 'AS15133 Edgecast'],
-      ['location', 'Ashburn, US'],
+      ['lokalizacja', 'Ashburn, US'],
     ],
     ports: [[21], [22, 'bad'], [80, 'good'], [443, 'good'], [3306], [8080]],
   },
@@ -57,7 +57,7 @@ const layers: Layer[] = [
       ['AAAA', '2606:2800:21f::'],
       ['MX', 'mx1.example.com'],
       ['TXT', 'v=spf1 -all'],
-      ['DNSSEC', 'signed', 'good'],
+      ['DNSSEC', 'podpisano', 'good'],
     ],
   },
 ];

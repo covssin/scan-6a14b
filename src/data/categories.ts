@@ -11,127 +11,118 @@ export interface Category {
 
 const all = {
   security: {
-    label: 'Security',
+    label: 'Bezpieczeństwo',
     icon: 'shield',
-    title: 'Website Security Check',
+    title: 'Audyt bezpieczeństwa strony',
     description:
-      "Check any website's TLS certificates, HTTP security headers, cookie flags, " +
-      'DNSSEC, open ports and threat-list status.',
-    keywords: 'website security check, ssl checker, http headers, security scanner, dnssec',
-    heading: ['Website', 'security', 'check'],
+      'Sprawdź certyfikaty TLS, nagłówki bezpieczeństwa HTTP, flagi plików cookie, ' +
+      'DNSSEC, otwarte porty oraz obecność na listach zagrożeń.',
+    keywords: 'bezpieczeństwo strony, audyt ssl, nagłówki http, skaner bezpieczeństwa, dnssec',
+    heading: ['Audyt', 'bezpieczeństwa', 'strony'],
     tagline:
-      'Certificates, headers, cookie flags and open ports, read the way an outsider reads them.',
+      'Certyfikaty, nagłówki, flagi plików cookie i otwarte porty — widziane oczami zewnętrznego obserwatora.',
     why: [
-      "Most of a site's security posture is public. Certificates, response headers, cookie " +
-        'flags and listening ports get handed to anyone who asks, including whoever is working ' +
-        "out whether you're worth the effort.",
-      "None of it needs access to the site. That's rather the point: if you can see it from " +
-        'here, so can everybody else.',
+      'Większość parametrów bezpieczeństwa strony jest jawna. Certyfikaty, nagłówki odpowiedzi, flagi plików cookie ' +
+        'oraz nasłuchujące porty są przekazywane każdemu, kto wyśle zapytanie — również osobom szukającym słabych punktów.',
+      'Żaden z tych testów nie wymaga dostępu do zaplecza witryny. Jeśli te informacje są widoczne tutaj, ' +
+        'są widoczne dla każdego w internecie.',
     ],
   },
   seo: {
     label: 'SEO',
     icon: 'search',
-    title: 'Website SEO Check',
+    title: 'Analiza SEO strony',
     description:
-      "Check any website's crawl rules, sitemap, canonical and social tags, redirect " +
-      'chains, global ranking and archived history.',
-    keywords: 'seo checker, robots.txt, sitemap, open graph tags, site ranking, crawl rules',
-    heading: ['Website', 'SEO', 'check'],
-    tagline: 'Read a site the way a crawler does, rather than the way your browser renders it.',
+      'Sprawdź reguły indeksowania, mapę witryny (sitemap), tagi kanoniczne i społecznościowe, ' +
+      'łańcuchy przekierowań, ranking globalny oraz historię archiwalną.',
+    keywords: 'analiza seo, robots.txt, sitemap, tagi open graph, ranking strony, indeksowanie',
+    heading: ['Analiza', 'SEO', 'strony'],
+    tagline: 'Spójrz na stronę tak, jak widzi ją robot wyszukiwarki, a nie tylko przeglądarka.',
     why: [
-      'Crawlers see a different page than visitors do. Robots rules, canonical tags, sitemap ' +
-        'entries and Open Graph markup never render on screen, so a mistake in any of them can ' +
-        'sit there for months without anyone noticing.',
-      'This is the layer where "it looks fine to me" stops counting as evidence.',
+      'Roboty wyszukiwarek widzą inną warstwę strony niż odwiedzający. Reguły w robots.txt, tagi kanoniczne, ' +
+        'wpisy w mapie witryny czy znaczniki Open Graph nie renderują się na ekranie, więc błędy mogą pozostawać niezauważone przez miesiące.',
+      'To właśnie warstwa techniczna, na której wrażenie „u mnie wygląda dobrze” przestaje wystarczać.',
     ],
   },
   server: {
-    label: 'Server',
+    label: 'Serwer',
     icon: 'server',
-    title: 'Web Server Check',
+    title: 'Analiza serwera WWW',
     description:
-      'Check where any website is hosted, what software it runs, which ports are open, ' +
-      'and the network route packets take to reach it.',
-    keywords: 'server checker, ip lookup, open ports, tech stack detection, traceroute, hosting',
-    heading: ['Web', 'server', 'check'],
-    tagline: "Find out who actually hosts a site, and what's running on the machine.",
+      'Sprawdź, gdzie hostowana jest strona, jakiego oprogramowania używa, jakie porty są otwarte ' +
+      'oraz jaką trasą sieciową docierają do niej pakiety.',
+    keywords: 'analiza serwera, sprawdzanie ip, otwarte porty, stos technologiczny, traceroute, hosting',
+    heading: ['Analiza', 'serwera', 'WWW'],
+    tagline: 'Dowiedz się, kto naprawdę hostuje witrynę i jakie usługi działają na maszynie.',
     why: [
-      'A domain is only the front door. Behind it is a machine somewhere physical, running an ' +
-        'operating system and a web server, with some set of ports listening and a specific ' +
-        'route that packets take to get there.',
-      'You can work most of that out from the outside, and it usually says more about who runs ' +
-        'a site than the page itself ever will.',
+      'Domena to tylko szyld. Za nią stoi fizyczny lub wirtualny serwer z systemem operacyjnym, ' +
+        'oprogramowaniem WWW, zestawem otwartych portów oraz konkretną trasą sieciową.',
+      'Większość tych informacji można ustalić z zewnątrz — często mówią one o infrastrukturze znacznie więcej niż sama treść strony.',
     ],
   },
   domain: {
-    label: 'Domain',
+    label: 'Domena',
     icon: 'globe',
-    title: 'Domain & DNS Lookup',
+    title: 'Analiza domeny i DNS',
     description:
-      'Look up WHOIS registration, DNS and TXT records, nameservers, DNSSEC and ' +
-      'subdomains for any domain name.',
-    keywords: 'domain lookup, whois, dns records, nameservers, subdomain finder, dnssec',
-    heading: ['Domain', 'name', 'lookup'],
+      'Sprawdź dane rejestracji WHOIS, rekordy DNS i TXT, serwery nazw (NS), DNSSEC oraz ' +
+      'subdomeny powiązane z dowolną nazwą domenową.',
+    keywords: 'analiza domeny, whois, rekordy dns, serwery nazw, wyszukiwarka subdomen, dnssec',
+    heading: ['Analiza', 'domeny', 'i DNS'],
     tagline:
-      "Registration records, DNS, and every subdomain that's turned up in a public certificate.",
+      'Dane rejestracyjne, konfiguracja DNS oraz wszystkie subdomeny ujawnione w publicznych logach certyfikatów.',
     why: [
-      'Every domain leaves a paper trail: who registered it and when, which nameservers answer ' +
-        'for it, what it publishes in TXT records, and which subdomains have appeared in public ' +
-        'Certificate Transparency logs.',
-      'Registration dates and shared nameservers are how you tell a fifteen-year-old business ' +
-        'from something set up last Tuesday.',
+      'Każda domena zostawia ślad: kto i kiedy ją zarejestrował, jakie serwery nazw za nią odpowiadają, ' +
+        'co publikuje w rekordach TXT i jakie subdomeny pojawiły się w logach Certificate Transparency.',
+      'Daty rejestracji i współdzielone serwery DNS pozwalają odróżnić wieloletnią firmę od domeny uruchomionej wczoraj.',
     ],
   },
   email: {
-    label: 'Email',
+    label: 'Poczta e-mail',
     icon: 'envelope',
-    title: 'Email Configuration Check',
+    title: 'Konfiguracja poczty e-mail',
     description:
-      "Check a domain's MX routing, SPF, DKIM and DMARC policies, TXT records, and " +
-      'whether filtering resolvers block it.',
-    keywords: 'email configuration check, spf, dkim, dmarc, mx records, mail blocklist',
-    heading: ['Email', 'configuration', 'check'],
-    tagline: 'Whether a domain can send mail that arrives, and whether anyone else can send as it.',
+      'Sprawdź rekordy MX, polityki SPF, DKIM i DMARC, rekordy TXT oraz ' +
+      'obecność domeny na listach blokujących DNS.',
+    keywords: 'konfiguracja poczty, spf, dkim, dmarc, rekordy mx, dostarczalność e-mail',
+    heading: ['Konfiguracja', 'poczty', 'e-mail'],
+    tagline: 'Czy domena może bezpiecznie wysyłać wiadomości i czy nikt nie może podszyć się pod jej adres.',
     why: [
-      'Deliverability comes down to records the domain publishes. MX says where mail goes. SPF, ' +
-        'DKIM and DMARC are how a receiving server decides a message really came from you.',
-      'Get them wrong and two things happen at once: your own mail starts landing in spam, and ' +
-        'forging your address becomes trivial.',
+      'O dostarczalności poczty decydują rekordy opublikowane w DNS. Rekordy MX wskazują serwery odbierające pocztę, ' +
+        'a SPF, DKIM i DMARC pozwalają odbiorcom zweryfikować, czy wiadomość naprawdę pochodzi od Ciebie.',
+      'Błędna konfiguracja powoduje dwa problemy naraz: Twoje wiadomości trafiają do spamu, a podszycie się pod Twoją domenę staje się trywialne.',
     ],
   },
   performance: {
-    label: 'Performance',
+    label: 'Wydajność',
     icon: 'gauge',
-    title: 'Website Performance Check',
+    title: 'Wydajność strony WWW',
     description:
-      'Measure any page with Lighthouse, and check its redirect chain, server response ' +
-      'time and estimated carbon footprint.',
-    keywords: 'website performance check, page speed, lighthouse, redirect chain, carbon footprint',
-    heading: ['Website', 'performance', 'check'],
-    tagline: 'How long a page takes to arrive, and what it costs on the way.',
+      'Zmierz szybkość strony za pomocą Lighthouse, sprawdź łańcuch przekierowań, czas odpowiedzi ' +
+      'serwera oraz szacowany ślad węglowy.',
+    keywords: 'wydajność strony, szybkość ładowania, lighthouse, przekierowania, ślad węglowy',
+    heading: ['Wydajność', 'strony', 'WWW'],
+    tagline: 'Ile czasu zajmuje załadowanie strony i jaki koszt zasobów generuje.',
     why: [
-      'Speed is cumulative. Every redirect hop, every slow first byte and every oversized asset ' +
-        'is paid for by the visitor, on their connection and their device rather than yours.',
-      'The carbon estimate is the same numbers read a different way: bytes shipped, multiplied ' +
-        'by everyone who ever loads the page.',
+      'Opóźnienia się sumują. Każde przekierowanie, wolny czas pierwszego bajtu (TTFB) i każdy zbyt ciężki plik ' +
+        'obciążają łącze oraz urządzenie odwiedzającego.',
+      'Szacunek śladu węglowego pokazuje te same dane z innej perspektywy: ilość przesłanych bajtów pomnożoną przez liczbę odwiedzin.',
     ],
   },
   privacy: {
-    label: 'Privacy',
+    label: 'Prywatność',
     icon: 'fingerprint',
-    title: 'Website Privacy Check',
+    title: 'Prywatność na stronie WWW',
     description:
-      'Check the cookies a website sets on arrival, the third-party technology it ' +
-      'loads, its WHOIS exposure and its threat-list status.',
-    keywords: 'website privacy check, cookie checker, tracker detection, whois privacy',
-    heading: ['Website', 'privacy', 'check'],
-    tagline: "What a site sets, loads and passes on before you've agreed to anything.",
+      'Sprawdź pliki cookie ustawiane przy wejściu, skrypty podmiotów trzecich, ' +
+      'widoczność danych w WHOIS oraz reputację domeny.',
+    keywords: 'prywatność strony, pliki cookie, wykrywanie trackerów, prywatność whois',
+    heading: ['Prywatność', 'na stronie', 'WWW'],
+    tagline: 'Co witryna zapisuje, ładuje i przekazuje dalej, zanim jeszcze wyrazisz na cokolwiek zgodę.',
     why: [
-      'By the time a page has finished loading, most sites have set cookies, pulled in ' +
-        'third-party scripts and told several other companies that the visit happened.',
-      'The domain leaks in the other direction too. WHOIS privacy is either switched on or it ' +
-        "isn't, and the answer is public either way.",
+      'Zanim strona skończy się ładować, większość witryn zdąży ustawić pliki cookie, pobrać skrypty zewnętrznych dostawców ' +
+        'i poinformować kilka firm o Twojej wizycie.',
+      'Informacje wyciekają też na poziomie domeny — ochrona prywatności WHOIS jest albo włączona, albo dane właściciela są jawne.',
     ],
   },
 } satisfies Record<string, Category>;
@@ -142,7 +133,7 @@ export const categories: Record<CategoryId, Category> = all;
 
 export const categoryIds = Object.keys(all) as CategoryId[];
 
-export const toolName = (category: CategoryId): string => `${all[category].label} Checker`;
+export const toolName = (category: CategoryId): string => `Skaner: ${all[category].label}`;
 
 export const isCategory = (value: string): value is CategoryId =>
   (categoryIds as string[]).includes(value);

@@ -1,27 +1,21 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Sitemap',
+  title: 'Mapa witryny (Sitemap)',
   categories: ['seo'],
-  summary: 'The pages a site lists in its own sitemap',
+  summary: 'Lista podstron udostępniona przez witrynę w pliku sitemap.xml',
   description:
-    "Finds and parses the site's sitemap, the file where an author lists the pages " +
-    'they want search engines to crawl, usually with a last-modified date and a ' +
-    'priority against each one.',
+    'Odszukuje i analizuje plik mapy witryny (sitemap), w którym właściciel serwisu wymienia adresy URL ' +
+    'przeznaczone do indeksowania wraz z datami ostatniej modyfikacji.',
   use:
-    "It is the site's own table of contents. Owners can use it to confirm the sitemap " +
-    'is reachable, parsable and lists what it should. Everyone else gets the shape of ' +
-    'a site without having to crawl it.',
+    'Pozwala szybko zweryfikować dostępność i poprawność mapy witryny oraz poznać pełną strukturę podstron ' +
+    'bez konieczności ręcznego przeszukiwania serwisu.',
   resources: [
     {
-      title: 'Learn about Sitemaps',
+      title: 'Dokumentacja Google Search - Mapy witryn',
       link: 'https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview',
     },
-    { title: 'Sitemap XML spec', link: 'https://www.sitemaps.org/protocol.html' },
-    {
-      title: 'Sitemap tutorial',
-      link: 'https://www.conductor.com/academy/xml-sitemap/',
-    },
+    { title: 'Specyfikacja Sitemap XML', link: 'https://www.sitemaps.org/protocol.html' },
   ],
   screenshot: 'https://pixelflare.cc/alicia/web-check/wc-pages',
 } satisfies Check;

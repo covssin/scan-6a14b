@@ -6,6 +6,7 @@ interface Props {
 const { id = 'url-input' } = Astro.props;
 
 const placeholders = [
+  'kmucha.pl',
   'duck.com',
   'github.com',
   'google.com',
@@ -27,11 +28,11 @@ const placeholders = [
     autocomplete="off"
     autocorrect="off"
     spellcheck="false"
-    placeholder="E.g. duck.com"
+    placeholder="Np. kmucha.pl"
   />
   <div class="placeholder-container">
     <span class="starter" aria-hidden="true">
-      E.g.
+      Np.
     </span>
     {placeholders.map((placeholder, index) => (
       <span class={`placeholder ${index === 0 ? 'active' : ''}`} aria-hidden="true">

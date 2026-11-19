@@ -1,21 +1,18 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Traceroute',
+  title: 'Trasa pakietów (Traceroute)',
   categories: ['server'],
-  summary: 'The network path packets travel to reach the server',
+  summary: 'Ścieżka sieciowa pokonywana przez pakiety w drodze do serwera',
   description:
-    'Traces the path a packet takes to reach the host, recording each router it ' +
-    'passes through and how long that hop took.',
+    'Śledzi kolejne węzły sieciowe (routery) na trasie do serwera docelowego wraz z czasem odpowiedzi ' +
+    'dla każdego etapu.',
   use:
-    'The route shows which networks the traffic crosses on its way in, which is how ' +
-    'you spot a CDN sitting in front of an origin server, a congested transit ' +
-    'provider, or traffic taking a surprising geographic detour.',
+    'Umożliwia identyfikację sieci tranzytowych, obecności warstw pośredniczących (np. CDN) oraz ' +
+    'miejsc powstawania opóźnień sieciowych.',
   resources: [
     'https://www.cloudflare.com/learning/network-layer/what-is-mtr/',
-    'https://tools.ietf.org/html/rfc1393',
     'https://en.wikipedia.org/wiki/Traceroute',
-    'https://www.ripe.net/publications/docs/ripe-611',
   ],
   screenshot: 'https://pixelflare.cc/alicia/web-check/wc-trace-route',
 } satisfies Check;

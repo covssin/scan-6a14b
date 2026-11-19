@@ -11,15 +11,15 @@ const TERMS: Record<string, TermId> = {
   'Site Analytics': 'analytics',
 };
 
-const regions = new Intl.DisplayNames(['en'], { type: 'region' });
+const regions = new Intl.DisplayNames(['pl'], { type: 'region' });
 
 // Rows shown when a tracker is expanded, skipping any that are unknown
 const details = (tracker: any) =>
   [
-    { lbl: 'Requests', val: String(tracker.requests) },
+    { lbl: 'Żądania', val: String(tracker.requests) },
     ...tracker.hosts.map((host: string) => ({ lbl: 'Host', val: host })),
-    { lbl: 'Based In', val: tracker.country && regions.of(tracker.country) },
-    { lbl: 'Privacy Policy', val: tracker.privacyPolicy && 'View', link: tracker.privacyPolicy },
+    { lbl: 'Kraj', val: tracker.country && regions.of(tracker.country) },
+    { lbl: 'Polityka prywatności', val: tracker.privacyPolicy && 'Otwórz', link: tracker.privacyPolicy },
   ].filter((row) => row.val);
 
 const TrackersCard = (props: { data: any; title: string; actionButtons: any }): JSX.Element => {
@@ -29,9 +29,9 @@ const TrackersCard = (props: { data: any; title: string; actionButtons: any }): 
   const found = trackers.length + otherTrackers.length + unknown.length;
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
-      <Row lbl="Requests Made" val={requests} />
-      {companies > 0 && <Row lbl="Companies" val={companies} />}
-      {!found && <Row lbl="Third Parties" val="None" status="pass" term="trackers" />}
+      <Row lbl="Wykonane żądania" val={requests} />
+      {companies > 0 && <Row lbl="Firmy / dostawcy" val={companies} />}
+      {!found && <Row lbl="Podmioty trzecie" val="Brak" status="pass" term="trackers" />}
       {categories.map((category) => (
         <Section key={category} title={category}>
           {trackers
@@ -48,8 +48,8 @@ const TrackersCard = (props: { data: any; title: string; actionButtons: any }): 
             ))}
         </Section>
       ))}
-      {otherTrackers.length > 0 && <ListRow title="Other Trackers" list={otherTrackers} />}
-      {unknown.length > 0 && <ListRow title="Unrecognised" list={unknown} />}
+      {otherTrackers.length > 0 && <ListRow title="Inne trackery" list={otherTrackers} />}
+      {unknown.length > 0 && <ListRow title="Nierozpoznane" list={unknown} />}
     </Card>
   );
 };

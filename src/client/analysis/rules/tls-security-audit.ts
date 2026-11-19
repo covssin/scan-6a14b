@@ -1,6 +1,5 @@
 import type { Analyzer, Severity } from '../types';
 
-// Map SSL Labs grade to severity. Labs uses A+/A/A-/B/C/D/E/F/T/M
 const GRADE_SEVERITY: Record<string, Severity> = {
   'A+': 'pass',
   A: 'pass',
@@ -16,14 +15,10 @@ const GRADE_SEVERITY: Record<string, Severity> = {
 
 const RANK: Severity[] = ['pass', 'info', 'warning', 'issue', 'critical'];
 const rank = (s: Severity) => RANK.indexOf(s);
-
-// GRADE_SEVERITY keys are ordered best to worst
 const GRADES = Object.keys(GRADE_SEVERITY);
 
-// How serious an SSL Labs grade is, info for grades it doesn't list
 export const gradeSeverity = (grade: string): Severity => GRADE_SEVERITY[grade] || 'info';
 
-// Surface the worst SSL Labs endpoint grade for this host
 const tlsSecurityAudit: Analyzer = (d) => {
   if (!d || !Array.isArray(d.endpoints) || !d.endpoints.length) return [];
   const grades: string[] = [];
@@ -39,13 +34,13 @@ const tlsSecurityAudit: Analyzer = (d) => {
     if (GRADES.indexOf(g) > GRADES.indexOf(worstGrade)) worstGrade = g;
   }
   if (severity === 'pass') {
-    return [{ severity: 'pass', title: `SSL Labs grade ${worstGrade}` }];
+    return [{ severity: 'pass', title: `Ocena SSL Labs: ${worstGrade}` }];
   }
   return [
     {
       severity,
-      title: `SSL Labs grade ${worstGrade}`,
-      detail: 'Review cipher suites, protocol versions and key strength',
+      title: `Ocena SSL Labs: ${worstGrade}`,
+      detail: 'Zweryfikuj zestawy szyfrów, obsługiwane wersje protokołów oraz długość kluczy',
     },
   ];
 };

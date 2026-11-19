@@ -6,10 +6,10 @@ const WhoIsCard = (props: { data: Whois; title: string; actionButtons: any }): J
   const { created, updated, expires, nameservers } = props.data;
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
-      {created && <Row lbl="Created" val={created} />}
-      {updated && <Row lbl="Updated" val={updated} />}
-      {expires && <Row lbl="Expires" val={expires} />}
-      {nameservers && <ListRow title="Name Servers" list={nameservers} />}
+      {created && <Row lbl="Utworzono" val={created} />}
+      {updated && <Row lbl="Zaktualizowano" val={updated} />}
+      {expires && <Row lbl="Wygasa" val={expires} />}
+      {nameservers && <ListRow title="Serwery nazw (NS)" list={nameservers} />}
     </Card>
   );
 };

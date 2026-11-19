@@ -5,15 +5,15 @@ import SponsorCard from '@components/molecules/SponsorCard.astro';
 
 const cardData = [
   {
-    title: 'Deploy with Docker',
+    title: 'Uruchomienie przez Docker',
     description:
-      "Just one command, and you'll have your own Web Check instance running on your server in minutes.",
+      'Jedno polecenie wystarczy, aby uruchomić własną instancję SCAN_KMucha na swoim serwerze w kilka minut.',
     command: 'docker run -p 3000:3000 lissy93/web-check',
   },
   {
-    title: '1-Click Deploy',
+    title: 'Wdrożenie jednym kliknięciem',
     description:
-      "Don't have a server? Not a problem! Deploy Web Check with one click on Vercel, Netlify, Render or Hostinger.",
+      'Nie masz własnego serwera? Żaden problem! Wdróż aplikację jednym kliknięciem na Vercel, Netlify, Render lub Hostinger.',
     buttons: [
       {
         name: 'Vercel',
@@ -45,13 +45,13 @@ const cardData = [
     ],
   },
   {
-    title: 'Build from Source',
-    description: 'Want to customize Web Check? Clone the repository and deploy it on your server.',
+    title: 'Budowanie ze źródeł',
+    description: 'Chcesz dostosować SCAN_KMucha do własnych potrzeb? Sklonuj repozytorium i uruchom projekt na swoim serwerze.',
     buttons: [
       {
-        name: 'GitHub',
-        image: '/assets/images/github.svg',
-        link: 'https://github.com/Lissy93/web-check',
+        name: 'kmucha.pl',
+        image: '/assets/images/swagger.svg',
+        link: 'https://kmucha.pl',
         newTab: true,
       },
     ],
@@ -62,113 +62,113 @@ type ConfigOption = { key: string; info: string; example?: string; link?: string
 
 const configGroups: { title: string; description: string; options: ConfigOption[] }[] = [
   {
-    title: 'API keys',
-    description: 'Unlock extra checks, or raise rate limits on the external APIs some checks use.',
+    title: 'Klucze API',
+    description: 'Odblokuj dodatkowe testy lub zwiększ limity zapytań dla zewnętrznych interfejsów API.',
     options: [
       {
         key: 'GOOGLE_CLOUD_API_KEY',
-        info: 'Runs the quality and Safe Browsing checks. Enable the PageSpeed Insights and Safe Browsing APIs for it',
+        info: 'Uruchamia testy jakości (PageSpeed Insights) oraz Google Safe Browsing',
         link: 'https://developers.google.com/speed/docs/insights/v5/get-started',
       },
       {
         key: 'SHODAN_API_KEY',
-        info: 'Runs the host names, server info and vulnerabilities checks',
+        info: 'Uruchamia testy nazw hostów, informacji o serwerze oraz znanych podatności',
         link: 'https://account.shodan.io/',
       },
       {
         key: 'CLOUDMERSIVE_API_KEY',
-        info: 'Adds the Cloudmersive website scan to the threats check',
+        info: 'Dodaje skanowanie reputacji witryny Cloudmersive do modułu zagrożeń',
         link: 'https://account.cloudmersive.com/',
       },
       {
         key: 'TRANCO_API_KEY',
-        info: 'Raises the Tranco rate limit for the rank check',
+        info: 'Zwiększa limit zapytań Tranco dla testu rankingu popularności domeny',
         link: 'https://tranco-list.eu/',
       },
-      { key: 'TRANCO_USERNAME', info: 'Your Tranco account email, used with the key above' },
+      { key: 'TRANCO_USERNAME', info: 'Adres e-mail konta Tranco używany wraz z powyższym kluczem' },
       {
         key: 'GITHUB_TOKEN',
-        info: 'Raises the GitHub rate limit for the social presence check',
+        info: 'Zwiększa limit zapytań GitHub API w teście obecności w mediach społecznościowych',
         link: 'https://github.com/settings/tokens',
       },
       {
         key: 'CERTSPOTTER_TOKEN',
-        info: 'Raises the CertSpotter rate limit for the subdomains check',
+        info: 'Zwiększa limit zapytań CertSpotter w teście wyszukiwania subdomen',
         link: 'https://sslmate.com/certspotter/api/',
       },
     ],
   },
   {
-    title: 'Settings',
+    title: 'Ustawienia serwera',
     description:
-      'Change how the server and API behave. The frontend reads PUBLIC_ values at build time, so rebuild after changing them.',
+      'Konfiguracja działania serwera i API. Zmienne PUBLIC_ są wczytywane podczas budowania frontendu — po ich zmianie przebuduj aplikację.',
     options: [
-      { key: 'PORT', info: 'Port the server listens on', example: '3000' },
+      { key: 'PORT', info: 'Port, na którym nasłuchuje serwer', example: '3000' },
       {
         key: 'DISABLE_GUI',
-        info: 'Serve only the API, without the web interface',
+        info: 'Udostępnia wyłącznie API bez interfejsu graficznego',
         example: 'true',
       },
       {
         key: 'PUBLIC_API_ENDPOINT',
-        info: 'Where the frontend sends API requests',
+        info: 'Adres endpointu API używany przez frontend',
         example: '/api',
       },
       {
         key: 'PUBLIC_API_TIMEOUT_LIMIT',
-        info: 'Timeout for each check, in milliseconds',
+        info: 'Limit czasu oczekiwania na pojedynczy test (w milisekundach)',
         example: '25000',
       },
-      { key: 'API_ENABLE_RATE_LIMIT', info: 'Rate-limit requests to the API', example: 'true' },
+      { key: 'API_ENABLE_RATE_LIMIT', info: 'Włącza ograniczanie liczby zapytań (rate-limiting) do API', example: 'true' },
       {
         key: 'API_CORS_ORIGIN',
-        info: 'Origin allowed to call the API. Defaults to any',
+        info: 'Dozwolone źródło CORS dla zapytań do API (domyślnie wszystkie)',
         example: 'https://example.com',
       },
       {
         key: 'API_ENABLED_CHECKS',
-        info: 'If set, only these checks run',
+        info: 'Lista jedynych aktywnych testów (jeśli ustawiono)',
         example: 'get-ip,ssl,dns,headers',
       },
-      { key: 'API_DISABLED_CHECKS', info: 'Checks to turn off', example: 'trace-route,ports' },
+      { key: 'API_DISABLED_CHECKS', info: 'Lista wyłączonych testów', example: 'trace-route,ports' },
       {
         key: 'API_BLOCKED_HOSTS',
-        info: 'Hosts, IPs or CIDR ranges that must never be scanned',
+        info: 'Hosty, adresy IP lub zakresy CIDR zablokowane przed skanowaniem',
         example: 'lan.example.com,192.168.0.0/16',
       },
-      { key: 'PORTS_TO_CHECK', info: 'Ports the open ports check scans', example: '22,80,443' },
+      { key: 'PORTS_TO_CHECK', info: 'Lista portów skanowanych przez moduł otwartych portów', example: '22,80,443' },
       {
         key: 'CHROME_PATH',
-        info: 'Path to Chromium, for screenshots, tech stack and trackers',
+        info: 'Ścieżka do przeglądarki Chromium (do zrzutów ekranu, stosu technologicznego i trackerów)',
         example: '/usr/bin/chromium',
       },
       {
         key: 'TRUST_PROXY',
-        info: 'Set behind a reverse proxy, as a hop count, true, or CIDR list',
+        info: 'Konfiguracja za reverse proxy (liczba przeskoków, true lub lista CIDR)',
         example: '1',
       },
-      { key: 'LOG_LEVEL', info: 'One of debug, info, warn, error or silent', example: 'warn' },
+      { key: 'LOG_LEVEL', info: 'Poziom logowania: debug, info, warn, error lub silent', example: 'warn' },
     ],
   },
 ];
 ---
 
 <PageLayout
-  title="Self-Hosted Setup | Web Check"
-  description="Get started with running Web Check locally or on your own server."
+  title="Własny hosting (Self-Hosting) | SCAN_KMucha"
+  description="Dowiedz się, jak uruchomić SCAN_KMucha lokalnie lub na własnym serwerze."
 >
-  <h1>Self-Hosted Setup</h1>
-  <p>Get your own free instance of Web Check, running locally or on your server.</p>
+  <h1>Własny hosting (Self-Hosting)</h1>
+  <p>Uruchom własną instancję SCAN_KMucha lokalnie lub na swoim serwerze.</p>
 
   <OptionCards cards={cardData} numbered />
 
   <section class="config">
-    <h2>Configuration</h2>
+    <h2>Konfiguracja</h2>
     <p>
-      Web Check runs without any configuration, so everything below is optional.
+      SCAN_KMucha działa bez dodatkowej konfiguracji — wszystkie poniższe zmienne są opcjonalne.
       <br />
-      Set values as environment variables, in <code>.env</code>, your host's dashboard, or with{' '}
-      <code>docker run -e</code>.
+      Możesz je ustawić jako zmienne środowiskowe w pliku <code>.env</code>, w panelu hostingu lub
+      przez <code>docker run -e</code>.
     </p>
     {configGroups.map((group) => (
       <details>
@@ -185,12 +185,12 @@ const configGroups: { title: string; description: string; options: ConfigOption[
                 {option.example && (
                   <>
                     {' '}
-                    (e.g.<code>{option.example}</code>)
+                    (np. <code>{option.example}</code>)
                   </>
                 )}
                 {option.link && (
                   <a href={option.link} target="_blank" rel="noreferrer">
-                    Get a key
+                    Uzyskaj klucz
                   </a>
                 )}
               </dd>

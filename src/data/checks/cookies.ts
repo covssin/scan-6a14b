@@ -1,29 +1,26 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Cookies',
+  title: 'Pliki cookie',
   categories: ['security', 'privacy'],
-  summary: 'Cookies set on arrival, and how tightly each one is scoped',
+  summary: 'Pliki cookie zapisywane przy wejściu na stronę oraz ich flagi bezpieczeństwa',
   description:
-    'Cookies are small pieces of data a site asks your browser to store and hand back ' +
-    'on later requests. They hold session state, preferences, and very often tracking ' +
-    'identifiers.',
+    'Pliki cookie to niewielkie fragmenty danych zapisywane przez przeglądarkę na żądanie serwera. ' +
+    'Przechowują stan sesji, preferencje użytkownika oraz identyfikatory śledzące.',
   use:
-    'What a site sets before you have interacted with it says a lot. Session cookies ' +
-    'show how logins are managed, and third-party cookies name the analytics and ' +
-    'advertising companies involved. The flags on each one, Secure, HttpOnly and ' +
-    'SameSite, show how carefully the site handles them.',
+    'To, jakie ciasteczka strona zapisuje przed jakąkolwiek interakcją, mówi wiele o jej architekturze. ' +
+    'Flagi Secure, HttpOnly oraz SameSite pokazują, jak dobrze sesja jest chroniona przed kradzieżą i atakami CSRF.',
   resources: [
     {
-      title: 'HTTP Cookie Docs (Mozilla)',
+      title: 'Dokumentacja HTTP Cookies (MDN)',
       link: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies',
     },
     {
-      title: 'What are Cookies (via Cloudflare Learning)',
+      title: 'Czym są pliki cookie (Cloudflare)',
       link: 'https://www.cloudflare.com/learning/privacy/what-are-cookies/',
     },
     {
-      title: 'Testing for Cookie Attributes (OWASP)',
+      title: 'Testowanie atrybutów Cookie (OWASP)',
       link: 'https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes',
     },
     { title: 'RFC-6265 - Cookies', link: 'https://tools.ietf.org/html/rfc6265' },

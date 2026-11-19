@@ -4,11 +4,11 @@ import Logo from '@components/molecules/Logo.astro';
 
 <nav class="navbar">
   <div class="nav-left">
-    <a href="/" class="logo-link" aria-label="Home">
+    <a href="/" class="logo-link" aria-label="Strona główna">
       <Logo />
       <h2 class="site-title">
-        <span class="first">Web</span>
-        <span class="second">Check</span>
+        <span class="first">SCAN_</span>
+        <span class="second">KMucha</span>
       </h2>
     </a>
     <slot name="tool" />
@@ -16,16 +16,16 @@ import Logo from '@components/molecules/Logo.astro';
   <div class="nav-right">
     <slot>
       <a href="/check" class="nav-link">
-        Check
+        Skanuj
       </a>
       <a href="/checks" class="nav-link">
-        Docs
+        Testy
       </a>
       <a href="/web-check-api" class="nav-link">
         API
       </a>
       <a href="/account" class="nav-link">
-        Login
+        Konto
       </a>
     </slot>
   </div>

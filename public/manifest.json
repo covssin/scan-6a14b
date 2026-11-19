@@ -1,12 +1,12 @@
 {
-  "name": "Web Check",
-  "short_name": "Web Check",
-  "description": "Web Check is the all-in-one OSINT and security tool, for revealing the inner workings of any website",
+  "name": "SCAN_KMucha",
+  "short_name": "SCAN_KMucha",
+  "description": "SCAN_KMucha to kompleksowe narzędzie OSINT i bezpieczeństwa pozwalające przeanalizować budowę oraz konfigurację dowolnej strony internetowej",
   "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "theme_color": "#d6fb41",
+  "theme_color": "#467099",
   "background_color": "#111211",
   "icons": [
     {

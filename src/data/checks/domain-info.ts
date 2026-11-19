@@ -1,17 +1,15 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Domain Info',
+  title: 'Informacje o domenie',
   categories: ['domain', 'privacy'],
-  summary: 'Ownership and contact details published against the domain',
+  summary: 'Dane właściciela oraz informacje kontaktowe opublikowane w rejestrze domeny',
   description:
-    'The registrant side of the WHOIS record: the organisation and contact details ' +
-    "published against the domain, along with the registrar's own abuse contact.",
+    'Część rekordu WHOIS dotycząca abonenta: nazwa organizacji, dane kontaktowe opublikowane dla domeny ' +
+    'oraz kontakt do zgłaszania nadużyć (abuse) u rejestratora.',
   use:
-    'Since GDPR most registrant details sit behind a privacy service, and that ' +
-    'redaction is worth noting in itself. Where records are still public, or where an ' +
-    'organisation has been inconsistent about redacting them across its domains, ' +
-    'contact details are what link separate properties to the same owner.',
+    'Od czasu wprowadzenia RODO większość danych abonentów jest ukrywana przez usługi prywatności. ' +
+    'Tam, gdzie dane pozostają jawne, pozwalają powiązać ze sobą różne domeny należące do tego samego podmiotu.',
   resources: [
     'https://en.wikipedia.org/wiki/WHOIS',
     'https://lookup.icann.org/',

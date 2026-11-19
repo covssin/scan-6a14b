@@ -1,21 +1,16 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Trackers & Third Parties',
+  title: 'Trackery i podmioty trzecie',
   categories: ['privacy', 'security'],
-  summary: 'Analytics, ad trackers and other third parties the page loads',
+  summary: 'Narzędzia analityczne, sieci reklamowe i zewnętrzne skrypty ładowane przez stronę',
   description:
-    'Checks which third-party requests the website makes, and matches each to known trackers and services.',
+    'Analizuje zewnętrzne żądania wykonywane podczas ładowania strony i dopasowuje je do znanych baz trackerów oraz usług.',
   use:
-    'Every third party a page loads learns that you visited, and scripts from them run ' +
-    'with the same access as the site itself. This shows who is watching, and how much ' +
-    'outside code a site depends on.',
+    'Każdy zewnętrzny skrypt dowiaduje się o wizycie użytkownika i wykonuje kod w kontekście strony. ' +
+    'Raport pozwala ocenić zakres śledzenia oraz zależność od zewnętrznych dostawców.',
   resources: [
-    { title: 'Balacklight - Tracker Check', link: 'https://themarkup.org/series/blacklight' },
-    { title: 'WhoTracks.me - Tracker Stats', link: 'https://www.ghostery.com/whotracksme' },
-    {
-      title: 'Third-party JavaScript (web.dev)',
-      link: 'https://web.dev/articles/third-party-javascript',
-    },
+    { title: 'Blacklight - Tracker Check', link: 'https://themarkup.org/series/blacklight' },
+    { title: 'WhoTracks.me', link: 'https://www.ghostery.com/whotracksme' },
   ],
 } satisfies Check;

@@ -14,7 +14,7 @@ const buildTitle = (c: any): string => {
   const platform = c.platform ? ` (${c.platform})` : '';
   const version = c.version ? ` ${c.version}` : '';
   const ref = c.isReference ? ' *' : '';
-  return `${c.name || 'Client'}${platform}${version}${ref}`;
+  return `${c.name || 'Klient'}${platform}${version}${ref}`;
 };
 
 const optionalRow = (lbl: string, val: any) =>
@@ -24,23 +24,23 @@ const optionalRow = (lbl: string, val: any) =>
 const successFields = (sim: any) =>
   [
     optionalRow(
-      'Protocol',
+      'Protokół',
       PROTOCOL_NAMES[sim.protocolId] || (sim.protocolId ? String(sim.protocolId) : null),
     ),
-    optionalRow('Cipher', sim.suiteName),
-    optionalRow('Key Exchange', sim.kxType),
-    optionalRow('Key Exchange Strength', sim.kxStrength),
-    optionalRow('DH Strength', sim.dhStrength),
-    optionalRow('Key Algorithm', sim.keyAlg),
-    optionalRow('Key Size', sim.keySize),
-    optionalRow('Signature Algorithm', sim.sigAlg),
-    optionalRow('Attempts', sim.attempts > 1 ? sim.attempts : null),
+    optionalRow('Szyfr', sim.suiteName),
+    optionalRow('Wymiana kluczy', sim.kxType),
+    optionalRow('Siła wymiany kluczy', sim.kxStrength),
+    optionalRow('Siła DH', sim.dhStrength),
+    optionalRow('Algorytm klucza', sim.keyAlg),
+    optionalRow('Długość klucza', sim.keySize),
+    optionalRow('Algorytm podpisu', sim.sigAlg),
+    optionalRow('Próby', sim.attempts > 1 ? sim.attempts : null),
   ].filter(Boolean) as { lbl: string; val: string }[];
 
 // Per-client fields shown when the simulated handshake failed
 const failureFields = (sim: any) => {
   const reason =
-    sim.alertDescription || sim.errorMessage || 'This client cannot complete the TLS handshake';
+    sim.alertDescription || sim.errorMessage || 'Ten klient nie może ukończyć uzgadniania TLS';
   return [{ plaintext: reason }];
 };
 
@@ -60,8 +60,8 @@ const TlsClientCompatCard = (props: {
             key={`tls-cli-${i}`}
             lbl={buildTitle(sim.client || {})}
             val={ok}
-            yes="Connects"
-            no="Fails"
+            yes="Łączy się"
+            no="Błąd połączenia"
             status={ok ? 'pass' : 'warning'}
             term="client-compatibility"
             rowList={ok ? successFields(sim) : failureFields(sim)}

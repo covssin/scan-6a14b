@@ -2,7 +2,6 @@ import type { Analyzer } from '../types';
 import { daysUntil } from '../helpers';
 import { formatNumber } from 'client/utils/format';
 
-// Warn when a domain is close to expiring so renewal can happen on time
 const domainInfo: Analyzer = (d) => {
   const days = daysUntil(d.expires);
   if (days === null) return [];
@@ -10,8 +9,8 @@ const domainInfo: Analyzer = (d) => {
     return [
       {
         severity: 'critical',
-        title: 'Domain registration expired',
-        detail: `Expired ${formatNumber(-days)} day(s) ago, renew before it drops`,
+        title: 'Rejestracja domeny wygasła',
+        detail: `Wygasła ${formatNumber(-days)} dni temu — odnów ją przed całkowitym usunięciem`,
       },
     ];
   }
@@ -19,8 +18,8 @@ const domainInfo: Analyzer = (d) => {
     return [
       {
         severity: 'critical',
-        title: 'Domain expires within a week',
-        detail: `Expires in ${days} day(s), renew immediately`,
+        title: 'Domena wygasa w ciągu tygodnia',
+        detail: `Wygasa za ${days} dni — odnów natychmiast`,
       },
     ];
   }
@@ -28,12 +27,12 @@ const domainInfo: Analyzer = (d) => {
     return [
       {
         severity: 'warning',
-        title: 'Domain expires within a month',
-        detail: `Expires in ${days} day(s)`,
+        title: 'Domena wygasa w ciągu miesiąca',
+        detail: `Wygasa za ${days} dni`,
       },
     ];
   }
-  return [{ severity: 'pass', title: 'Domain registration is valid' }];
+  return [{ severity: 'pass', title: 'Rejestracja domeny jest ważna' }];
 };
 
 export default domainInfo;

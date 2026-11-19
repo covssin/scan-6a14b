@@ -11,13 +11,11 @@ export interface MailData {
   dane?: string[];
 }
 
-// Join each record's DNS chunks, keeping those that start with the given version tag
 export const findRecords = (txtRecords: string[][] = [], prefix: string) =>
   txtRecords
     .map((chunks) => chunks.join(''))
     .filter((record) => record.toLowerCase().startsWith(prefix.toLowerCase()));
 
-// Split a "tag=value; tag=value" record into an object keyed by lowercase tag
 const parseTags = (record: string): Record<string, string | undefined> =>
   Object.fromEntries(
     record.split(';').map((part) => {
@@ -26,7 +24,6 @@ const parseTags = (record: string): Record<string, string | undefined> =>
     }),
   );
 
-// Whether mail from servers not in the SPF record fails, via -all, ~all or a redirect
 const spfFailsUnlisted = (spf: string) => {
   const terms = spf.toLowerCase().split(' ');
   const all = terms.find((term) => ['all', '+all', '-all', '~all', '?all'].includes(term));
@@ -34,7 +31,6 @@ const spfFailsUnlisted = (spf: string) => {
   return terms.some((term) => term.startsWith('redirect='));
 };
 
-// An SPF record of just "v=spf1 -all" says the domain sends no mail
 export const sendsNoMail = (d: MailData) => {
   const spf = findRecords(d.txtRecords, 'v=spf1')[0] || '';
   return spf.toLowerCase().split(' ').filter(Boolean).join(' ') === 'v=spf1 -all';
@@ -47,34 +43,34 @@ export const checkSpf = (d: MailData): Result => {
   if (!spf.length) {
     return {
       severity: 'issue',
-      title: 'No SPF record found',
+      title: 'Brak rekordu SPF',
       detail:
-        'Publish a v=spf1 TXT record listing the servers allowed to send mail for this domain, or v=spf1 -all if it sends none',
+        'Opublikuj rekord TXT v=spf1 wskazujący uprawnione serwery pocztowe lub v=spf1 -all, jeśli domena nie wysyła poczty',
     };
   }
   if (spf.length > 1) {
     return {
       severity: 'issue',
-      title: 'Multiple SPF records found',
-      detail: 'Receivers treat this as an SPF error, so merge them into a single v=spf1 record',
+      title: 'Znaleziono wiele rekordów SPF',
+      detail: 'Serwery odbiorcze traktują to jako błąd SPF — połącz je w jeden rekord v=spf1',
     };
   }
   if ((d.spfLookups ?? 0) > 10) {
     return {
       severity: 'issue',
-      title: `SPF record needs ${d.spfLookups} DNS lookups, over the limit of 10`,
+      title: `Rekord SPF wymaga ${d.spfLookups} zapytań DNS (limit wynosi 10)`,
       detail:
-        'Receivers stop at 10 and treat SPF as failed. Remove includes you no longer use, or replace some with ip4/ip6 ranges',
+        'Odbiorcy przerywają weryfikację po 10 zapytaniach. Usuń nieużywane dyrektywy include lub zastąp je zakresami ip4/ip6',
     };
   }
   if (!spfFailsUnlisted(spf[0])) {
     return {
       severity: 'warning',
-      title: "SPF record doesn't fail unlisted senders",
-      detail: 'End the record with -all or ~all so mail from servers it does not list fails SPF',
+      title: 'Rekord SPF nie odrzuca nieuprawnionych nadawców',
+      detail: 'Zakończ rekord dyrektywą -all lub ~all',
     };
   }
-  return { severity: 'pass', title: 'SPF record published' };
+  return { severity: 'pass', title: 'Opublikowano poprawny rekord SPF' };
 };
 
 export const checkDmarc = (d: MailData): Result => {
@@ -82,41 +78,41 @@ export const checkDmarc = (d: MailData): Result => {
   if (!dmarc.length) {
     return {
       severity: 'issue',
-      title: 'No DMARC record found',
+      title: 'Brak rekordu DMARC',
       detail:
-        'Publish a v=DMARC1 TXT record on the _dmarc subdomain so receivers can act on spoofed mail',
+        'Opublikuj rekord TXT v=DMARC1 dla subdomeny _dmarc, aby chronić domenę przed podszywaniem się',
     };
   }
   if (dmarc.length > 1) {
     return {
       severity: 'issue',
-      title: 'Multiple DMARC records found',
-      detail: 'Receivers ignore DMARC when there is more than one record, so merge them into one',
+      title: 'Znaleziono wiele rekordów DMARC',
+      detail: 'Wiele rekordów DMARC powoduje ignorowanie polityki — pozostaw tylko jeden rekord',
     };
   }
   const tags = parseTags(dmarc[0]);
   const tag = d.dmarcDomain && tags.sp ? 'sp' : 'p';
   const policy = tags[tag]?.toLowerCase();
-  const from = d.dmarcDomain ? ` (from ${d.dmarcDomain})` : '';
+  const from = d.dmarcDomain ? ` (z domeny ${d.dmarcDomain})` : '';
   const percent = tags.pct ? Number(tags.pct) : 100;
   if (!enforced(policy)) {
-    const next = `set ${tag}=quarantine or ${tag}=reject`;
+    const next = `ustaw ${tag}=quarantine lub ${tag}=reject`;
     return {
       severity: 'warning',
-      title: `DMARC policy is monitor-only${from}`,
+      title: `Polityka DMARC działa wyłącznie w trybie monitorowania${from}`,
       detail: tags.rua
-        ? `Mail that fails DMARC is still delivered. Once reports show your own mail passing, ${next}`
-        : `Mail that fails DMARC is still delivered, and no reports are sent. Add rua=mailto:<address> to get reports, then ${next}`,
+        ? `Wiadomości niespełniające DMARC są nadal dostarczane. Po weryfikacji raportów ${next}`
+        : `Wiadomości niespełniające DMARC są nadal dostarczane i brak raportów. Dodaj rua=mailto:<adres>, a następnie ${next}`,
     };
   }
   if (percent < 100) {
     return {
       severity: 'warning',
-      title: `DMARC policy only applies to ${percent}% of failing mail${from}`,
-      detail: 'Raise pct to 100, or remove it, so the policy applies to all failing mail',
+      title: `Polityka DMARC obejmuje tylko ${percent}% wiadomości${from}`,
+      detail: 'Zwiększ parametr pct do 100 lub go usuń, aby objąć ochroną całą pocztę',
     };
   }
-  return { severity: 'pass', title: `DMARC policy: ${policy}${from}` };
+  return { severity: 'pass', title: `Polityka DMARC: ${policy}${from}` };
 };
 
 export const checkSubdomainDmarc = (d: MailData): Result | null => {
@@ -126,8 +122,8 @@ export const checkSubdomainDmarc = (d: MailData): Result | null => {
   if (!sp || !enforced(p) || enforced(sp)) return null;
   return {
     severity: 'warning',
-    title: "DMARC policy doesn't cover subdomains",
-    detail: `sp=${sp} lets spoofed mail from subdomains through. Set sp=quarantine or sp=reject, or remove sp so subdomains follow p`,
+    title: 'Polityka DMARC nie chroni subdomen',
+    detail: `Parametr sp=${sp} przepuszcza sfałszowane wiadomości z subdomen. Ustaw sp=quarantine lub sp=reject`,
   };
 };
 
@@ -137,40 +133,36 @@ export const checkDkim = (d: MailData): Result => {
   const weak = keys.filter((key) => key.bits && key.bits < 1024);
   const short = keys.filter((key) => key.bits === 1024);
   if (!keys.length && sendsNoMail(d)) {
-    return { severity: 'pass', title: "Domain sends no mail, so DKIM isn't needed" };
+    return { severity: 'pass', title: 'Domena nie wysyła poczty — klucz DKIM nie jest wymagany' };
   }
   if (!keys.length) {
     return {
       severity: 'info',
-      title: 'No DKIM key found on common selectors',
+      title: 'Nie znaleziono klucza DKIM pod popularnymi selektorami',
       detail:
-        "DKIM can use any selector name, so it may be set up under one we don't check. " +
-        'If not, publish a DKIM key so receivers can verify your mail',
+        'DKIM może używać dowolnej nazwy selektora. Jeśli nie jest skonfigurowany, opublikuj klucz DKIM w DNS',
     };
   }
   if (weak.length) {
     return {
       severity: 'issue',
-      title: `DKIM key under 1024 bits (${names(weak)})`,
-      detail: 'Receivers ignore signatures from keys this short. Replace it with a 2048-bit key',
+      title: `Klucz DKIM krótszy niż 1024 bity (${names(weak)})`,
+      detail: 'Odbiorcy odrzucają podpisy z tak krótkich kluczy — zastąp go kluczem 2048-bitowym',
     };
   }
   if (short.length) {
     return {
       severity: 'info',
-      title: `1024-bit DKIM key (${names(short)})`,
-      detail:
-        '2048-bit keys are recommended. Rotate to a 2048-bit key, or ask your mail provider to',
+      title: `1024-bitowy klucz DKIM (${names(short)})`,
+      detail: 'Zalecane są klucze 2048-bitowe — rozważ wymianę klucza u dostawcy poczty',
     };
   }
-  return { severity: 'pass', title: `DKIM key found (${names(keys)})` };
+  return { severity: 'pass', title: `Znaleziono klucz DKIM (${names(keys)})` };
 };
 
-// The hosts that receive this domain's mail, from its MX records
 export const mxHosts = (d: MailData) =>
   (d.mxRecords || []).map((record) => record.exchange.toLowerCase()).filter(Boolean);
 
-// True when an MTA-STS mx line covers a host, a leading * standing for one label
 const coversHost = (pattern: string, host: string) =>
   pattern.startsWith('*.')
     ? host.split('.').slice(1).join('.') === pattern.slice(2)
@@ -183,16 +175,15 @@ export const checkMtaSts = (d: MailData): Result | null => {
   if (!policy) {
     return {
       severity: 'info',
-      title: 'MTA-STS not set up',
-      detail: 'Without it, mail sent to this domain can be forced back to unencrypted delivery',
+      title: 'Brak konfiguracji MTA-STS',
+      detail: 'Bez MTA-STS poczta przychodząca może zostać zdegradowana do połączenia nieszyfrowanego',
     };
   }
   if (!policy.mode) {
     return {
       severity: 'warning',
-      title: 'MTA-STS policy is unreadable or invalid',
-      detail:
-        'Senders need one v=STSv1 record, and a valid mta-sts.<domain>/.well-known/mta-sts.txt',
+      title: 'Polityka MTA-STS jest nieczytelna lub nieprawidłowa',
+      detail: 'Wymagany jest rekord v=STSv1 oraz poprawny plik mta-sts.<domena>/.well-known/mta-sts.txt',
     };
   }
   const patterns = policy.mx.map((pattern) => pattern.toLowerCase().replace(/\.$/, ''));
@@ -200,30 +191,29 @@ export const checkMtaSts = (d: MailData): Result | null => {
   if (missing.length && policy.mode !== 'none') {
     return {
       severity: policy.mode === 'enforce' ? 'issue' : 'warning',
-      title: `MTA-STS policy leaves out ${missing.join(', ')}`,
-      detail:
-        'Senders refuse to deliver to MX hosts an enforced policy leaves out, so add mx: lines',
+      title: `Polityka MTA-STS pomija serwery: ${missing.join(', ')}`,
+      detail: 'Dodaj brakujące wpisy mx: do polityki MTA-STS',
     };
   }
   if (policy.mode !== 'enforce') {
     return {
       severity: 'info',
-      title: `MTA-STS is in ${policy.mode} mode`,
-      detail: 'Switch the policy to mode: enforce once TLS reports show mail arriving encrypted',
+      title: `MTA-STS działa w trybie ${policy.mode}`,
+      detail: 'Przełącz politykę na mode: enforce po potwierdzeniu poprawnego dostarczania w raportach TLS',
     };
   }
-  return { severity: 'pass', title: 'MTA-STS policy enforced' };
+  return { severity: 'pass', title: 'Polityka MTA-STS jest egzekwowana' };
 };
 
 export const checkTlsRpt = (d: MailData): Result | null => {
   if (!d.mtaSts && !d.dane?.length) return null;
   if (findRecords(d.txtRecords, 'v=TLSRPTv1').length) {
-    return { severity: 'pass', title: 'TLS-RPT reports set up' };
+    return { severity: 'pass', title: 'Skonfigurowano raportowanie TLS-RPT' };
   }
   return {
     severity: 'info',
-    title: 'No TLS-RPT record',
-    detail: 'Publish a v=TLSRPTv1 TXT record on _smtp._tls, to hear when mail to you fails TLS',
+    title: 'Brak rekordu TLS-RPT',
+    detail: 'Opublikuj rekord TXT v=TLSRPTv1 dla _smtp._tls, aby otrzymywać raporty o błędach TLS',
   };
 };
 
@@ -232,7 +222,7 @@ const checkDane = (d: MailData): Result | null => {
   if (!d.dane?.length) return null;
   return {
     severity: 'pass',
-    title: `DANE TLSA records on ${d.dane.length} of ${hosts.length} MX host(s)`,
+    title: `Rekordy DANE TLSA obecne na ${d.dane.length} z ${hosts.length} serwerów MX`,
   };
 };
 

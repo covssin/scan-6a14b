@@ -8,32 +8,32 @@ import { categoryIds } from '@/data/categories';
 import { checksIntro } from '@/data/about';
 
 const description =
-  `Reference for all ${checkIds.length} Web Check checks: what each one ` +
-  'looks at, why it matters, and the standards behind it.';
+  `Opis wszystkich ${checkIds.length} testów w SCAN_KMucha: co sprawdza każdy moduł, ` +
+  'dlaczego ma to znaczenie i jakie standardy techniczne za nim stoją.';
 ---
 
 <PageLayout
-  title="Every Web Check, Explained | Web Check"
+  title="Wszystkie testy — opisy | SCAN_KMucha"
   description={description}
-  keywords="website checks, osint reference, dns lookup, ssl check, http headers, seo audit"
+  keywords="testy bezpieczeństwa stron, osint, analiza dns, certyfikat ssl, nagłówki http, audyt seo"
   breadcrumbs={[
-    { name: 'Web Check', item: '' },
-    { name: 'Checks', item: 'checks' },
+    { name: 'SCAN_KMucha', item: '' },
+    { name: 'Testy', item: 'checks' },
   ]}
 >
   <section class="intro">
-    <h1>Every check, explained</h1>
+    <h1>Opis wszystkich testów</h1>
     <p class="tagline">
-      Web Check runs {checkIds.length} checks across {categoryIds.length} categories. Each one is
-      documented below: what it looks at, why it matters, and the standards behind it.
+      SCAN_KMucha wykonuje {checkIds.length} testów podzielonych na {categoryIds.length} kategorii. Poniżej znajdziesz
+      szczegółowy opis każdego z nich: co analizuje, dlaczego jest istotny oraz na jakich standardach bazuje.
     </p>
     <p class="caveat">{checksIntro}</p>
-    <ScanForm label="Enter a URL to run the full report" />
+    <ScanForm label="Wpisz adres URL, aby wygenerować pełny raport" />
   </section>
 
-  <CheckList ids={checkIds} heading="All checks" showCategories />
+  <CheckList ids={checkIds} heading="Wszystkie testy" showCategories />
 
-  <CategoryLinks heading="Browse by category" />
+  <CategoryLinks heading="Przeglądaj według kategorii" />
 </PageLayout>
 
 <style lang="scss">

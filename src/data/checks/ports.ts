@@ -1,24 +1,22 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Open Ports',
+  title: 'Otwarte porty',
   categories: ['server', 'security'],
-  summary: 'Which common ports are open and reachable on the host',
+  summary: 'Które z popularnych portów sieciowych są otwarte i osiągalne na hoście',
   description:
-    'Ports are the numbered endpoints a server listens on, each conventionally tied ' +
-    'to a service: 80 for HTTP, 443 for HTTPS, 22 for SSH, 21 for FTP. This check ' +
-    'reports which of the common ones accept a connection.',
+    'Porty to numeryczne punkty końcowe usług nasłuchujących na serwerze (np. 80 dla HTTP, 443 dla HTTPS, ' +
+    '22 dla SSH, 21 dla FTP). Test sprawdza, które z typowych portów akceptują połączenia.',
   use:
-    'Anything listening is something that can be attacked, so an unexpected open port ' +
-    'is worth explaining. Database ports, admin interfaces and remote access services ' +
-    'exposed straight to the internet are the usual findings.',
+    'Każda publicznie dostępna usługa stanowi potencjalny punkt ataku. Otwarte porty baz danych, ' +
+    'paneli administracyjnych czy zdalnego dostępu powinny być ograniczone na zaporze sieciowej.',
   resources: [
     {
-      title: 'List of TCP & UDP Port Numbers',
+      title: 'Lista portów TCP i UDP',
       link: 'https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers',
     },
     {
-      title: 'NMAP - Port Scanning Basics',
+      title: 'NMAP - Podstawy skanowania portów',
       link: 'https://nmap.org/book/man-port-scanning-basics.html',
     },
   ],

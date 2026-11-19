@@ -1,18 +1,15 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Whois Lookup',
+  title: 'Rejestr WHOIS',
   categories: ['domain'],
-  summary: 'Registrar, registration dates and nameservers, from WHOIS',
+  summary: 'Rejestrator, daty utworzenia i wygaśnięcia oraz serwery nazw z bazy WHOIS',
   description:
-    'Reads the registration record for the domain: the registrar it was bought ' +
-    'through, when it was created and when it expires, the status codes currently set ' +
-    'on it, and the nameservers it delegates to.',
+    'Odczytuje rekord rejestracyjny domeny: nazwę rejestratora, datę utworzenia, ostatniej aktualizacji ' +
+    'i wygaśnięcia, kody statusu EPP oraz delegowane serwery nazw.',
   use:
-    'Dates are the strongest signal here. A domain registered three weeks ago behaves ' +
-    'very differently from one that has been renewed since 2004. Status codes show ' +
-    'whether it is locked against transfer, or sitting in a grace period after ' +
-    'expiry.',
+    'Daty rejestracji i wygaśnięcia są kluczowym wskaźnikiem wiarygodności domeny, a kody statusu ' +
+    'informują o blokadzie transferu lub okresie karencji.',
   resources: [
     'https://en.wikipedia.org/wiki/WHOIS',
     'https://lookup.icann.org/',

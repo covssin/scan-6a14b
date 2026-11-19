@@ -76,9 +76,9 @@ const RECORD_TYPES: Record<number, string> = {
 
 // Each record's row label and glossary term, where RRSIG means the resolver validated the answer
 const PRESENT: Record<string, [string, TermId]> = {
-  DNSKEY: ['DNSKEY - Present?', 'dnskey'],
-  DS: ['DS - Present?', 'ds-record'],
-  RRSIG: ['RRSIG - Validated?', 'dnssec-validation'],
+  DNSKEY: ['DNSKEY — obecny?', 'dnskey'],
+  DS: ['DS — obecny?', 'ds-record'],
+  RRSIG: ['RRSIG — zweryfikowany?', 'dnssec-validation'],
 };
 
 const RESPONSE_FLAGS = [
@@ -112,24 +112,24 @@ const parseDSData = (data: string) => {
 const makeResponseList = (response: any): RowProps[] =>
   RESPONSE_FLAGS.filter(([key]) => typeof response?.[key] === 'boolean').map(([key, label]) => ({
     lbl: `${label} (${key})`,
-    val: response[key] ? 'Yes' : 'No',
+    val: response[key] ? 'Tak' : 'Nie',
   }));
 
 const makeAnswerList = (recordData: any): RowProps[] =>
   [
-    { lbl: 'Domain', val: recordData.name },
+    { lbl: 'Domena', val: recordData.name },
     {
-      lbl: 'Type',
-      val: `${RECORD_TYPES[recordData.type] || 'Unknown'} (${recordData.type})`,
+      lbl: 'Typ',
+      val: `${RECORD_TYPES[recordData.type] || 'Nieznany'} (${recordData.type})`,
     },
     { lbl: 'TTL', val: recordData.TTL },
-    { lbl: 'Algorithm', val: recordData.algorithm },
-    { lbl: 'Flags', val: recordData.flags },
-    { lbl: 'Protocol', val: recordData.protocol },
-    { lbl: 'Public Key', val: recordData.publicKey },
-    { lbl: 'Key Tag', val: recordData.keyTag },
-    { lbl: 'Digest Type', val: recordData.digestType },
-    { lbl: 'Digest', val: recordData.digest },
+    { lbl: 'Algorytm', val: recordData.algorithm },
+    { lbl: 'Flagi', val: recordData.flags },
+    { lbl: 'Protokół', val: recordData.protocol },
+    { lbl: 'Klucz publiczny', val: recordData.publicKey },
+    { lbl: 'Tag klucza', val: recordData.keyTag },
+    { lbl: 'Typ skrótu', val: recordData.digestType },
+    { lbl: 'Skrót', val: recordData.digest },
   ].filter((rowData) => rowData.val);
 
 const DnsSecCard = (props: { data: any; title: string; actionButtons: any }): JSX.Element => {
@@ -153,7 +153,7 @@ const DnsSecCard = (props: { data: any; title: string; actionButtons: any }): JS
                   return (
                     <ExpandableRow
                       key={`${key}-${index}`}
-                      lbl={`Record #${index + 1}`}
+                      lbl={`Rekord #${index + 1}`}
                       val={parsed.flags || key}
                       rowList={makeAnswerList({ ...answer, ...parsed })}
                       open

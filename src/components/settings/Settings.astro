@@ -8,8 +8,8 @@ import { sections } from '@/data/settings';
   class="icon-button trigger"
   commandfor="settings"
   command="show-modal"
-  aria-label="Settings"
-  title="Settings"
+  aria-label="Ustawienia"
+  title="Ustawienia"
 >
   <Icon name="gear" size={1.1} />
 </button>
@@ -17,8 +17,8 @@ import { sections } from '@/data/settings';
 <dialog id="settings" class="settings-dialog" aria-labelledby="settings-title" closedby="any">
   <form method="dialog">
     <header>
-      <h2 id="settings-title">Settings</h2>
-      <button class="icon-button" aria-label="Close settings" title="Close">
+      <h2 id="settings-title">Ustawienia</h2>
+      <button class="icon-button" aria-label="Zamknij ustawienia" title="Zamknij">
         <Icon name="xmark" size={0.9} />
       </button>
     </header>
@@ -48,7 +48,7 @@ import { sections } from '@/data/settings';
   const countSkipped = (form: HTMLFormElement) => {
     const count = form.querySelector('.skipped-count');
     const total = new FormData(form).getAll('skippedChecks').length;
-    if (count) count.textContent = `${total || 'None'} skipped`;
+    if (count) count.textContent = `Pominięte: ${total || 'brak'}`;
   };
 
   // Show whatever's saved, or the default if nothing is. The OS can lock some toggles on
@@ -78,7 +78,7 @@ import { sections } from '@/data/settings';
     if (button.dataset.armed) return clearAllData();
     const label = button.textContent;
     button.dataset.armed = 'true';
-    button.textContent = 'Sure? Click again';
+    button.textContent = 'Na pewno? Kliknij ponownie';
     setTimeout(() => {
       delete button.dataset.armed;
       button.textContent = label;

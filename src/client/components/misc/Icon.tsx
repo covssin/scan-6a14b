@@ -7,10 +7,10 @@ import { SEVERITIES, type Result, type Severity } from 'client/analysis/types';
 export type Status = 'pass' | 'info' | 'warning' | 'error';
 
 const STATUSES: Record<Status, { icon: IconDefinition; color: string; label: string }> = {
-  pass: { icon: faCheck, color: colors.success, label: 'Pass' },
-  info: { icon: faInfo, color: colors.info, label: 'Info' },
-  warning: { icon: faExclamation, color: colors.warning, label: 'Warning' },
-  error: { icon: faXmark, color: colors.danger, label: 'Error' },
+  pass: { icon: faCheck, color: colors.success, label: 'Poprawne' },
+  info: { icon: faInfo, color: colors.info, label: 'Informacja' },
+  warning: { icon: faExclamation, color: colors.warning, label: 'Ostrzeżenie' },
+  error: { icon: faXmark, color: colors.danger, label: 'Błąd' },
 };
 
 const Svg = styled.svg`

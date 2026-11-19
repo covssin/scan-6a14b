@@ -34,15 +34,15 @@ const TlsConnectionCard = (props: {
     <Card heading={props.title} actionButtons={props.actionButtons}>
       {d.protocol && (
         <Row
-          lbl="Protocol"
+          lbl="Protokół"
           val={d.protocol}
           status={severity && toStatus(severity)}
           term="tls-version"
         />
       )}
-      {cipherName && <Row lbl="Cipher Suite" val={cipherName} />}
-      {d.cipher?.version && <Row lbl="Cipher Version" val={d.cipher.version} />}
-      {ephemeral && <Row lbl="Ephemeral Key" val={ephemeral} />}
+      {cipherName && <Row lbl="Zestaw szyfrów" val={cipherName} />}
+      {d.cipher?.version && <Row lbl="Wersja szyfru" val={d.cipher.version} />}
+      {ephemeral && <Row lbl="Klucz tymczasowy" val={ephemeral} />}
       {d.alpnProtocol && (
         <Row
           lbl="ALPN"
@@ -65,27 +65,27 @@ const TlsConnectionCard = (props: {
       />
       <Row
         lbl="OCSP Stapling"
-        val={d.ocspStapled ? 'Present' : 'Not Present'}
+        val={d.ocspStapled ? 'Aktywny' : 'Brak'}
         status={d.ocspStapled ? 'pass' : 'info'}
         term="ocsp-stapling"
       />
       <Row
-        lbl="Certificate Trust"
+        lbl="Zaufanie certyfikatu"
         val={!!d.authorized}
-        yes="Trusted"
-        no={d.authError || 'Untrusted'}
+        yes="Zaufany"
+        no={d.authError || 'Niezaufany'}
         reason={REASONS[d.authError]}
         term="certificate-trust"
       />
       {d.versions && (
-        <Section title="TLS Versions">
+        <Section title="Wersje protokołu TLS">
           {VERSIONS.map((version) => {
             const enabled = d.versions.includes(version.id);
             return (
               <Row
                 key={version.id}
                 lbl={version.label}
-                val={enabled ? 'Enabled' : 'Disabled'}
+                val={enabled ? 'Włączony' : 'Wyłączony'}
                 status={enabled ? version.on : version.off}
                 term={version.term}
               />

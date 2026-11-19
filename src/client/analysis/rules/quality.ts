@@ -1,13 +1,12 @@
 import type { Analyzer, Severity } from '../types';
 
 const LABELS: Record<string, string> = {
-  performance: 'Performance',
-  accessibility: 'Accessibility',
-  'best-practices': 'Best Practices',
+  performance: 'Wydajność',
+  accessibility: 'Dostępność',
+  'best-practices': 'Dobre praktyki',
   seo: 'SEO',
 };
 
-// Convert a 0..1 lighthouse score to a severity bucket
 export const scoreSeverity = (score: number): Severity => {
   if (score >= 0.9) return 'pass';
   if (score >= 0.7) return 'info';
@@ -15,7 +14,6 @@ export const scoreSeverity = (score: number): Severity => {
   return 'issue';
 };
 
-// One finding per Lighthouse category, mirroring the score colour
 const quality: Analyzer = (d) => {
   const cats = d?.categories;
   if (!cats || typeof cats !== 'object') return [];
@@ -26,9 +24,9 @@ const quality: Analyzer = (d) => {
     const pct = Math.round(score * 100);
     out.push({
       severity: scoreSeverity(score),
-      title: `${label} score: ${pct}`,
+      title: `${label}: ${pct}/100`,
       detail:
-        score < 0.9 ? `Lighthouse flagged ${label.toLowerCase()} as below recommended` : undefined,
+        score < 0.9 ? `Lighthouse ocenił kategorię „${label}” poniżej zalecanego progu 90` : undefined,
     });
   }
   return out;

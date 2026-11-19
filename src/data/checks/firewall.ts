@@ -1,30 +1,23 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Firewall',
+  title: 'Zapora sieciowa (WAF)',
   categories: ['server', 'security'],
-  summary: 'Which web application firewall, if any, sits in front of the site',
+  summary: 'Wykrywanie zapory aplikacji sieciowych (WAF) chroniącej witrynę',
   description:
-    'Detects whether a web application firewall sits between the internet and the ' +
-    'site, and which one. A WAF filters HTTP traffic to block common attacks such as ' +
-    'SQL injection, cross-site scripting and file inclusion.',
+    'Sprawdza, czy między internetem a witryną działa zapora aplikacji sieciowych (WAF) i identyfikuje jej dostawcę. ' +
+    'WAF filtruje ruch HTTP, blokując typowe ataki takie jak SQL Injection, XSS czy skanowanie podatności.',
   use:
-    'A WAF changes what every other test means, since the response you get may be ' +
-    'coming from the filter rather than the application behind it. Knowing the ' +
-    'product also tells you the rule set in play, and WAFs have bypasses and ' +
-    'vulnerabilities of their own.',
+    'Obecność WAF wpływa na interpretację pozostałych testów, ponieważ część odpowiedzi może pochodzić z zapory, ' +
+    'a nie bezpośrednio z serwera aplikacji.',
   resources: [
     {
-      title: 'What is a WAF (via Cloudflare Learning)',
+      title: 'Czym jest WAF (Cloudflare)',
       link: 'https://www.cloudflare.com/learning/ddos/glossary/web-application-firewall-waf/',
     },
     {
       title: 'OWASP - Web Application Firewalls',
       link: 'https://owasp.org/www-community/Web_Application_Firewall',
-    },
-    {
-      title: 'Web Application Firewall Best Practices',
-      link: 'https://wiki.owasp.org/images/b/b0/Best_Practices_WAF_v105.en.pdf',
     },
     {
       title: 'WAF - Wiki',

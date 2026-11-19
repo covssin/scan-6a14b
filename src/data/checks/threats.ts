@@ -1,17 +1,15 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Malware & Phishing',
+  title: 'Zagrożenia i phishing',
   categories: ['security', 'privacy'],
-  summary: 'Whether the site appears on common malware and phishing lists',
+  summary: 'Czy domena figuruje na publicznych listach phishingu i złośliwego oprogramowania',
   description:
-    'Checks the domain against public malware and phishing feeds, currently URLHaus, ' +
-    'PhishTank and the NetAPI compromised feed, all community-reported and updated continuously.',
+    'Weryfikuje domenę i adres URL w bazach zagrożeń URLHaus, PhishTank oraz NetAPI pod kątem ' +
+    'zgłoszeń dotyczących phishingu, złośliwego oprogramowania lub przejęcia witryny.',
   use:
-    'A listing is strong evidence. An absence is weak evidence, since these feeds ' +
-    'only know what somebody has reported. Freshly registered phishing domains ' +
-    'routinely appear on no list at all for their first few days, which is exactly ' +
-    'when they do their work.',
+    'Obecność na liście jest silnym sygnałem ostrzegawczym. Brak wpisu nie gwarantuje jednak pełnego ' +
+    'bezpieczeństwa, ponieważ świeżo utworzone domeny phishingowe trafiają do baz z opóźnieniem.',
   resources: [
     { title: 'URLHaus', link: 'https://urlhaus-api.abuse.ch/' },
     { title: 'PhishTank', link: 'https://www.phishtank.com/' },

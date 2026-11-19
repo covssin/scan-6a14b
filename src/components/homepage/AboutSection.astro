@@ -5,19 +5,19 @@ import { checkIds } from '@/data/checks';
 
 const links = [
   {
-    title: 'View on GitHub',
-    url: 'https://github.com/lissy93/web-check',
-    icon: 'github',
+    title: 'Wszystkie testy',
+    url: '/checks',
+    icon: 'search',
     isCta: true,
   },
   {
-    title: 'Deploy your Own',
+    title: 'Własny serwer',
     url: '/self-hosted-setup',
     icon: 'rocket',
     isCta: false,
   },
   {
-    title: 'Use the API',
+    title: 'Dokumentacja API',
     url: '/web-check-api',
     icon: 'code',
     isCta: false,
@@ -27,15 +27,15 @@ const links = [
 
 <div class="about-section">
   <div class="features-wrap">
-    <h4>Ready to get started?</h4>
+    <h4>Gotowy do skanowania?</h4>
     <p class="what">
-      With <a href="/checks">{checkIds.length} supported checks</a> you can view and analyse key
-      website information in an instant
+      Dzięki <a href="/checks">{checkIds.length} dostępnym testom</a> błyskawicznie sprawdzisz i przeanalizujesz
+      kluczowe informacje o każdej witrynie
     </p>
   </div>
   <ButtonGroup links={links} />
   <hr />
-  <CheckList ids={checkIds} heading="What gets checked" />
+  <CheckList ids={checkIds} heading="Co podlega analizie" />
 </div>
 
 <style lang="scss">

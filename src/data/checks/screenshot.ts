@@ -1,15 +1,13 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Screenshot',
+  title: 'Zrzut ekranu',
   categories: ['seo'],
-  summary: 'A full-page render of the site, as a browser sees it',
-  description: 'Renders the page in a headless browser and returns the image.',
+  summary: 'Podgląd wyrenderowanej strony tak, jak widzi ją przeglądarka',
+  description: 'Renderuje badaną stronę w przeglądarce bez interfejsu graficznego (headless) i zwraca obraz.',
   use:
-    'Shows what the site serves to a plain, logged-out visitor arriving from a ' +
-    'different network. Handy when a page behaves differently for you than for ' +
-    'everyone else, or when you would rather not open an untrusted site in your own ' +
-    'browser.',
+    'Pokazuje, jak strona wygląda dla niezalogowanego użytkownika z innej sieci — przydatne, gdy witryna ' +
+    'zachowuje się inaczej dla różnych odwiedzających lub gdy wolisz nie otwierać nieznanego linku lokalnie.',
   resources: [],
   screenshot: 'https://pixelflare.cc/alicia/web-check/wc-screenshot',
 } satisfies Check;

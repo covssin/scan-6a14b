@@ -1,22 +1,18 @@
 import type { Check } from '.';
 
 export default {
-  title: 'TLS Connection',
+  title: 'Połączenie TLS',
   categories: ['server', 'security'],
-  summary: 'The TLS versions accepted, and the cipher and details of a live handshake',
+  summary: 'Obsługiwane wersje protokołu TLS oraz parametry wynegocjowanego szyfrowania',
   description:
-    'Opens a real TLS connection to the host and reports what was actually ' +
-    'negotiated: the protocol version, the cipher suite chosen, ALPN, and whether the ' +
-    'certificate chain validates.',
+    'Nawiązuje bezpośrednie połączenie TLS z serwerem i sprawdza faktycznie wynegocjowaną wersję ' +
+    'protokołu, zestaw szyfrów, obsługę ALPN oraz poprawność łańcucha certyfikatów.',
   use:
-    'Configuration files say what should happen. This says what does. It is the ' +
-    'quickest way to confirm a server has genuinely stopped accepting an old ' +
-    'protocol, or that a change you made has taken effect. Servers often keep ' +
-    'accepting TLS 1.0 and 1.1 long after browsers dropped them, which fails standards ' +
-    'like PCI DSS and leaves room for downgrade attacks.',
+    'Pozwala zweryfikować w praktyce, czy serwer prawidłowo wyłączył przestarzałe protokoły TLS 1.0/1.1 ' +
+    'i obsługuje nowoczesny standard TLS 1.3.',
   resources: [
     {
-      title: 'TLS Handshakes (via Cloudflare Learning)',
+      title: 'Jak działa uzgadnianie TLS (Cloudflare)',
       link: 'https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/',
     },
   ],

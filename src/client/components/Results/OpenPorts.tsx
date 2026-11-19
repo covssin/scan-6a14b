@@ -47,7 +47,7 @@ const OpenPortsCard = (props: { data: any; title: string; actionButtons: any }):
           <Row
             key={port}
             lbl={String(port)}
-            val={SERVICES[port] || 'Unknown'}
+            val={SERVICES[port] || 'Nieznana usługa'}
             status={severity && toStatus(severity)}
             reason={risk}
             term="open-port"
@@ -55,7 +55,7 @@ const OpenPortsCard = (props: { data: any; title: string; actionButtons: any }):
         );
       })}
       <Note>
-        Unable to establish connections to:
+        Zamknięte lub nieosiągalne porty:
         <br />
         {portData.failedPorts.join(', ')}
       </Note>

@@ -1,6 +1,5 @@
 import type { CheckId } from '@/data/checks';
 
-// A term's meaning, with optional wording that replaces it when a row passes or fails
 export interface Term {
   title: string;
   check?: CheckId;
@@ -11,50 +10,50 @@ export interface Term {
 
 const certificates = {
   'certificate-authority': {
-    title: 'Certificate Authority (CA)',
+    title: 'Urząd certyfikacji (CA)',
     check: 'ssl',
     definition:
-      "An organisation such as Let's Encrypt that browsers trust to issue certificates. It checks who controls a domain before issuing one.",
+      "Organizacja (np. Let's Encrypt), której przeglądarki ufają w kwestii wystawiania certyfikatów. Przed wydaniem certyfikatu weryfikuje kontrolę nad domeną.",
   },
   'certificate-trust': {
-    title: 'Certificate Trust',
+    title: 'Zaufanie certyfikatu',
     check: 'ssl',
     definition:
-      'Whether the certificate is valid for this hostname and was issued by an authority browsers trust.',
-    pass: 'Browsers trust this certificate, so visitors get a secure connection with no warnings.',
-    fail: 'Browsers show visitors a full-page security warning instead of the site.',
+      'Informacja, czy certyfikat jest ważny dla danej nazwy hosta i został wystawiony przez zaufany urząd certyfikacji.',
+    pass: 'Przeglądarki ufają temu certyfikatowi, dzięki czemu użytkownicy łączą się bezpiecznie bez ostrzeżeń.',
+    fail: 'Przeglądarki wyświetlają odwiedzającym pełnoekranowe ostrzeżenie bezpieczeństwa zamiast strony.',
   },
   'certificate-expiry': {
-    title: 'Certificate Expiry',
+    title: 'Wygaśnięcie certyfikatu',
     check: 'ssl',
     definition:
-      'Certificates are only valid until their expiry date, after which browsers refuse them.',
-    fail: 'Renew it soon, or visitors will see a security warning instead of the site.',
+      'Certyfikaty zachowują ważność wyłącznie do określonej daty, po której przeglądarki przestają je akceptować.',
+    fail: 'Odnów certyfikat jak najszybciej, w przeciwnym razie odwiedzający zobaczą ostrzeżenie bezpieczeństwa.',
   },
   'subject-alternative-names': {
-    title: 'Subject Alternative Names (SANs)',
+    title: 'Alternatywne nazwy podmiotu (SAN)',
     check: 'ssl',
     definition:
-      "The hostnames a certificate covers. Browsers show a warning if the site's name isn't one of them.",
+      'Lista nazw domenowych objętych jednym certyfikatem. Jeśli adres strony nie znajduje się na tej liście, przeglądarka wyświetli ostrzeżenie.',
   },
   'certificate-fingerprint': {
-    title: 'Certificate Fingerprint',
+    title: 'Odcisk palca certyfikatu (Fingerprint)',
     check: 'ssl',
     definition:
-      "A hash of the whole certificate. If two fingerprints match, it's the same certificate.",
+      'Skrót kryptograficzny całego certyfikatu. Identyczne odciski palca oznaczają dokładnie ten sam certyfikat.',
   },
   'certificate-transparency': {
-    title: 'Certificate Transparency',
+    title: 'Certificate Transparency (CT)',
     check: 'tls-security-audit',
     definition:
-      'Public logs of every certificate issued, so one issued by mistake or by an attacker gets noticed.',
-    fail: 'Chrome and Safari require proof a certificate was logged, so they may refuse this one.',
+      'Publiczne rejestry wszystkich wydanych certyfikatów, pozwalające wykryć certyfikaty wystawione omyłkowo lub przez atakującego.',
+    fail: 'Przeglądarki Chrome i Safari wymagają dowodu wpisu do logów CT, więc mogą odrzucić ten certyfikat.',
   },
   caa: {
-    title: 'CAA Records',
+    title: 'Rekordy CAA',
     check: 'caa-records',
     definition:
-      'DNS records naming which certificate authorities may issue certificates for the domain.',
+      'Rekordy DNS określające, które urzędy certyfikacji mają prawo wystawiać certyfikaty dla danej domeny.',
   },
 } satisfies Record<string, Term>;
 
@@ -63,236 +62,236 @@ const tls = {
     title: 'HTTPS',
     check: 'tls-connection',
     definition:
-      "The secure version of HTTP. It sends pages over an encrypted connection, so others on the network can't read or change them.",
+      'Bezpieczna wersja protokołu HTTP. Przesyła strony szyfrowanym połączeniem, uniemożliwiając ich podsłuchanie lub modyfikację w sieci.',
   },
   tls: {
-    title: 'TLS and SSL',
+    title: 'TLS i SSL',
     check: 'tls-connection',
     definition:
-      'The encryption behind HTTPS. SSL was the version before it, retired years ago, but the name lives on in "SSL certificate".',
+      'Protokoły szyfrujące stojące za HTTPS. SSL to starszy poprzednik wycofany lata temu, choć jego nazwa przetrwała w określeniu „certyfikat SSL”.',
   },
   handshake: {
-    title: 'TLS Handshake',
+    title: 'Uzgadnianie TLS (Handshake)',
     check: 'tls-connection',
     definition:
-      'The first few messages of a secure connection, where the browser and server agree on settings, swap keys and check the certificate.',
+      'Pierwsze komunikaty bezpiecznego połączenia, podczas których przeglądarka i serwer uzgadniają parametry szyfrowania, wymieniają klucze i weryfikują certyfikat.',
   },
   'cipher-suite': {
-    title: 'Cipher Suite',
+    title: 'Zestaw szyfrów (Cipher Suite)',
     check: 'tls-connection',
     definition:
-      'The mix of algorithms used to encrypt and protect a connection, agreed during the handshake. Older suites have known weaknesses.',
+      'Kombinacja algorytmów używanych do szyfrowania i ochrony połączenia, ustalana podczas uzgadniania TLS. Starsze zestawy mają znane słabości.',
   },
   'tls-version': {
-    title: 'TLS Version',
+    title: 'Wersja protokołu TLS',
     check: 'tls-connection',
     definition:
-      'The version of TLS the connection used. Newer versions are faster and drop weaker encryption.',
-    pass: 'TLS 1.3 is the newest version, with the fastest and strongest handshake.',
-    fail: "This isn't the newest version. TLS 1.3 is faster, and TLS 1.0 and 1.1 have known weaknesses.",
+      'Wersja protokołu TLS użyta w połączeniu. Nowsze wersje są szybsze i eliminują słabe algorytmy szyfrowania.',
+    pass: 'TLS 1.3 to najnowsza wersja zapewniająca najszybsze i najsilniejsze szyfrowanie.',
+    fail: 'To nie jest najnowsza wersja. TLS 1.3 jest szybszy, a TLS 1.0 i 1.1 zawierają znane luki bezpieczeństwa.',
   },
   'tls-1-3': {
     title: 'TLS 1.3',
     check: 'tls-connection',
-    definition: 'The newest version of TLS, with a faster handshake and only strong encryption.',
-    fail: 'Without it, visitors miss out on faster and more secure connections.',
+    definition: 'Najnowsza wersja protokołu TLS oferująca krótsze uzgadnianie połączenia i wyłącznie silne szyfry.',
+    fail: 'Brak obsługi TLS 1.3 oznacza wolniejsze i mniej bezpieczne połączenia dla odwiedzających.',
   },
   'legacy-tls': {
-    title: 'TLS 1.0 and 1.1',
+    title: 'TLS 1.0 i 1.1',
     check: 'tls-connection',
     definition:
-      'Old versions of TLS with known weaknesses, which every major browser dropped in 2020.',
-    pass: "Disabled, so connections can't be pushed down to these weaker versions.",
-    fail: 'Still enabled, which leaves room for downgrade attacks. Turn them off.',
+      'Przestarzałe wersje protokołu TLS ze znanymi lukami, wycofane ze wszystkich głównych przeglądarek w 2020 roku.',
+    pass: 'Wyłączone — połączeń nie można zdegradować do tych słabszych wersji.',
+    fail: 'Nadal włączone, co naraża połączenia na ataki typu downgrade. Zaleca się ich wyłączenie.',
   },
   'ssl-labs-grade': {
-    title: 'SSL Labs Grade',
+    title: 'Ocena SSL Labs',
     check: 'tls-security-audit',
-    definition: "Qualys SSL Labs' overall rating of a server's HTTPS setup, from A+ down to F.",
-    fail: 'Below an A, so part of the HTTPS setup is worth fixing.',
+    definition: 'Ogólna ocena konfiguracji HTTPS serwera według Qualys SSL Labs w skali od A+ do F.',
+    fail: 'Ocena poniżej A oznacza, że część konfiguracji HTTPS wymaga poprawy.',
   },
   'forward-secrecy': {
-    title: 'Forward Secrecy',
+    title: 'Utajnianie z wyprzedzeniem (Forward Secrecy)',
     check: 'tls-connection',
     definition:
-      "Each connection gets its own temporary key, so a stolen server key can't decrypt past traffic.",
-    fail: "If the server's private key is ever stolen, recorded traffic could be decrypted.",
+      'Każda sesja otrzymuje własny klucz tymczasowy, dzięki czemu późniejsza kradzież klucza prywatnego serwera nie pozwala odszyfrować wcześniejszego ruchu.',
+    fail: 'W przypadku kradzieży klucza prywatnego serwera zarejestrowany wcześniej ruch mógłby zostać odszyfrowany.',
   },
   'session-resumption': {
-    title: 'Session Resumption',
+    title: 'Wznawianie sesji TLS',
     check: 'tls-connection',
     definition:
-      'Returning visitors can reuse an earlier secure session, skipping part of the handshake.',
+      'Powracający użytkownicy mogą ponownie wykorzystać wcześniejszą bezpieczną sesję, pomijając część procesu uzgadniania.',
   },
   'ocsp-stapling': {
     title: 'OCSP Stapling',
     check: 'tls-connection',
     definition:
-      "The server attaches proof that its certificate hasn't been revoked, so browsers don't have to ask the issuer.",
-    fail: 'Browsers may ask the issuer directly, which is slower and tells it which sites visitors open.',
+      'Serwer dołącza podpisany dowód, że jego certyfikat nie został unieważniony, dzięki czemu przeglądarka nie musi odpytywać wystawcy.',
+    fail: 'Przeglądarki mogą bezpośrednio pytać wystawcę certyfikatu, co wydłuża czas połączenia i ujawnia odwiedzane witryny.',
   },
   http2: {
     title: 'HTTP/2',
     check: 'tls-connection',
-    definition: 'A faster version of HTTP that loads many files at once over a single connection.',
+    definition: 'Szybsza wersja protokołu HTTP umożliwiająca równoległe pobieranie wielu zasobów w ramach jednego połączenia.',
   },
   alpn: {
     title: 'ALPN',
     check: 'tls-connection',
     definition:
-      'Lets the browser and server pick a protocol, such as HTTP/2, inside the TLS handshake, which saves a round trip.',
+      'Pozwala przeglądarce i serwerowi uzgodnić protokół aplikacji (np. HTTP/2) już podczas uzgadniania TLS, oszczędzając dodatkową rundę komunikacji.',
   },
   renegotiation: {
-    title: 'Renegotiation',
+    title: 'Renegocjacja TLS',
     check: 'tls-security-audit',
     definition:
-      'Lets the browser and server agree new settings partway through a connection. Only the secure kind is safe.',
-    fail: 'Insecure renegotiation lets an attacker slip their own data into the start of a connection.',
+      'Umożliwia zmianę parametrów szyfrowania w trakcie trwania sesji. Bezpieczna jest wyłącznie tzw. bezpieczna renegocjacja.',
+    fail: 'Niezabezpieczona renegocjacja pozwala atakującemu wstrzyknąć własne dane na początku połączenia.',
   },
   'fallback-scsv': {
     title: 'Fallback SCSV',
     check: 'tls-security-audit',
-    definition: 'Stops attackers forcing a connection down to an older, weaker version of TLS.',
+    definition: 'Mechanizm uniemożliwiający atakującym wymuszenie połączenia przy użyciu starszej, słabszej wersji TLS.',
   },
   chacha20: {
     title: 'ChaCha20',
     check: 'tls-security-audit',
     definition:
-      'A cipher that runs faster than AES on phones and other devices without AES hardware.',
+      'Szyfr działający szybciej niż AES na smartfonach i urządzeniach pozbawionych sprzętowej akceleracji AES.',
   },
   aead: {
-    title: 'AEAD Ciphers',
+    title: 'Szyfry AEAD',
     check: 'tls-security-audit',
     definition:
-      'Modern ciphers like AES-GCM and ChaCha20, which encrypt and check data in one step to avoid a whole class of attacks.',
-    fail: 'Without them, connections fall back to older ciphers with known weaknesses.',
+      'Nowoczesne szyfry (np. AES-GCM i ChaCha20), które jednocześnie szyfrują dane i weryfikują ich integralność, eliminując całą klasę ataków.',
+    fail: 'Brak szyfrów AEAD zmusza połączenia do korzystania ze starszych algorytmów o znanych słabościach.',
   },
   'cbc-ciphers': {
-    title: 'CBC Ciphers',
+    title: 'Szyfry CBC',
     check: 'tls-security-audit',
-    definition: 'An older cipher mode behind attacks like POODLE and Lucky 13.',
-    pass: 'Not offered, so connections only use modern ciphers.',
-    fail: 'Still offered for old devices, though modern browsers never need it.',
+    definition: 'Starszy tryb szyfrowania blokowego podatny na ataki takie jak POODLE czy Lucky 13.',
+    pass: 'Wyłączone — połączenia korzystają wyłącznie z nowoczesnych szyfrów.',
+    fail: 'Nadal udostępniane dla bardzo starych urządzeń, choć nowoczesne przeglądarki ich nie potrzebują.',
   },
   'tls-compression': {
-    title: 'TLS Compression',
+    title: 'Kompresja TLS',
     check: 'tls-security-audit',
     definition:
-      'Compressing data before encrypting it, which the CRIME attack uses to steal cookies.',
-    fail: 'Turn it off, as it leaves the site open to CRIME.',
+      'Kompresowanie danych przed ich zaszyfrowaniem — mechanizm wykorzystywany w ataku CRIME do kradzieży plików cookie.',
+    fail: 'Wyłącz kompresję TLS, ponieważ naraża witrynę na atak CRIME.',
   },
   'key-exchange-reuse': {
-    title: 'Key Exchange Reuse',
+    title: 'Ponowne użycie wymiany kluczy',
     check: 'tls-security-audit',
     definition:
-      'Reusing the same temporary key exchange values across connections, which weakens forward secrecy.',
+      'Wielokrotne używanie tych samych tymczasowych parametrów wymiany kluczy w różnych sesjach, co osłabia Forward Secrecy.',
   },
   'weak-dh-primes': {
-    title: 'Weak DH Primes',
+    title: 'Słabe liczby pierwsze Diffie-Hellmana',
     check: 'tls-security-audit',
     definition:
-      'Widely shared Diffie-Hellman groups that are too small, so a well-funded attacker may already have broken them.',
+      'Powszechnie stosowane, zbyt krótkie grupy Diffie-Hellmana, które zaawansowany atakujący może złamać.',
   },
   'client-compatibility': {
-    title: 'Client Compatibility',
+    title: 'Kompatybilność klientów TLS',
     check: 'tls-client-compat',
-    definition: 'Whether a browser or device can complete a secure connection to the site.',
-    fail: "This client can't connect. That's usually fine for very old devices, but check your visitors don't use it.",
+    definition: 'Informacja, czy dana przeglądarka lub system potrafi nawiązać bezpieczne połączenie z witryną.',
+    fail: 'Ten klient nie może się połączyć. Zwykle dotyczy to bardzo starych systemów, ale warto upewnić się, że nie korzystają z nich Twoi odbiorcy.',
   },
 } satisfies Record<string, Term>;
 
 const tlsVulnerabilities = {
   'downgrade-attack': {
-    title: 'Downgrade Attack',
+    title: 'Atak downgrade',
     check: 'tls-security-audit',
     definition:
-      "Tricking a connection into using an older, weaker protocol or cipher, so it's easier to break.",
+      'Podstępne wymuszenie użycia starszego, słabszego protokołu lub szyfru, aby ułatwić złamanie szyfrowania.',
   },
   'padding-oracle': {
     title: 'Padding Oracle',
     check: 'tls-security-audit',
     definition:
-      'A flaw where a server responds differently to badly padded data. By sending thousands of altered messages, attackers can use those replies to decrypt traffic.',
+      'Błąd polegający na tym, że serwer inaczej odpowiada na błędnie dopełnione bloki danych. Wysyłając tysiące zmodyfikowanych pakietów, atakujący może odszyfrować ruch.',
   },
   heartbleed: {
     title: 'Heartbleed',
     check: 'tls-security-audit',
     definition:
-      'A bug in old OpenSSL versions that let anyone read server memory, including private keys and passwords.',
+      'Krytyczny błąd w starych wersjach OpenSSL pozwalający na zdalny odczyt pamięci serwera, w tym kluczy prywatnych i haseł.',
   },
   poodle: {
     title: 'POODLE',
     check: 'tls-security-audit',
     definition:
-      'An attack on SSL 3.0 that decrypts data a byte at a time. Disabling SSL 3.0 fixes it.',
+      'Atak na protokół SSL 3.0 umożliwiający odszyfrowanie danych bajt po bajcie. Rozwiązaniem jest wyłączenie SSL 3.0.',
   },
   'poodle-tls': {
     title: 'POODLE (TLS)',
     check: 'tls-security-audit',
     definition:
-      "A version of POODLE that works against TLS servers which don't check padding properly.",
+      'Wariant ataku POODLE skuteczny wobec serwerów TLS, które nieprawidłowo weryfikują dopełnienie bloków.',
   },
   'zombie-poodle': {
     title: 'Zombie POODLE',
     check: 'tls-security-audit',
     definition:
-      'A padding oracle in some servers that brings POODLE-style attacks back to CBC ciphers.',
+      'Podatność typu padding oracle w niektórych implementacjach serwerów przywracająca ataki klasy POODLE na szyfry CBC.',
   },
   goldendoodle: {
     title: 'GOLDENDOODLE',
     check: 'tls-security-audit',
     definition:
-      'A faster padding oracle attack on CBC ciphers, found in some firewalls and load balancers.',
+      'Szybszy atak typu padding oracle na szyfry CBC wykryty w niektórych zaporach sieciowych i load balancerach.',
   },
   'sleeping-poodle': {
     title: 'Sleeping POODLE',
     check: 'tls-security-audit',
-    definition: 'Another padding oracle on CBC ciphers, found in some network devices.',
+    definition: 'Kolejny wariant podatności padding oracle na szyfry CBC występujący w niektórych urządzeniach sieciowych.',
   },
   'zero-length-padding-oracle': {
     title: 'Zero-Length Padding Oracle',
     check: 'tls-security-audit',
     definition:
-      'An OpenSSL bug (CVE-2019-1559) that lets an attacker decrypt traffic on CBC ciphers.',
+      'Luka w OpenSSL (CVE-2019-1559) pozwalająca atakującemu odszyfrować ruch chroniony szyframi CBC.',
   },
   freak: {
     title: 'FREAK',
     check: 'tls-security-audit',
     definition:
-      'Tricks a connection into using deliberately weak 1990s export encryption, which can be cracked in hours.',
+      'Wymusza użycie celowo osłabionego szyfrowania eksportowego z lat 90., które można złamać w kilka godzin.',
   },
   logjam: {
     title: 'Logjam',
     check: 'tls-security-audit',
-    definition: 'Downgrades the key exchange to weak Diffie-Hellman groups that can be broken.',
+    definition: 'Obniża poziom wymiany kluczy do słabych grup Diffie-Hellmana podatnych na złamanie.',
   },
   drown: {
     title: 'DROWN',
     check: 'tls-security-audit',
     definition:
-      'Uses any server that still supports SSL 2.0 with the same key to decrypt modern TLS traffic.',
+      'Wykorzystuje inny serwer obsługujący przestarzały protokół SSL 2.0 z tym samym kluczem do odszyfrowania nowoczesnego ruchu TLS.',
   },
   'ccs-injection': {
     title: 'CCS Injection',
     check: 'tls-security-audit',
     definition:
-      'An OpenSSL bug (CVE-2014-0224) that lets an attacker force weak keys and read traffic.',
+      'Błąd w OpenSSL (CVE-2014-0224) umożliwiający atakującemu wymuszenie słabych kluczy sesji i podsłuch ruchu.',
   },
   'openssl-padding-oracle': {
     title: 'OpenSSL Padding Oracle',
     check: 'tls-security-audit',
-    definition: 'An OpenSSL bug (CVE-2016-2107) that lets an attacker decrypt AES-CBC traffic.',
+    definition: 'Błąd w OpenSSL (CVE-2016-2107) pozwalający atakującemu odszyfrować ruch AES-CBC.',
   },
   robot: {
     title: 'ROBOT',
     check: 'tls-security-audit',
     definition:
-      "A revived attack on RSA key exchange that can decrypt traffic, or sign messages with the server's key.",
+      'Odnowiony atak na wymianę kluczy RSA pozwalający odszyfrować ruch lub podpisywać wiadomości kluczem serwera.',
   },
   ticketbleed: {
     title: 'Ticketbleed',
     check: 'tls-security-audit',
-    definition: 'A bug in some F5 load balancers that leaks memory through TLS session tickets.',
+    definition: 'Luka w niektórych urządzeniach F5 powodująca wyciek fragmentów pamięci poprzez bilety sesji TLS.',
   },
 } satisfies Record<string, Term>;
 
@@ -301,29 +300,29 @@ const hsts = {
     title: 'HSTS',
     check: 'hsts',
     definition:
-      "Tells browsers to only ever connect over HTTPS, so visitors can't be downgraded to plain HTTP.",
-    pass: 'Browsers that have visited before will always use HTTPS for this site.',
-    fail: "Browsers aren't fully held to HTTPS, so a request over plain HTTP could be intercepted.",
+      'Nakazuje przeglądarkom łączyć się ze stroną wyłącznie przez HTTPS, chroniąc przed degradacją do nieszyfrowanego HTTP.',
+    pass: 'Przeglądarki, które już odwiedziły tę witrynę, zawsze będą łączyć się z nią przez HTTPS.',
+    fail: 'Przeglądarki nie są w pełni zobowiązane do używania HTTPS, przez co żądanie HTTP może zostać przechwycone.',
   },
   'hsts-max-age': {
     title: 'HSTS max-age',
     check: 'hsts',
     definition:
-      'How long browsers remember to only use HTTPS. The HSTS preload list needs at least a year.',
-    fail: "Under a year, so browsers forget sooner and the site can't join the preload list.",
+      'Czas, przez jaki przeglądarka pamięta o konieczności używania wyłącznie HTTPS. Lista HSTS Preload wymaga minimum roku.',
+    fail: 'Czas krótszy niż rok — przeglądarki szybciej zapomną regułę, a domena nie kwalifikuje się na listę Preload.',
   },
   'hsts-include-subdomains': {
     title: 'includeSubDomains',
     check: 'hsts',
     definition:
-      'Applies HSTS to every subdomain too, so none of them can be reached over plain HTTP.',
-    fail: 'Subdomains are left out, so they can still be loaded over plain HTTP.',
+      'Rozszerza ochronę HSTS również na wszystkie subdomeny, uniemożliwiając ich wczytanie po zwykłym HTTP.',
+    fail: 'Subdomeny nie są objęte ochroną HSTS i nadal mogą być wywoływane przez nieszyfrowane HTTP.',
   },
   'hsts-preload': {
     title: 'HSTS Preload',
     check: 'hsts',
     definition:
-      'Asks browsers to build the site into their HTTPS-only list, protecting even the very first visit.',
+      'Zgłoszenie domeny do wbudowanej w przeglądarki listy wymuszającej HTTPS, chroniącej użytkownika już przy pierwszej wizycie.',
   },
 } satisfies Record<string, Term>;
 
@@ -332,118 +331,118 @@ const securityHeaders = {
     title: 'Cross-Site Scripting (XSS)',
     check: 'http-security',
     definition:
-      "Getting a script to run on someone else's site, where it can steal visitors' sessions or act as them.",
+      'Wstrzyknięcie złośliwego skryptu na cudzą stronę, gdzie może on przejąć sesję użytkownika lub działać w jego imieniu.',
   },
   clickjacking: {
     title: 'Clickjacking',
     check: 'http-security',
     definition:
-      'Loading a site in a hidden frame on another page, so visitors click its buttons without realising.',
+      'Osadzenie strony w ukrytej ramce na innej witrynie, aby nieświadomy użytkownik klikał przyciski w docelowej aplikacji.',
   },
   'content-security-policy': {
-    title: 'Content-Security-Policy',
+    title: 'Content-Security-Policy (CSP)',
     check: 'http-security',
     definition:
-      'Lists where a page may load scripts and other files from, which blocks most cross-site scripting.',
-    fail: 'Without a strict policy, scripts injected into the page are more likely to run.',
+      'Określa dozwolone źródła skryptów, stylów i innych zasobów strony, stanowiąc główną ochronę przed atakami XSS.',
+    fail: 'Brak restrykcyjnej polityki CSP zwiększa ryzyko uruchomienia wstrzykniętych skryptów.',
   },
   'x-content-type-options': {
     title: 'X-Content-Type-Options',
     check: 'http-security',
     definition:
-      "Stops browsers guessing a file's type, so an uploaded file can't be run as a script.",
+      'Blokuje zgadywanie typu MIME przez przeglądarkę, dzięki czemu przesłany plik nie zostanie wykonany jako skrypt.',
   },
   'x-frame-options': {
     title: 'X-Frame-Options',
     check: 'http-security',
-    definition: 'Stops other sites showing this page in a frame, which blocks clickjacking.',
+    definition: 'Uniemożliwia osadzanie strony w ramkach (iframe) na obcych witrynach, chroniąc przed clickjackingiem.',
   },
   'referrer-policy': {
     title: 'Referrer-Policy',
     check: 'http-security',
     definition:
-      'Controls how much of the current URL is shared with other sites when visitors follow links or load files.',
-    fail: 'Without a strict policy, page paths and query strings may be shared with other sites.',
+      'Kontroluje, jaka część bieżącego adresu URL jest przekazywana innym witrynom po kliknięciu linku lub pobraniu zasobu.',
+    fail: 'Bez restrykcyjnej polityki pełne ścieżki i parametry zapytań mogą wyciekać do zewnętrznych serwisów.',
   },
   'permissions-policy': {
     title: 'Permissions-Policy',
     check: 'http-security',
     definition:
-      'Turns off browser features like the camera, microphone and location for the page and anything it embeds.',
+      'Wyłącza dostęp strony i osadzonych elementów do funkcji przeglądarki, takich jak kamera, mikrofon czy lokalizacja.',
   },
   'cross-origin-opener-policy': {
-    title: 'Cross-Origin-Opener-Policy',
+    title: 'Cross-Origin-Opener-Policy (COOP)',
     check: 'http-security',
     definition:
-      "Keeps the page in its own window group, so pop-ups and other sites can't reach into it.",
+      'Izoluje okno strony w osobnej grupie kontekstów przeglądania, uniemożliwiając obcym witrynom dostęp do obiektu window.',
   },
   'cross-origin-resource-policy': {
-    title: 'Cross-Origin-Resource-Policy',
+    title: 'Cross-Origin-Resource-Policy (CORP)',
     check: 'http-security',
     definition:
-      "Stops other sites loading this site's files, which guards against Spectre-style data leaks.",
+      'Blokuje ładowanie zasobów witryny przez inne domeny, chroniąc przed wyciekami danych w stylu Spectre.',
   },
   'cross-origin-embedder-policy': {
-    title: 'Cross-Origin-Embedder-Policy',
+    title: 'Cross-Origin-Embedder-Policy (COEP)',
     check: 'http-security',
     definition:
-      'Only lets the page load files from other sites that allow it, which unlocks features that need Spectre protection.',
+      'Zezwala na ładowanie wyłącznie zasobów wyraźnie dopuszczonych przez inne domeny, co umożliwia izolację procesu.',
   },
   'x-xss-protection': {
     title: 'X-XSS-Protection',
     check: 'http-security',
     definition:
-      'An old browser filter for cross-site scripting, since removed from browsers. It should now be set to 0.',
-    pass: 'Turned off, as recommended.',
-    fail: 'The old filter is on, which can open new security holes in older browsers. Set it to 0.',
+      'Przestarzały filtr XSS wbudowany dawniej w przeglądarki. Obecnie zaleca się ustawienie jego wartości na 0.',
+    pass: 'Wyłączony zgodnie z aktualnymi zaleceniami bezpieczeństwa.',
+    fail: 'Stary filtr jest włączony, co w starszych przeglądarkach może tworzyć dodatkowe luki. Ustaw wartość 0.',
   },
   'server-disclosure': {
-    title: 'Server Software Headers',
+    title: 'Ujawnianie oprogramowania serwera',
     check: 'headers',
     definition:
-      'Headers like Server and X-Powered-By that name the software, and often the version, a site runs.',
-    fail: 'This tells attackers which known flaws to try. Remove the version, or the header.',
+      'Nagłówki takie jak Server czy X-Powered-By zdradzające nazwę i często dokładną wersję oprogramowania serwera.',
+    fail: 'Ułatwia to atakującym dobór znanych exploitów. Usuń numer wersji lub cały nagłówek.',
   },
 } satisfies Record<string, Term>;
 
 const pageContent = {
   'mixed-content': {
-    title: 'Mixed Content',
+    title: 'Mieszana zawartość (Mixed Content)',
     check: 'mixed-content',
     definition:
-      'Files loaded over plain HTTP on an HTTPS page, which can be read or changed in transit.',
-    pass: 'Everything on the page loads over HTTPS.',
+      'Zasoby pobierane przez nieszyfrowane HTTP na stronie otwartej przez HTTPS, które mogą zostać podsłuchane lub zmienione po drodze.',
+    pass: 'Wszystkie zasoby na stronie są ładowane bezpiecznie przez HTTPS.',
   },
   'upgrade-insecure-requests': {
     title: 'Upgrade Insecure Requests',
     check: 'mixed-content',
     definition:
-      'A CSP setting that makes browsers fetch any HTTP links on the page over HTTPS instead.',
+      'Dyrektywa CSP nakazująca przeglądarce automatyczną zamianę odnośników HTTP na HTTPS przed ich pobraniem.',
   },
   'third-party-scripts': {
-    title: 'Third-Party Scripts',
+    title: 'Skrypty podmiotów trzecich',
     check: 'mixed-content',
     definition:
-      "Scripts loaded from another company's server, like analytics or chat widgets. They have full access to the page, so whoever controls that server controls part of the site.",
+      'Skrypty ładowane z serwerów zewnętrznych firm (np. analityka, czaty). Mają pełny dostęp do strony, więc podmiot kontrolujący ten serwer kontroluje fragment witryny.',
   },
   sri: {
     title: 'Subresource Integrity (SRI)',
     check: 'mixed-content',
     definition:
-      "An integrity hash on a script or stylesheet lets the browser check the file hasn't been altered, and refuse it if it has.",
+      'Skrót kryptograficzny przypisany do skryptu lub arkusza stylów, pozwalający przeglądarce zweryfikować, czy plik nie został zmodyfikowany.',
   },
   'integrity-policy': {
     title: 'Integrity-Policy',
     check: 'mixed-content',
-    definition: 'A header that makes browsers refuse any script without an SRI hash.',
-    fail: 'Scripts without a hash are being blocked, which may break part of the page.',
+    definition: 'Nagłówek nakazujący przeglądarce odrzucanie każdego skryptu pozbawionego skrótu SRI.',
+    fail: 'Skrypty bez skrótu SRI są blokowane, co może zakłócić działanie części strony.',
   },
   'cookie-security': {
-    title: 'Cookie Security Flags',
+    title: 'Flagi bezpieczeństwa plików cookie',
     check: 'cookies',
     definition:
-      'Secure keeps a cookie off plain HTTP, HttpOnly hides it from scripts, and SameSite stops other sites sending it.',
-    pass: 'All three flags are set, so this cookie is well protected.',
+      'Flaga Secure ogranicza przesyłanie ciasteczka do HTTPS, HttpOnly ukrywa je przed skryptami JS, a SameSite chroni przed żądaniami z innych witryn.',
+    pass: 'Wszystkie trzy flagi są ustawione, więc ten plik cookie jest dobrze zabezpieczony.',
   },
 } satisfies Record<string, Term>;
 
@@ -452,44 +451,44 @@ const email = {
     title: 'SPF',
     check: 'mail-config',
     definition:
-      'A DNS record listing the servers allowed to send email for the domain, so receivers can spot forged mail.',
-    fail: 'Without a working record, others can send email that appears to come from this domain.',
+      'Rekord DNS wymieniający serwery uprawnione do wysyłania poczty w imieniu domeny, pozwalający wykrywać sfałszowane wiadomości.',
+    fail: 'Bez poprawnego rekordu SPF inne serwery mogą wysyłać wiadomości podszywające się pod tę domenę.',
   },
   dkim: {
     title: 'DKIM',
     check: 'mail-config',
     definition:
-      "Signs outgoing email with a key published in DNS, so receivers can check it came from the domain and wasn't changed.",
+      'Podpisuje wychodzące wiadomości kluczem opublikowanym w DNS, dzięki czemu odbiorca może potwierdzić ich autentyczność i integralność.',
   },
   dmarc: {
     title: 'DMARC',
     check: 'mail-config',
     definition:
-      'Tells receivers what to do with mail that fails SPF and DKIM, and where to send reports about it.',
-    fail: 'Spoofed mail claiming to be from this domain may still be delivered.',
+      'Określa, jak serwery odbiorcze mają traktować pocztę niespełniającą wymogów SPF i DKIM oraz dokąd wysyłać raporty.',
+    fail: 'Sfałszowane wiadomości podszywające się pod tę domenę mogą nadal trafiać do skrzynek odbiorców.',
   },
   bimi: {
     title: 'BIMI',
     check: 'mail-config',
     definition:
-      "Shows a brand's logo next to its emails in supported inboxes, once DMARC is enforced.",
+      'Wyświetla zweryfikowane logo marki obok wiadomości e-mail w obsługiwanych klientach pocztowych po wdrożeniu egzekwowania DMARC.',
   },
   'mta-sts': {
     title: 'MTA-STS',
     check: 'mail-config',
     definition:
-      'Makes other mail servers use encrypted, verified connections when delivering email to this domain.',
+      'Wymusza na serwerach pocztowych korzystanie z szyfrowanych i uwierzytelnionych połączeń TLS przy dostarczaniu poczty do tej domeny.',
   },
   'tls-rpt': {
     title: 'TLS-RPT',
     check: 'mail-config',
-    definition: 'Asks other mail servers to report when they fail to deliver mail here securely.',
+    definition: 'Prosi zewnętrzne serwery pocztowe o przesyłanie raportów w przypadku problemów z bezpiecznym dostarczeniem wiadomości.',
   },
   dane: {
     title: 'DANE',
     check: 'mail-config',
     definition:
-      "Publishes the mail server's certificate details in signed DNS records, so senders can check it without a certificate authority.",
+      'Publikuje informacje o certyfikacie serwera pocztowego w rekordach DNS podpisanych przez DNSSEC, umożliwiając weryfikację bez pośrednictwa CA.',
   },
 } satisfies Record<string, Term>;
 
@@ -498,152 +497,152 @@ const domains = {
     title: 'WHOIS',
     check: 'whois-lookup',
     definition:
-      "The public record of a domain's registration: its registrar, key dates, nameservers and, unless hidden, the owner's contact details.",
+      'Publiczny rejestr danych rejestracyjnych domeny: rejestratora, kluczowych dat, serwerów nazw oraz — jeśli nie są ukryte — danych kontaktowych abonenta.',
   },
   'whois-privacy': {
-    title: 'WHOIS Privacy',
+    title: 'Prywatność WHOIS',
     check: 'domain-info',
     definition:
-      "Hides a domain owner's name and contact details from WHOIS, showing the registrar's or a proxy's details instead.",
+      'Ukrywa imię, nazwisko i dane kontaktowe właściciela domeny w bazie WHOIS, zastępując je danymi rejestratora lub usługi proxy.',
   },
   registrar: {
-    title: 'Registrar',
+    title: 'Rejestrator domeny',
     check: 'whois-lookup',
     definition:
-      'The company a domain is registered through, like Namecheap or GoDaddy. Anyone who gets into that account can take control of the domain.',
+      'Firma pośrednicząca w rejestracji domeny (np. OVH, home.pl, Namecheap). Przejęcie konta u rejestratora oznacza przejęcie kontroli nad domeną.',
   },
   registry: {
-    title: 'Registry',
+    title: 'Rejestr domeny (Registry)',
     check: 'whois-lookup',
     definition:
-      'The organisation that runs a whole top-level domain, like Verisign for .com, and keeps the master list of who holds each name.',
+      'Organizacja zarządzająca całą domeną najwyższego poziomu (np. NASK dla .pl lub Verisign dla .com), utrzymująca główną bazę nazw.',
   },
   'domain-expiry': {
-    title: 'Domain Expiry',
+    title: 'Wygaśnięcie domeny',
     check: 'whois-lookup',
     definition:
-      "The date a domain's registration runs out. If it isn't renewed, the site and its email stop working, and the name can end up with someone else.",
+      'Data zakończenia okresu rozliczeniowego domeny. Brak odnowienia powoduje wyłączenie strony i poczty, a domenę może przejąć ktoś inny.',
   },
   subdomain: {
-    title: 'Subdomain',
+    title: 'Subdomena',
     check: 'subdomains',
     definition:
-      'A name under the main domain, like mail.example.com. Forgotten ones are often left running old, unpatched software.',
+      'Nazwa w obrębie głównej domeny, np. poczta.domena.pl. Zapomniane subdomeny często działają na nieaktualnym oprogramowaniu.',
   },
 } satisfies Record<string, Term>;
 
 const dns = {
   'dns-resolver': {
-    title: 'DNS Resolver',
+    title: 'Resolver DNS',
     check: 'block-lists',
     definition:
-      "The server that finds the IP address for a domain when you visit a site. It's usually run by your ISP, or a public service like 1.1.1.1.",
+      'Serwer tłumaczący nazwę domeny na adres IP podczas odwiedzania strony. Zwykle obsługiwany przez dostawcę internetu lub usługę taką jak 1.1.1.1.',
   },
   'a-record': {
-    title: 'A and AAAA Records',
+    title: 'Rekordy A i AAAA',
     check: 'dns',
     definition:
-      "Point a domain to its server's IP address. A records hold IPv4 addresses, and AAAA records hold IPv6 ones.",
+      'Kierują domenę na adres IP serwera. Rekordy A przechowują adresy IPv4, natomiast rekordy AAAA — adresy IPv6.',
   },
   cname: {
-    title: 'CNAME Record',
+    title: 'Rekord CNAME',
     check: 'dns',
     definition:
-      'Makes one domain name an alias for another, often to point a subdomain at a hosting service. If you cancel the service but leave the record, someone else may be able to take over the subdomain.',
+      'Tworzy alias jednej nazwy domenowej wskazujący na inną. Pozostawienie rekordu CNAME po rezygnacji z usługi zewnętrznej grozi przejęciem subdomeny.',
   },
   'mx-record': {
-    title: 'MX Records',
+    title: 'Rekordy MX',
     check: 'dns',
-    definition: 'List the servers that receive email for the domain, in order of preference.',
+    definition: 'Wskazują serwery obsługujące pocztę przychodzącą dla domeny wraz z ich priorytetami.',
   },
   'ns-record': {
-    title: 'NS Records',
+    title: 'Rekordy NS',
     check: 'dns-server',
     definition:
-      "Name the servers that hold a domain's DNS records. Whoever controls them controls where the domain points.",
+      'Określają autorytatywne serwery nazw przechowujące strefę DNS domeny. Kto kontroluje serwery NS, decyduje, dokąd wskazuje domena.',
   },
   'txt-record': {
-    title: 'TXT Records',
+    title: 'Rekordy TXT',
     check: 'txt-records',
     definition:
-      'Free-text DNS records. Sites use them to prove they own a domain, and to publish email policies such as SPF and DMARC.',
+      'Dowolne wpisy tekstowe w DNS. Służą do potwierdzania własności domeny oraz publikowania polityk pocztowych SPF i DMARC.',
   },
   'soa-record': {
-    title: 'SOA Record',
+    title: 'Rekord SOA',
     check: 'dns',
     definition:
-      "Holds the basic settings for a domain's DNS, such as its main nameserver, an admin email address, and how often other nameservers check for changes.",
+      'Zawiera podstawowe parametry strefy DNS: główny serwer nazw, adres administratora oraz czasy odświeżania strefy.',
   },
   'ptr-record': {
-    title: 'PTR Record (Reverse DNS)',
+    title: 'Rekord PTR (Odwrotny DNS)',
     check: 'dns',
     definition:
-      'The reverse of an A record, mapping an IP address back to a hostname. Mail servers often reject email from servers without one.',
+      'Odwrotność rekordu A — przypisuje adresowi IP nazwę hosta. Serwery pocztowe często odrzucają wiadomości z serwerów bez rekordu PTR.',
   },
   ttl: {
     title: 'TTL (Time to Live)',
     check: 'dns',
     definition:
-      'How long, in seconds, resolvers may keep a DNS answer before asking again. Long TTLs make lookups faster, but changes take longer to reach everyone.',
+      'Czas w sekundach, przez jaki resolvery mogą przechowywać odpowiedź DNS w pamięci podręcznej. Długi TTL przyspiesza zapytania, ale spowalnia propagację zmian.',
   },
   dnskey: {
     title: 'DNSKEY',
     check: 'dnssec',
-    definition: "The public keys that sign a domain's DNS records under DNSSEC.",
-    fail: "Without them, the domain's DNS records aren't signed.",
+    definition: 'Klucze publiczne służące do podpisywania rekordów DNS domeny w ramach mechanizmu DNSSEC.',
+    fail: 'Bez kluczy DNSKEY rekordy DNS domeny nie są podpisane cyfrowo.',
   },
   'ds-record': {
-    title: 'DS Record',
+    title: 'Rekord DS',
     check: 'dnssec',
     definition:
-      "A record in the parent zone that points to the domain's DNSKEY, so resolvers can trust its signatures.",
-    fail: "Without it, resolvers can't check the signatures, so DNSSEC isn't in effect.",
+      'Rekord w strefie nadrzędnej wskazujący na klucz DNSKEY domeny, umożliwiający zbudowanie łańcucha zaufania DNSSEC.',
+    fail: 'Bez rekordu DS resolvery nie mogą zweryfikować podpisów, więc DNSSEC nie jest aktywny.',
   },
   'dnssec-validation': {
-    title: 'DNSSEC Validation',
+    title: 'Walidacja DNSSEC',
     check: 'dnssec',
     definition:
-      "Whether a resolver could verify the domain's DNS answers were signed and unchanged.",
-    fail: "Answers can't be verified, so a forged DNS reply could send visitors to the wrong server.",
+      'Informacja, czy resolver potwierdził autentyczność i integralność podpisanych odpowiedzi DNS.',
+    fail: 'Odpowiedzi DNS nie można zweryfikować kryptograficznie, co otwiera drogę do zatruwania pamięci podręcznej DNS.',
   },
 } satisfies Record<string, Term>;
 
 const hosting = {
   'ip-address': {
-    title: 'IP Address',
+    title: 'Adres IP',
     check: 'get-ip',
     definition:
-      "The number that identifies a server on the internet. DNS turns domain names into these, so people don't have to remember them.",
+      'Numeryczny identyfikator serwera w internecie. System DNS tłumaczy czytelne dla ludzi nazwy domen na adresy IP.',
   },
   'shared-hosting': {
-    title: 'Shared Hosting',
+    title: 'Hosting współdzielony',
     check: 'hosts',
     definition:
-      "Many sites running on one server and IP address. It's cheap and common, but if one site gets blocklisted, others on the same IP can be blocked too.",
+      'Wiele stron działających na jednym serwerze i tym samym adresie IP. Jeśli jedna witryna trafi na czarną listę, może to wpłynąć na pozostałe.',
   },
   asn: {
-    title: 'ASN (Autonomous System Number)',
+    title: 'ASN (Numer Systemu Autonomicznego)',
     check: 'server-info',
     definition:
-      "A number for a large network on the internet, usually run by a hosting company, ISP or big business. A server's ASN shows whose network it sits on.",
+      'Identyfikator dużej sieci w internecie należącej zwykle do dostawcy hostingu, operatora telekomunikacyjnego lub korporacji.',
   },
   'ip-geolocation': {
-    title: 'IP Geolocation',
+    title: 'Geolokalizacja IP',
     check: 'location',
     definition:
-      "An estimate of where a server is, based on its IP address. It's usually right about the country, but often wrong about the city.",
+      'Przybliżone położenie geograficzne serwera ustalone na podstawie jego adresu IP. Zwykle trafnie wskazuje kraj, choć miasto bywa orientacyjne.',
   },
   traceroute: {
-    title: 'Traceroute',
+    title: 'Traceroute (Trasa pakietów)',
     check: 'trace-route',
     definition:
-      'Lists each network hop between you and a server, with the time each one takes. It shows where a connection slows down or breaks.',
+      'Lista kolejnych routerów na ścieżce między punktem pomiarowym a serwerem wraz z czasem opóźnień dla każdego przeskoku.',
   },
   cms: {
-    title: 'Content Management System (CMS)',
+    title: 'System zarządzania treścią (CMS)',
     check: 'tech-stack',
     definition:
-      'Software for building and editing a site without writing code, like WordPress, Drupal or Joomla. Old versions and plugins are a common way in for attackers.',
+      'Oprogramowanie do tworzenia i edycji stron bez pisania kodu, np. WordPress, Drupal czy Joomla. Nieaktualne wtyczki są częstym celem ataków.',
   },
 } satisfies Record<string, Term>;
 
@@ -652,64 +651,64 @@ const threats = {
     title: 'Google Safe Browsing',
     check: 'threats',
     definition:
-      "Google's list of sites known for malware or phishing, which Chrome, Firefox and Safari warn visitors about.",
-    fail: 'Visitors in most browsers see a red warning page instead of the site.',
+      'Lista witryn powiązanych ze złośliwym oprogramowaniem lub phishingiem, przed którymi ostrzegają Chrome, Firefox i Safari.',
+    fail: 'Użytkownicy większości przeglądarek widzą czerwone ostrzeżenie o zagrożeniu zamiast strony.',
   },
   'threat-scan': {
-    title: 'Threat Scan',
+    title: 'Skanowanie zagrożeń',
     check: 'threats',
-    definition: 'A scan of the site for malware, phishing and other threats to visitors.',
+    definition: 'Weryfikacja witryny pod kątem złośliwego oprogramowania, phishingu i innych zagrożeń dla użytkowników.',
   },
   phishing: {
     title: 'Phishing',
     check: 'threats',
     definition:
-      'Pages that pose as a trusted brand to steal logins, card details or other personal data.',
+      'Strony podszywające się pod zaufane marki w celu wyłudzenia danych logowania, numerów kart lub danych osobowych.',
   },
   malware: {
-    title: 'Malware',
+    title: 'Złośliwe oprogramowanie (Malware)',
     check: 'threats',
     definition:
-      'Software designed to harm visitors or their devices, often spread through hacked sites.',
-    fail: 'URLs on this site have been reported for spreading malware.',
+      'Oprogramowanie stworzone w celu zainfekowania urządzeń odwiedzających, często rozpowszechniane przez przejęte strony.',
+    fail: 'Adresy URL w tej witrynie zostały zgłoszone jako źródło złośliwego oprogramowania.',
   },
   'dns-blocklist': {
-    title: 'DNS Blocklists',
+    title: 'Listy blokujące DNS',
     check: 'block-lists',
     definition:
-      'Lists that privacy and family-safety DNS resolvers use to block harmful or unwanted sites.',
-    fail: "Visitors using this resolver can't reach the site.",
+      'Listy wykorzystywane przez resolvery DNS dbające o prywatność i bezpieczeństwo rodziny do blokowania szkodliwych domen.',
+    fail: 'Użytkownicy korzystający z tego resolvera DNS nie mogą otworzyć strony.',
   },
   'data-breach': {
-    title: 'Data Breaches',
+    title: 'Wycieki danych',
     check: 'breaches',
-    definition: "Incidents where a site's user data was leaked or stolen, and later made public.",
-    fail: 'Accounts from this site have been exposed, and reused passwords may be tried on other sites.',
+    definition: 'Incydenty bezpieczeństwa, w wyniku których dane użytkowników serwisu zostały wykradzione i upublicznione.',
+    fail: 'Konta z tego serwisu znalazły się w wycieku — powtarzające się hasła mogą być testowane w innych usługach.',
   },
   cve: {
-    title: 'Known Vulnerabilities (CVEs)',
+    title: 'Znane podatności (CVE)',
     check: 'vulnerabilities',
     definition:
-      'Publicly listed security flaws in the software a server runs, each with a CVE number.',
-    fail: 'Attackers scan for these, so update or patch the affected software.',
+      'Publicznie skatalogowane luki bezpieczeństwa w oprogramowaniu serwera, oznaczone unikalnym identyfikatorem CVE.',
+    fail: 'Atakujący automatycznie skanują sieć w poszukiwaniu tych luk — zaktualizuj podatne oprogramowanie.',
   },
   'known-exploited': {
-    title: 'Actively Exploited',
+    title: 'Aktywnie wykorzystywane podatności',
     check: 'vulnerabilities',
-    definition: "Flaws on CISA's list of vulnerabilities that attackers are known to be using.",
+    definition: 'Luki znajdujące się w katalogu CISA KEV, co do których potwierdzono aktywne ataki w sieci.',
   },
   'open-port': {
-    title: 'Open Ports',
+    title: 'Otwarte porty',
     check: 'ports',
     definition:
-      'Each open port is a service anyone on the internet can try to connect to, and probe for weaknesses.',
-    fail: 'Unless it needs to be public, close it or limit who can reach it with a firewall.',
+      'Każdy otwarty port to usługa dostępna z internetu, z którą można nawiązać połączenie i badać ją pod kątem podatności.',
+    fail: 'Jeśli usługa nie musi być publiczna, zamknij port lub ogranicz dostęp na zaporze sieciowej.',
   },
   waf: {
-    title: 'Web Application Firewall',
+    title: 'Zapora aplikacji sieciowych (WAF)',
     check: 'firewall',
     definition:
-      'A filter in front of a site that blocks common attacks, like SQL injection and bad bots.',
+      'Filtr ruchu HTTP chroniący witrynę przed typowymi atakami, takimi jak SQL Injection, XSS czy złośliwe boty.',
   },
 } satisfies Record<string, Term>;
 
@@ -718,158 +717,158 @@ const securityTxt = {
     title: 'security.txt',
     check: 'security-txt',
     definition:
-      'A file at /.well-known/security.txt telling security researchers how to report a problem.',
-    fail: 'Researchers who find a vulnerability may not know who to tell.',
+      'Plik pod adresem /.well-known/security.txt informujący badaczy bezpieczeństwa, jak zgłosić wykrytą podatność.',
+    fail: 'Badacze, którzy odkryją błąd bezpieczeństwa, mogą nie wiedzieć, z kim się skontaktować.',
   },
   'security-txt-signature': {
-    title: 'Signed security.txt',
+    title: 'Podpisany plik security.txt',
     check: 'security-txt',
     definition:
-      "A PGP signature proves the file came from the site's owner and hasn't been changed.",
+      'Podpis PGP potwierdzający, że plik pochodzi od właściciela witryny i nie został zmodyfikowany.',
   },
   'security-txt-contact': {
-    title: 'Contact Field',
+    title: 'Pole Contact',
     check: 'security-txt',
-    definition: 'The required field giving an email address or link for reporting vulnerabilities.',
+    definition: 'Wymagane pole zawierające adres e-mail lub formularz do zgłaszania luk bezpieczeństwa.',
   },
   'security-txt-expires': {
-    title: 'Expires Field',
+    title: 'Pole Expires',
     check: 'security-txt',
     definition:
-      'The required date after which the file counts as out of date. It should be under a year ahead.',
+      'Wymagana data ważności pliku security.txt. Zaleca się ustawienie jej na mniej niż rok do przodu.',
   },
 } satisfies Record<string, Term>;
 
 const quality = {
   'lighthouse-performance': {
-    title: 'Performance Score',
+    title: 'Wynik wydajności',
     check: 'quality',
-    definition: "Google Lighthouse's score for how fast the page loads and becomes usable.",
+    definition: 'Ocena Google Lighthouse określająca szybkość ładowania i osiągania interaktywności przez stronę.',
   },
   'lighthouse-accessibility': {
-    title: 'Accessibility Score',
+    title: 'Wynik dostępności',
     check: 'quality',
     definition:
-      "Google Lighthouse's score for how usable the page is for people with disabilities, such as screen reader users.",
+      'Ocena Google Lighthouse określająca przystosowanie strony dla osób z niepełnosprawnościami (np. użytkowników czytników ekranu).',
   },
   'lighthouse-best-practices': {
-    title: 'Best Practices Score',
+    title: 'Wynik dobrych praktyk',
     check: 'quality',
     definition:
-      "Google Lighthouse's score for modern web practices, from using HTTPS to avoiding outdated browser features.",
+      'Ocena Google Lighthouse weryfikująca stosowanie nowoczesnych standardów webowych, od HTTPS po unikanie przestarzałych API.',
   },
   'lighthouse-seo': {
-    title: 'SEO Score',
+    title: 'Wynik SEO',
     check: 'quality',
     definition:
-      "Google Lighthouse's score for the basics that help search engines find and show a page.",
+      'Ocena Google Lighthouse sprawdzająca podstawowe elementy ułatwiające wyszukiwarkom indeksowanie strony.',
   },
   'response-time': {
-    title: 'Response Time',
+    title: 'Czas odpowiedzi',
     check: 'status',
     definition:
-      'How long the server takes to answer. A slow first response delays everything else on the page.',
+      'Czas potrzebny serwerowi na udzielenie odpowiedzi. Wolna pierwsza odpowiedź opóźnia ładowanie całej strony.',
   },
   'http-status-codes': {
-    title: 'HTTP Status Codes',
+    title: 'Kody statusu HTTP',
     check: 'status',
     definition:
-      'The three-digit number a server sends with every response: 200 means OK, 301 a redirect, 404 not found, and 500 a server error.',
+      'Trzycyfrowy kod zwracany przez serwer: 200 oznacza sukces, 301 przekierowanie, 404 brak strony, a 500 błąd serwera.',
   },
   redirects: {
-    title: 'Redirects',
+    title: 'Przekierowania',
     check: 'redirects',
     definition:
-      'Each redirect sends the browser to another URL, adding a round trip before the page loads.',
+      'Każde przekierowanie kieruje przeglądarkę pod inny adres URL, dodając kolejną rundę komunikacji przed załadowaniem strony.',
   },
   'https-redirect': {
-    title: 'HTTPS Redirect',
+    title: 'Przekierowanie na HTTPS',
     check: 'redirects',
     definition:
-      'Sends visitors who arrive over plain HTTP to the secure HTTPS version of the site.',
-    fail: 'Visitors who type the address without https:// stay on an insecure connection.',
+      'Automatycznie kieruje użytkowników wchodzących po nieszyfrowanym HTTP na bezpieczną wersję HTTPS.',
+    fail: 'Użytkownicy wpisujący adres bez https:// pozostają na nieszyfrowanym połączeniu.',
   },
   'search-crawling': {
-    title: 'Search Engine Crawling',
+    title: 'Indeksowanie przez wyszukiwarki',
     check: 'robots-txt',
-    definition: 'robots.txt can ask search engines to stay away from some or all of a site.',
-    fail: 'Google is asked to skip the whole site, so it may drop out of search results.',
+    definition: 'Plik robots.txt może prosić roboty wyszukiwarek o pomijanie wybranych części lub całej witryny.',
+    fail: 'Robot Google ma zablokowany dostęp do całej witryny, przez co może ona zniknąć z wyników wyszukiwania.',
   },
   'ai-crawlers': {
-    title: 'AI Crawlers',
+    title: 'Roboty AI (AI Crawlers)',
     check: 'robots-txt',
     definition:
-      'Bots that fetch pages to train AI models or answer questions, like GPTBot and ClaudeBot. Sites can ask them to stay away in robots.txt, though not all listen.',
+      'Boty pobierające treści stron do trenowania modeli AI lub generowania odpowiedzi (np. GPTBot, ClaudeBot). Można ograniczyć im dostęp w robots.txt.',
   },
   'llms-txt': {
     title: 'llms.txt',
     check: 'robots-txt',
     definition:
-      'A proposed file at /llms.txt that gives AI tools a short, plain summary of a site and links to its key pages.',
+      'Proponowany plik pod adresem /llms.txt udostępniający narzędziom AI zwięzłe podsumowanie witryny i linki do kluczowych podstron.',
   },
   'xml-sitemap': {
-    title: 'XML Sitemap',
+    title: 'Mapa witryny XML (Sitemap)',
     check: 'sitemap',
     definition:
-      'A file listing the pages of a site, so search engines can find them all, including ones nothing links to.',
+      'Plik zawierający listę adresów URL witryny, ułatwiający wyszukiwarkom odnalezienie wszystkich podstron.',
   },
   'canonical-url': {
-    title: 'Canonical URL',
+    title: 'Adres kanoniczny (Canonical URL)',
     check: 'social-tags',
     definition:
-      "Tells search engines which URL is the main one when a page can be reached at several addresses, so its ranking isn't split between them.",
+      'Wskazuje wyszukiwarkom główny adres URL strony dostępnej pod wieloma wariantami, zapobiegając rozproszeniu pozycji w wynikach.',
   },
   'open-graph': {
     title: 'Open Graph',
     check: 'social-tags',
     definition:
-      'Tags setting the title, description and image shown when a page is shared on social media or in chat apps.',
-    fail: 'Without it, apps guess what to show when the page is shared, often badly.',
+      'Znaczniki meta określające tytuł, opis i miniaturę wyświetlane podczas udostępniania linku w mediach społecznościowych i komunikatorach.',
+    fail: 'Bez znaczników Open Graph serwisy społecznościowe same zgadują podgląd linku, często z mizernym skutkiem.',
   },
   'twitter-card': {
     title: 'Twitter Card',
     check: 'social-tags',
-    definition: 'Tells X (formerly Twitter) which preview style to use when the page is shared.',
+    definition: 'Określa wygląd karty podglądu po udostępnieniu adresu URL w serwisie X (dawniej Twitter).',
   },
   'social-verification': {
-    title: 'Profile Verification',
+    title: 'Weryfikacja profili społecznościowych',
     check: 'social-presence',
     definition:
-      'Whether a social profile the site points to also points back, showing the same people run both.',
+      'Sprawdzenie, czy profil społecznościowy wskazany na stronie zawiera link zwrotny do witryny, co potwierdza wspólnego właściciela.',
   },
   trackers: {
-    title: 'Trackers',
+    title: 'Trackery',
     check: 'trackers',
-    definition: 'Third-party services that record what visitors do, often across many sites.',
-    pass: 'No known trackers load on this page.',
+    definition: 'Zewnętrzne skrypty i usługi rejestrujące aktywność odwiedzających, często w obrębie wielu witryn.',
+    pass: 'Na tej stronie nie wykryto znanych trackerów.',
   },
   'ad-trackers': {
-    title: 'Advertising Trackers',
+    title: 'Trackery reklamowe',
     check: 'trackers',
-    definition: 'Scripts from ad networks that follow visitors across sites to target ads at them.',
+    definition: 'Skrypty sieci reklamowych śledzące użytkowników między witrynami w celu personalizacji reklam.',
   },
   analytics: {
-    title: 'Analytics',
+    title: 'Analityka',
     check: 'trackers',
-    definition: 'Services that record how visitors use a site, such as the pages they view.',
+    definition: 'Narzędzia mierzące sposób korzystania ze strony przez użytkowników, np. odwiedzane podstrony.',
   },
   'carbon-footprint': {
-    title: 'Carbon Footprint',
+    title: 'Ślad węglowy',
     check: 'carbon',
     definition:
-      'An estimate of the CO2 released by the energy used to load a page. Heavier pages use more energy.',
+      'Szacowana emisja CO2 związana z energią zużytą na przesłanie i wyświetlenie strony. Cięższe strony generują większy ślad.',
   },
   'tranco-rank': {
-    title: 'Tranco Rank',
+    title: 'Ranking Tranco',
     check: 'rank',
     definition:
-      "A site's place in the Tranco list of the top million sites. It combines several other rankings, which makes it harder to game.",
+      'Pozycja domeny w zestawieniu miliona najpopularniejszych witryn Tranco, łączącym dane z wielu niezależnych rankingów.',
   },
   'web-archive': {
-    title: 'Web Archive',
+    title: 'Archiwum WWW (Wayback Machine)',
     check: 'archives',
     definition:
-      'Services like the Wayback Machine that save copies of web pages over time. They show how a site used to look, including things since taken down.',
+      'Usługi zapisujące historyczne kopie stron internetowych, pozwalające podejrzeć dawny wygląd i treść witryny.',
   },
 } satisfies Record<string, Term>;
 
@@ -889,26 +888,24 @@ export const glossary = {
   ...quality,
 };
 
-// Each group of terms, in the order the glossary page lists them
 export const termGroups: { title: string; terms: Record<string, Term> }[] = [
-  { title: 'Certificates', terms: certificates },
-  { title: 'TLS', terms: tls },
-  { title: 'TLS vulnerabilities', terms: tlsVulnerabilities },
+  { title: 'Certyfikaty', terms: certificates },
+  { title: 'TLS i szyfrowanie', terms: tls },
+  { title: 'Podatności TLS', terms: tlsVulnerabilities },
   { title: 'HSTS', terms: hsts },
-  { title: 'Security headers', terms: securityHeaders },
-  { title: 'Page content', terms: pageContent },
-  { title: 'Email', terms: email },
-  { title: 'Domains', terms: domains },
+  { title: 'Nagłówki bezpieczeństwa', terms: securityHeaders },
+  { title: 'Zawartość strony', terms: pageContent },
+  { title: 'Poczta e-mail', terms: email },
+  { title: 'Domeny', terms: domains },
   { title: 'DNS', terms: dns },
-  { title: 'Hosting and network', terms: hosting },
-  { title: 'Threats and reputation', terms: threats },
+  { title: 'Hosting i sieć', terms: hosting },
+  { title: 'Zagrożenia i reputacja', terms: threats },
   { title: 'security.txt', terms: securityTxt },
-  { title: 'Quality and visibility', terms: quality },
+  { title: 'Jakość i widoczność', terms: quality },
 ];
 
 export type TermId = keyof typeof glossary;
 
-// What a term means for a row, using its pass or fail wording when it has one
 export const termText = (id: TermId, passed: boolean): string => {
   const term: Term = glossary[id];
   return (passed ? term.pass : term.fail) ?? term.definition;

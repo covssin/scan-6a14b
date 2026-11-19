@@ -17,7 +17,7 @@ const { terms, linkToGlossary = false } = Astro.props;
       <dd>
         {term.definition}
         {!linkToGlossary && term.check && (
-          <a href={`/${term.check}`}>See the {checks[term.check].title} check</a>
+          <a href={`/${term.check}`}>Zobacz test: {checks[term.check].title}</a>
         )}
       </dd>
     </div>

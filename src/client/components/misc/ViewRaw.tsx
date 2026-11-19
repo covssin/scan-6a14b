@@ -58,14 +58,14 @@ const ViewRaw = (props: { everything: { id: string; result: any }[] }) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        title: 'web-check results',
+        title: 'Wyniki skanowania SCAN_KMucha',
         content: resultContent,
         readOnly: true,
         ttl: 3600,
       }),
     });
     if (!response.ok) {
-      setError(`HTTP error! status: ${response.status}`);
+      setError(`Błąd HTTP! Status: ${response.status}`);
     } else {
       setError(null);
     }
@@ -77,29 +77,29 @@ const ViewRaw = (props: { everything: { id: string; result: any }[] }) => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'web-check-results.json';
+    link.download = 'scan-kmucha-wyniki.json';
     link.click();
     URL.revokeObjectURL(url);
   };
   return (
-    <Card heading="View / Download Raw Data" styles={CardStyles}>
+    <Card heading="Podgląd / pobieranie surowych danych" styles={CardStyles}>
       <div className="controls">
-        <Button onClick={handleDownload}>Download Results</Button>
-        <Button onClick={fetchResultsUrl}>{resultUrl ? 'Update Results' : 'View Results'}</Button>
-        {resultUrl && <Button onClick={() => setResultUrl('')}>Hide Results</Button>}
+        <Button onClick={handleDownload}>Pobierz wyniki (JSON)</Button>
+        <Button onClick={fetchResultsUrl}>{resultUrl ? 'Odśwież podgląd' : 'Podgląd online'}</Button>
+        {resultUrl && <Button onClick={() => setResultUrl('')}>Ukryj podgląd</Button>}
       </div>
       {resultUrl && !error && (
         <>
-          <StyledIframe title="Results, via JSON Hero" src={resultUrl} />
+          <StyledIframe title="Podgląd wyników przez JSON Hero" src={resultUrl} />
           <small>
-            Your results are available to view <a href={resultUrl}>here</a>.
+            Twoje wyniki są dostępne do podglądu <a href={resultUrl}>tutaj</a>.
           </small>
         </>
       )}
       {error && <p className="error">{error}</p>}
       <small>
-        These are the raw results generated from your URL, and in JSON format. You can import these
-        into your own program, for further analysis.
+        Powyżej znajdują się surowe wyniki wygenerowane dla badanego adresu URL w formacie JSON.
+        Możesz je zaimportować do własnych skryptów w celu dalszej analizy.
       </small>
     </Card>
   );

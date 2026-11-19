@@ -44,49 +44,49 @@ type Kind = 'unreachable' | 'invalid' | 'api-down' | 'disabled' | 'blocked';
 
 const VARIANT: Record<Kind, { title: string; description: string; reasons: string[] }> = {
   unreachable: {
-    title: 'Cannot Reach This Site',
-    description: 'We could not resolve an IP address for this host, so checks cannot run',
+    title: 'Nie można połączyć się z tą stroną',
+    description: 'Nie udało się ustalić adresu IP dla tego hosta, więc skanowanie nie może zostać uruchomione',
     reasons: [
-      'The domain might be misspelled or no longer registered',
-      'The website may be offline or temporarily unreachable',
-      'A DNS resolution issue may be affecting the lookup',
-      'A firewall or geo-block may be preventing access',
+      'Nazwa domeny może zawierać literówkę lub nie jest już zarejestrowana',
+      'Witryna może być wyłączona lub tymczasowo niedostępna',
+      'Wystąpił problem z rozwiązywaniem nazwy w DNS',
+      'Zapora sieciowa lub blokada regionalna uniemożliwia połączenie',
     ],
   },
   invalid: {
-    title: 'Invalid Input',
-    description: 'That does not look like a valid URL or IP address, so checks cannot run',
+    title: 'Nieprawidłowy adres wejściowy',
+    description: 'Wprowadzony ciąg nie wygląda na poprawny adres URL ani adres IP',
     reasons: [
-      'Enter a domain (example.com) or an IPv4 / IPv6 address',
-      'Check for typos or stray characters in the input',
-      'Avoid spaces and unsupported symbols in the address',
+      'Wpisz nazwę domeny (np. kmucha.pl) lub adres IPv4 / IPv6',
+      'Sprawdź, czy w adresie nie ma literówek lub zbędnych znaków',
+      'Unikaj spacji i nieobsługiwanych symboli w adresie',
     ],
   },
   'api-down': {
-    title: 'Service Unavailable',
-    description: 'Most checks failed because the Web-Check API could not be reached',
+    title: 'Usługa tymczasowo niedostępna',
+    description: 'Większość testów nie powiodła się, ponieważ nie udało się połączyć z API SCAN_KMucha',
     reasons: [
-      'The API may be down, restarting or rate-limited',
-      'A self-hosted instance might be misconfigured or offline',
-      'A network or firewall issue could be blocking the API',
+      'Interfejs API jest tymczasowo niedostępny, uruchamia się ponownie lub osiągnął limit zapytań',
+      'Własna instancja serwera może być błędnie skonfigurowana lub zatrzymana',
+      'Połączenie z API jest blokowane przez sieć lub zaporę',
     ],
   },
   blocked: {
-    title: 'Scanning Not Permitted',
-    description: 'Every check was skipped, as this instance does not allow scanning this host',
+    title: 'Skanowanie niedozwolone',
+    description: 'Wszystkie testy zostały pominięte, ponieważ ta instancja nie zezwala na skanowanie wskazanego hosta',
     reasons: [
-      'The administrator may have blocked this domain or IP range',
-      'The instance may be configured to not run these checks',
-      'You can still scan this host from your own instance of Web-Check',
+      'Administrator zablokował tę domenę lub zakres adresów IP',
+      'Konfiguracja instancji wyłącza skanowanie tego typu celów',
+      'Możesz zeskanować ten adres na własnej instancji SCAN_KMucha',
     ],
   },
   disabled: {
-    title: 'Web-Check is Paused',
-    description: 'This instance has been temporarily disabled, so checks cannot run',
+    title: 'Narzędzie SCAN_KMucha jest wstrzymane',
+    description: 'Ta instancja została tymczasowo wyłączona, więc testy nie mogą zostać uruchomione',
     reasons: [
-      'The public instance may be paused to manage running costs',
-      'A self-hosted instance may be in maintenance mode',
-      'You can run your own copy from the open-source repo on GitHub',
+      'Publiczna instancja mogła zostać tymczasowo wstrzymana',
+      'Serwer znajduje się w trybie konserwacji',
+      'Możesz uruchomić własną instancję aplikacji na swoim serwerze',
     ],
   },
 };
@@ -97,7 +97,6 @@ interface Props {
   kind?: Kind;
 }
 
-// Surface a friendly explanation when input is invalid or the host is unreachable
 const NoResults = ({ address, error, kind = 'unreachable' }: Props): JSX.Element => {
   const { title, description, reasons } = VARIANT[kind];
   return (
@@ -107,7 +106,7 @@ const NoResults = ({ address, error, kind = 'unreachable' }: Props): JSX.Element
       </Heading>
       <p>{description}</p>
       <code className="target">{address}</code>
-      <p>Possible reasons:</p>
+      <p>Możliwe przyczyny:</p>
       <ul className="reasons">
         {reasons.map((r) => (
           <li key={r}>{r}</li>
@@ -115,7 +114,7 @@ const NoResults = ({ address, error, kind = 'unreachable' }: Props): JSX.Element
       </ul>
       {error && (
         <span className="detail">
-          {kind === 'blocked' ? 'Reason' : 'Lookup error'}: {error}
+          {kind === 'blocked' ? 'Powód' : 'Błąd zapytania'}: {error}
         </span>
       )}
     </Wrapper>

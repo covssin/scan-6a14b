@@ -1,25 +1,22 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Tech Stack',
+  title: 'Stos technologiczny',
   categories: ['server', 'privacy'],
-  summary: 'Frameworks, analytics and services the site is built with',
+  summary: 'Frameworki, systemy CMS, analityka i usługi wykryte na stronie',
   description:
-    "Fetches the page and matches it against Wappalyzer's fingerprint set, a large " +
-    'collection of regular expressions that recognise the traces different ' +
-    'technologies leave behind in markup, headers, script paths and cookie names.',
+    'Analizuje kod strony, nagłówki, ścieżki skryptów i nazwy plików cookie przy użyciu sygnatur ' +
+    'Wappalyzer w celu identyfikacji zastosowanych technologii.',
   use:
-    'Knowing the framework, CMS, analytics and payment provider narrows down which ' +
-    'vulnerabilities are worth checking, and shows which third parties have a hand in ' +
-    'serving the page. Detection is inference rather than certainty, and reported ' +
-    'version numbers in particular are often wrong.',
+    'Znajomość używanego systemu CMS, bibliotek i zewnętrznych usług pomaga ocenić powierzchnię ataku, ' +
+    'zweryfikować aktualność oprogramowania oraz zidentyfikować dostawców przetwarzających dane.',
   resources: [
     {
-      title: 'Wappalyzer fingerprints (community fork)',
+      title: 'Sygnatury Wappalyzer',
       link: 'https://github.com/enthec/webappanalyzer/tree/main/src/technologies',
     },
     {
-      title: 'BuiltWith - Check what tech a site is using',
+      title: 'BuiltWith',
       link: 'https://builtwith.com/',
     },
   ],

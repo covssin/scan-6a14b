@@ -1,37 +1,20 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Security.txt',
+  title: 'Plik security.txt',
   categories: ['security'],
-  summary: 'The security.txt file, and who it says to contact about vulnerabilities',
+  summary: 'Informacje kontaktowe dla badaczy bezpieczeństwa zgodnie ze standardem RFC 9116',
   description:
-    'security.txt tells researchers how to report a security problem. RFC 9116 ' +
-    'defines the format: a contact address and an expiry date at minimum, then ' +
-    'optionally a disclosure policy, a PGP key and preferred languages. It belongs at ' +
-    '/.well-known/security.txt.',
+    'Plik security.txt (zwykle pod adresem /.well-known/security.txt) wskazuje badaczom bezpieczeństwa ' +
+    'kanał kontaktu do zgłaszania podatności, datę ważności pliku oraz opcjonalnie klucz PGP i politykę ujawniania.',
   use:
-    'Without a published contact, whoever finds a vulnerability either gives up or ' +
-    'reports it somewhere public. The file is informative in its own right: a ' +
-    'current, complete one suggests a team that expects reports, and the PGP key ' +
-    'carries metadata of its own.',
+    'Brak jasnego kontaktu sprawia, że osoby wykrywające luki nie wiedzą, komu je zgłosić. ' +
+    'Aktualny plik security.txt świadczy o dojrzałym podejściu organizacji do obsługi incydentów.',
   resources: [
     { title: 'securitytxt.org', link: 'https://securitytxt.org/' },
     {
-      title: 'RFC-9116 Proposal',
+      title: 'RFC-9116',
       link: 'https://datatracker.ietf.org/doc/html/rfc9116',
-    },
-    { title: 'RFC-9116 History', link: 'https://datatracker.ietf.org/doc/rfc9116/' },
-    {
-      title: 'Security.txt (Wikipedia)',
-      link: 'https://en.wikipedia.org/wiki/Security.txt',
-    },
-    {
-      title: 'Example security.txt (Cloudflare)',
-      link: 'https://www.cloudflare.com/.well-known/security.txt',
-    },
-    {
-      title: 'Tutorial for creating security.txt (Pieter Bakker)',
-      link: 'https://pieterbakker.com/implementing-security-txt/',
     },
   ],
   screenshot: 'https://pixelflare.cc/alicia/web-check/wc-securitytxt',

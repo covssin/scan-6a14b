@@ -9,10 +9,10 @@ const BreachesCard = (props: { data: any; title: string; actionButtons: any }): 
   const [result] = checkBreaches(props.data);
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
-      <Row lbl="Domain" val={domain} />
+      <Row lbl="Domena" val={domain} />
       <Row
-        lbl="Breaches"
-        val={breaches.length || 'None'}
+        lbl="Wycieki"
+        val={breaches.length || 'Brak'}
         term="data-breach"
         {...fromFinding(result)}
       />
@@ -20,18 +20,18 @@ const BreachesCard = (props: { data: any; title: string; actionButtons: any }): 
         <ExpandableRow
           key={breach.name}
           lbl={breach.title}
-          val={`${formatNumber(breach.accounts)} accounts`}
+          val={`${formatNumber(breach.accounts)} kont`}
           rowList={[
-            { lbl: 'Breach Date', val: breach.date },
-            { lbl: 'Site', val: breach.domain },
-            { lbl: 'Verified', val: breach.verified ? 'Yes' : 'No' },
-            { lbl: 'Data Exposed', listResults: breach.exposed },
-            { lbl: 'Details', plaintext: breach.description },
+            { lbl: 'Data wycieku', val: breach.date },
+            { lbl: 'Serwis', val: breach.domain },
+            { lbl: 'Zweryfikowany', val: breach.verified ? 'Tak' : 'Nie' },
+            { lbl: 'Ujawnione dane', listResults: breach.exposed },
+            { lbl: 'Szczegóły', plaintext: breach.description },
           ]}
         />
       ))}
       <Note>
-        Source:{' '}
+        Źródło:{' '}
         <a href="https://haveibeenpwned.com/" target="_blank" rel="noreferrer">
           Have I Been Pwned
         </a>

@@ -1,7 +1,5 @@
 import type { Analyzer, Result } from '../types';
 
-// Parse Set-Cookie headers (one per array element) into name + attribute list,
-// skipping nameless entries (empty lines, cookie-deletion stubs like "=; Path=/")
 const parseCookies = (raw: unknown): Array<{ name: string; attrs: string[] }> => {
   if (!Array.isArray(raw)) return [];
   return raw
@@ -14,28 +12,26 @@ const parseCookies = (raw: unknown): Array<{ name: string; attrs: string[] }> =>
     .filter((c) => c.name);
 };
 
-// The Secure, HttpOnly and SameSite flags a cookie is missing, from its lowercase attribute names
 export const checkCookie = (name: string, attrs: string[]): Result[] => {
   const out: Result[] = [];
   if (!attrs.includes('secure')) {
-    out.push({ severity: 'issue', title: `Cookie "${name}" missing Secure flag` });
+    out.push({ severity: 'issue', title: `Plik cookie „${name}” nie ma flagi Secure` });
   }
   if (!attrs.includes('httponly')) {
-    out.push({ severity: 'warning', title: `Cookie "${name}" missing HttpOnly flag` });
+    out.push({ severity: 'warning', title: `Plik cookie „${name}” nie ma flagi HttpOnly` });
   }
   if (!attrs.includes('samesite')) {
-    out.push({ severity: 'warning', title: `Cookie "${name}" missing SameSite flag` });
+    out.push({ severity: 'warning', title: `Plik cookie „${name}” nie ma flagi SameSite` });
   }
   return out;
 };
 
-// Audit Set-Cookie attributes for Secure, HttpOnly, SameSite
 const cookies: Analyzer = (d) => {
   const parsed = parseCookies(d.headerCookies);
   if (!parsed.length) return [];
   const out = parsed.flatMap(({ name, attrs }) => checkCookie(name, attrs));
   if (!out.length)
-    out.push({ severity: 'pass', title: 'All cookies use Secure/HttpOnly/SameSite' });
+    out.push({ severity: 'pass', title: 'Wszystkie pliki cookie używają flag Secure/HttpOnly/SameSite' });
   return out;
 };
 

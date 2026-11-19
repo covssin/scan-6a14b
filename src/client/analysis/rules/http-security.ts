@@ -17,13 +17,9 @@ const RECOMMENDED: Record<string, string> = {
 
 export const HEADERS = { ...CRITICAL, ...RECOMMENDED, xXSSProtection: 'X-XSS-Protection' };
 
-// Script sources that let any site, or a data: URL, run scripts
 const ANY_SOURCE = ['*', 'http:', 'https:', 'data:'];
-
-// Referrer policies that send the full URL to other sites
 const LEAKY_REFERRERS = ['unsafe-url', 'no-referrer-when-downgrade'];
 
-// Split a CSP header into its policies, each mapping a directive to its sources
 const parseCsp = (header: string): Record<string, string[]>[] =>
   header.split(',').map((policy) =>
     Object.fromEntries(
@@ -34,11 +30,9 @@ const parseCsp = (header: string): Record<string, string[]>[] =>
     ),
   );
 
-// True when a CSP header sets frame-ancestors, which replaces X-Frame-Options
 export const hasFrameAncestors = (d: any) =>
   !!d.contentSecurityPolicy && parseCsp(d.contentSecurityPolicy).some((p) => p['frame-ancestors']);
 
-// Flag a CSP that leaves scripts open to injection, or skips object-src and base-uri
 const checkCsp = (header: string): Result[] => {
   const policies = parseCsp(header);
   const scripts = policies.map((p) => p['script-src'] || p['default-src']);
@@ -46,12 +40,11 @@ const checkCsp = (header: string): Result[] => {
     return [
       {
         severity: 'warning',
-        title: "Content-Security-Policy doesn't restrict scripts",
-        detail: 'Add script-src or default-src, so the policy can block injected scripts',
+        title: 'Content-Security-Policy nie ogranicza skryptów',
+        detail: 'Dodaj dyrektywę script-src lub default-src, aby blokować wstrzykiwane skrypty',
       },
     ];
   }
-  // True when every policy lets through the scripts the test describes
   const allows = (test: (sources: string[]) => boolean) =>
     scripts.every((sources) => !sources || test(sources));
   const out: Result[] = [];
@@ -59,23 +52,23 @@ const checkCsp = (header: string): Result[] => {
   if (allows((sources) => sources.includes("'unsafe-inline'") && !nonced(sources))) {
     out.push({
       severity: 'warning',
-      title: 'Content-Security-Policy allows inline scripts',
-      detail: "'unsafe-inline' lets injected scripts run. Use nonces or hashes instead",
+      title: 'Content-Security-Policy zezwala na skrypty inline',
+      detail: "'unsafe-inline' umożliwia wykonanie wstrzykniętych skryptów. Użyj nonce lub hashy",
     });
   }
   const wildcard = (sources: string[]) => sources.some((s) => ANY_SOURCE.includes(s));
   if (allows((sources) => wildcard(sources) && !sources.includes("'strict-dynamic'"))) {
     out.push({
       severity: 'warning',
-      title: 'Content-Security-Policy allows scripts from any source',
-      detail: 'Replace *, http:, https: or data: in script-src with the hosts you load from',
+      title: 'Content-Security-Policy zezwala na skrypty z dowolnego źródła',
+      detail: 'Zastąp *, http:, https: lub data: w script-src konkretnymi zaufanymi domenami',
     });
   }
   if (allows((sources) => sources.includes("'unsafe-eval'"))) {
     out.push({
       severity: 'info',
-      title: 'Content-Security-Policy allows eval()',
-      detail: "'unsafe-eval' lets scripts run text as code, so injected text can run too",
+      title: 'Content-Security-Policy zezwala na eval()',
+      detail: "'unsafe-eval' pozwala wykonywać ciągi tekstowe jako kod JavaScript",
     });
   }
   const unset = ['object-src', 'base-uri'].filter(
@@ -84,19 +77,17 @@ const checkCsp = (header: string): Result[] => {
   if (unset.length) {
     out.push({
       severity: 'info',
-      title: `Content-Security-Policy doesn't set ${unset.join(' or ')}`,
-      detail: "object-src 'none' blocks plugins, and base-uri 'self' stops injected <base> tags",
+      title: `Content-Security-Policy nie określa ${unset.join(' ani ')}`,
+      detail: "object-src 'none' blokuje wtyczki, a base-uri 'self' chroni przed podmianą tagu <base>",
     });
   }
   return out;
 };
 
-// An issue for a header whose value gives no protection
 const badValue = (label: string, value: string, detail: string): Result[] => [
-  { severity: 'issue', title: `${label} is "${value}"`, detail },
+  { severity: 'issue', title: `${label} ma wartość „${value}”`, detail },
 ];
 
-// Problems with a header's value, for headers that only work with certain values
 const checkValue: Record<string, (value: string) => Result[]> = {
   contentSecurityPolicy: checkCsp,
   strictTransportPolicy: (value) =>
@@ -105,7 +96,7 @@ const checkValue: Record<string, (value: string) => Result[]> = {
       : badValue(
           'Strict-Transport-Security',
           value,
-          'Browsers keep to HTTPS for max-age seconds, so 0 or no max-age turns HSTS off',
+          'Wartość max-age równa 0 lub jej brak wyłącza ochronę HSTS',
         ),
   xContentTypeOptions: (value) =>
     /^\s*nosniff\s*(,|$)/i.test(value)
@@ -113,7 +104,7 @@ const checkValue: Record<string, (value: string) => Result[]> = {
       : badValue(
           'X-Content-Type-Options',
           value,
-          'nosniff is the only valid value, browsers ignore anything else',
+          'Jedyną poprawną wartością jest nosniff — inne są ignorowane przez przeglądarki',
         ),
   xFrameOptions: (value) =>
     value.split(',').some((option) => /^\s*(deny|sameorigin)\s*$/i.test(option))
@@ -121,15 +112,15 @@ const checkValue: Record<string, (value: string) => Result[]> = {
       : badValue(
           'X-Frame-Options',
           value,
-          'Only DENY and SAMEORIGIN work, browsers ignore anything else',
+          'Działają wyłącznie wartości DENY oraz SAMEORIGIN',
         ),
   referrerPolicy: (value) =>
     LEAKY_REFERRERS.includes(value.split(',').pop()!.trim().toLowerCase())
       ? [
           {
             severity: 'warning',
-            title: `Referrer-Policy "${value}" sends full URLs to other sites`,
-            detail: 'Paths and query strings leak to every site linked or loaded from the page',
+            title: `Referrer-Policy „${value}” ujawnia pełne adresy URL innym witrynom`,
+            detail: 'Ścieżki i parametry zapytań wyciekają do zewnętrznych serwisów',
           },
         ]
       : [],
@@ -139,29 +130,28 @@ const checkValue: Record<string, (value: string) => Result[]> = {
       : [
           {
             severity: 'info',
-            title: 'X-XSS-Protection is turned on',
-            detail: 'Browsers dropped this filter, and it made old ones less safe. Set it to 0',
+            title: 'Nagłówek X-XSS-Protection jest włączony',
+            detail: 'Przeglądarki wycofały ten filtr — zaleca się ustawienie jego wartości na 0',
           },
         ],
 };
 
-// Findings for one header, from whether it's set and what it's set to
 export const checkHeader = (d: any, key: string): Result[] => {
   const label = HEADERS[key as keyof typeof HEADERS];
   if (key === 'xFrameOptions' && hasFrameAncestors(d)) {
-    return [{ severity: 'pass', title: 'Framing limited by CSP frame-ancestors' }];
+    return [{ severity: 'pass', title: 'Osadzanie w ramkach ograniczone przez CSP frame-ancestors' }];
   }
   if (d[key]) {
     const problems = checkValue[key]?.(String(d[key])) || [];
     const passed = CRITICAL[key] && problems.every((p) => p.severity === 'info');
-    return passed ? [{ severity: 'pass', title: `${label} set` }, ...problems] : problems;
+    return passed ? [{ severity: 'pass', title: `Ustawiono ${label}` }, ...problems] : problems;
   }
   if (CRITICAL[key]) {
     return [
       {
         severity: 'issue',
-        title: `Missing ${label}`,
-        detail: `Set the ${label} response header`,
+        title: `Brak nagłówka ${label}`,
+        detail: `Dodaj nagłówek odpowiedzi ${label}`,
       },
     ];
   }
@@ -169,15 +159,14 @@ export const checkHeader = (d: any, key: string): Result[] => {
     return [
       {
         severity: 'warning',
-        title: `Missing ${label}`,
-        detail: `Consider adding the ${label} response header`,
+        title: `Brak nagłówka ${label}`,
+        detail: `Rozważ dodanie nagłówka odpowiedzi ${label}`,
       },
     ];
   }
   return [];
 };
 
-// Flag missing headers, and values that weaken them
 const httpSecurity: Analyzer = (d) => Object.keys(HEADERS).flatMap((key) => checkHeader(d, key));
 
 export default httpSecurity;

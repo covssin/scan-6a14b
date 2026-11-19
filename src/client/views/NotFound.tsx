@@ -47,15 +47,15 @@ const NotFound = (): JSX.Element => {
         </Heading>
         <span className="im-drink">🥴</span>
         <Heading as="h3" size="large" color={colors.primary}>
-          Not Found
+          Nie znaleziono strony
         </Heading>
         <HeaderLinkContainer>
           <a href="/">
-            <Button>Back to Homepage</Button>
+            <Button>Powrót na stronę główną</Button>
           </a>
         </HeaderLinkContainer>
-        <a target="_blank" rel="noreferrer" href="https://github.com/lissy93/web-check">
-          Report Issue
+        <a target="_blank" rel="noreferrer" href="https://kmucha.pl">
+          kmucha.pl
         </a>
       </NotFoundInner>
     </AboutContainer>

@@ -1,29 +1,23 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Headers',
+  title: 'Nagłówki HTTP',
   categories: ['server', 'security'],
-  summary: 'Every HTTP response header the server sends back',
+  summary: 'Wszystkie nagłówki odpowiedzi HTTP zwracane przez serwer',
   description:
-    'HTTP headers are the key-value pairs a server sends ahead of the page itself. ' +
-    'They cover caching, content type, encoding, compression, security policy, and ' +
-    'whatever the server chooses to volunteer about itself.',
+    'Nagłówki HTTP to pary klucz–wartość wysyłane przez serwer przed właściwą treścią strony. ' +
+    'Określają reguły pamięci podręcznej, typ zawartości, kompresję, polityki bezpieczeństwa oraz informacje o oprogramowaniu.',
   use:
-    'Headers are the cheapest fingerprint available. They frequently name the server ' +
-    'software, the CDN, the framework and the load balancer. The security headers a ' +
-    'site has left out are as informative as the ones it sets.',
+    'Nagłówki często ujawniają oprogramowanie serwera, sieć CDN, framework czy load balancer. ' +
+    'Brakujące nagłówki bezpieczeństwa mówią równie dużo, co te obecne.',
   resources: [
     {
-      title: 'HTTP Headers - Docs',
+      title: 'Nagłówki HTTP - MDN',
       link: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers',
     },
     {
-      title: 'RFC-7231 Section 7 - Headers',
+      title: 'RFC-7231 Sekcja 7 - Nagłówki',
       link: 'https://datatracker.ietf.org/doc/html/rfc7231#section-7',
-    },
-    {
-      title: 'List of header response fields',
-      link: 'https://en.wikipedia.org/wiki/List_of_HTTP_header_fields',
     },
     {
       title: 'OWASP Secure Headers Project',

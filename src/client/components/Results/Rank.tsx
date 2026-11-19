@@ -47,7 +47,7 @@ function Chart(chartData: { date: string; uv: number }[], data: any) {
         />
         <Tooltip
           contentStyle={{ background: colors.background, color: colors.textColor, borderRadius: 4 }}
-          labelFormatter={(value) => `Date : ${formatDate(data[value as number].date)}`}
+          labelFormatter={(value) => `Data: ${formatDate(data[value as number].date)}`}
           formatter={(value) => formatNumber(Number(value))}
         />
         <Area
@@ -55,7 +55,7 @@ function Chart(chartData: { date: string; uv: number }[], data: any) {
           dataKey="uv"
           stroke={colors.primary}
           fillOpacity={1}
-          name="Rank"
+          name="Pozycja"
           fill={`color-mix(in srgb, ${colors.backgroundSunken} 63%, transparent)`}
         />
       </AreaChart>
@@ -72,11 +72,11 @@ const RankCard = (props: { data: any; title: string; actionButtons: any }): JSX.
       <div className="rank-average">{formatNumber(data[0].rank)}</div>
       {percentageChange != null && (
         <Row
-          lbl="Change since Yesterday"
+          lbl="Zmiana od wczoraj"
           val={`${formatNumber(percentageChange, { digits: 2, signDisplay: 'exceptZero' })}%`}
         />
       )}
-      <Row lbl="Historical Average Rank" val={formatNumber(average)} />
+      <Row lbl="Średnia pozycja historyczna" val={formatNumber(average)} />
       <div className="chart-container">{Chart(chartData, data)}</div>
     </Card>
   );

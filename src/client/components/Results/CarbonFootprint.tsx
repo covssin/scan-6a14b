@@ -8,7 +8,7 @@ const fixed = (n: number, digits: number) => formatNumber(n, { digits });
 const formatBytes = (n: number): string => {
   if (n >= 1048576) return `${fixed(n / 1048576, 2)} MB`;
   if (n >= 1024) return `${fixed(n / 1024, 2)} KB`;
-  return `${fixed(n, 0)} bytes`;
+  return `${fixed(n, 0)} B`;
 };
 
 const formatGrams = (g: number): string => {
@@ -29,22 +29,22 @@ const CarbonCard = (props: { data: any; title: string; actionButtons: any }): JS
 
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
-      {!carbons?.adjustedBytes && <p>Unable to calculate carbon footprint for host</p>}
+      {!carbons?.adjustedBytes && <p>Nie udało się obliczyć śladu węglowego dla tego hosta</p>}
       {carbons?.adjustedBytes > 0 && (
         <>
           {props.data.bytes > 0 && (
-            <Row lbl="HTML Initial Size" val={formatBytes(props.data.bytes)} />
+            <Row lbl="Początkowy rozmiar HTML" val={formatBytes(props.data.bytes)} />
           )}
-          <Row lbl="Adjusted Transfer Size" val={formatBytes(carbons.adjustedBytes)} />
-          <Row lbl="CO2 for Initial Load" val={formatGrams(carbons.co2.grid.grams)} />
-          <Row lbl="Energy Usage for Load" val={formatKwh(carbons.energy)} />
+          <Row lbl="Skorygowany transfer danych" val={formatBytes(carbons.adjustedBytes)} />
+          <Row lbl="Emisja CO2 na odsłonę" val={formatGrams(carbons.co2.grid.grams)} />
+          <Row lbl="Zużycie energii na odsłonę" val={formatKwh(carbons.energy)} />
           {cleanerThan > 0 && (
-            <Row lbl="Cleaner than average page (est.)" val={`${cleanerThan}%`} />
+            <Row lbl="Czystsza niż średnia stron (szac.)" val={`${cleanerThan}%`} />
           )}
         </>
       )}
       <Note>
-        Calculated using the{' '}
+        Obliczono przy użyciu modelu{' '}
         <a
           href="https://sustainablewebdesign.org/estimating-digital-emissions"
           target="_blank"

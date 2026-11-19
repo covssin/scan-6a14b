@@ -1,6 +1,5 @@
 import type { Analyzer, Severity } from '../types';
 
-// The tracker categories worth flagging, and how much
 export const FLAGGED: Record<string, Severity> = {
   Advertising: 'warning',
   'Adult Advertising': 'warning',
@@ -9,7 +8,6 @@ export const FLAGGED: Record<string, Severity> = {
 
 const names = (list: any[]): string => list.map((t) => t.name).join(', ');
 
-// Warn on ad trackers, and note any analytics or other tracking the page reports to
 const trackers: Analyzer = (d) => {
   const list: any[] = Array.isArray(d.trackers) ? d.trackers : [];
   const others: string[] = Array.isArray(d.otherTrackers) ? d.otherTrackers : [];
@@ -19,25 +17,25 @@ const trackers: Analyzer = (d) => {
   if (ads.length) {
     out.push({
       severity: 'warning',
-      title: `Loads ${ads.length} advertising tracker(s)`,
+      title: `Ładuje ${ads.length} tracker(ów) reklamowych`,
       detail: names(ads),
     });
   }
   if (analytics.length) {
     out.push({
       severity: 'info',
-      title: `Reports to ${analytics.length} analytics service(s)`,
+      title: `Przesyła dane do ${analytics.length} narzędzi analitycznych`,
       detail: names(analytics),
     });
   }
   if (others.length) {
     out.push({
       severity: 'info',
-      title: `Contacts ${others.length} other tracking host(s)`,
+      title: `Łączy się z ${others.length} innymi hostami śledzącymi`,
       detail: others.join(', '),
     });
   }
-  if (!out.length) out.push({ severity: 'pass', title: 'No trackers found' });
+  if (!out.length) out.push({ severity: 'pass', title: 'Nie wykryto trackerów' });
   return out;
 };
 

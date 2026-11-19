@@ -42,7 +42,7 @@ const MapChart = (location: Props) => {
         }}
       >
         <text x="-8" textAnchor="end" fill={colors.textColor} fontSize={25}>
-          {label || 'Server'}
+          {label || 'Serwer'}
         </text>
       </Annotation>
     </ComposableMap>

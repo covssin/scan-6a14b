@@ -6,22 +6,22 @@ const ArchivesCard = (props: { data: any; title: string; actionButtons: any }): 
   const data = props.data;
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
-      <Row lbl="First Scan" val={data.firstScan} />
-      <Row lbl="Last Scan" val={data.lastScan} />
-      <Row lbl="Days Archived" val={formatNumber(data.daysArchived)} />
-      <Row lbl="Change Count" val={formatNumber(data.changeCount)} />
-      <Row lbl="Avg Size" val={`${formatNumber(data.averagePageSize)} bytes`} />
+      <Row lbl="Pierwszy zapis" val={data.firstScan} />
+      <Row lbl="Ostatni zapis" val={data.lastScan} />
+      <Row lbl="Dni w archiwum" val={formatNumber(data.daysArchived)} />
+      <Row lbl="Liczba zmian" val={formatNumber(data.changeCount)} />
+      <Row lbl="Średni rozmiar" val={`${formatNumber(data.averagePageSize)} B`} />
       <Row
-        lbl="Avg Days between Archives"
+        lbl="Śr. dni między zapisami"
         val={formatNumber(data.scanFrequency.daysBetweenScans)}
       />
 
       <Note>
-        View historical versions of this page{' '}
+        Zobacz historyczne wersje tej strony{' '}
         <a rel="noreferrer" target="_blank" href={`https://web.archive.org/web/*/${data.scanUrl}`}>
-          here
-        </a>
-        , via the Internet Archive's Wayback Machine.
+          tutaj
+        </a>{' '}
+        w archiwum Internet Archive Wayback Machine.
       </Note>
     </Card>
   );

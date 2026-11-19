@@ -43,8 +43,8 @@ const TraceRouteCard = (props: { data: any; title: string; actionButtons: any })
             <RouteTimings>
               {route[Object.keys(route)[0]].map((time: any, packetIndex: number) => (
                 <p className="times" key={`timing-${packetIndex}-${time}`}>
-                  {route[Object.keys(route)[0]].length > 1 && <>Packet #{packetIndex + 1}:</>}
-                  Took {time} ms
+                  {route[Object.keys(route)[0]].length > 1 && <>Pakiet #{packetIndex + 1}: </>}
+                  Czas: {time} ms
                 </p>
               ))}
               <p className="arrow">↓</p>
@@ -52,7 +52,7 @@ const TraceRouteCard = (props: { data: any; title: string; actionButtons: any })
           </RouteRow>
         ))}
       <RouteTimings>
-        <p className="completed">Round trip completed in {traceRouteResponse.timeTaken} ms</p>
+        <p className="completed">Pełna trasa zmierzona w {traceRouteResponse.timeTaken} ms</p>
       </RouteTimings>
     </Card>
   );

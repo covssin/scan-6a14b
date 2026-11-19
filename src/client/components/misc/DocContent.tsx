@@ -24,13 +24,13 @@ const DocContent = ({ id }: { id: CheckId }) => {
   const { description, use, resources } = checks[id];
   return (
     <Docs>
-      <h3>What it is</h3>
+      <h3>Na czym polega ten test</h3>
       <p>{description}</p>
-      <h3>Why it matters</h3>
+      <h3>Dlaczego to ważne</h3>
       <p>{use}</p>
       {resources.length > 0 && (
         <>
-          <h3>Further reading</h3>
+          <h3>Dodatkowe materiały</h3>
           <ul>
             {resources.map((resource) => {
               const { title, link } =
@@ -47,7 +47,7 @@ const DocContent = ({ id }: { id: CheckId }) => {
         </>
       )}
       <a href={`/${id}`} target="_blank" rel="noreferrer">
-        More about this check →
+        Więcej o tym teście →
       </a>
     </Docs>
   );

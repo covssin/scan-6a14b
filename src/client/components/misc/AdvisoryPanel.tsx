@@ -22,16 +22,16 @@ interface SevMeta {
 }
 
 const META: Record<Severity, SevMeta> = {
-  critical: { label: 'Critical', color: colors.danger, icon: faCircleXmark, defaultOpen: true },
-  issue: { label: 'Issues', color: colors.error, icon: faCircleExclamation, defaultOpen: true },
+  critical: { label: 'Krytyczne', color: colors.danger, icon: faCircleXmark, defaultOpen: true },
+  issue: { label: 'Problemy', color: colors.error, icon: faCircleExclamation, defaultOpen: true },
   warning: {
-    label: 'Warnings',
+    label: 'Ostrzeżenia',
     color: colors.warning,
     icon: faTriangleExclamation,
     defaultOpen: false,
   },
-  info: { label: 'Informational', color: colors.info, icon: faCircleInfo, defaultOpen: false },
-  pass: { label: 'Passes', color: colors.success, icon: faCircleCheck, defaultOpen: false },
+  info: { label: 'Informacyjne', color: colors.info, icon: faCircleInfo, defaultOpen: false },
+  pass: { label: 'Zaliczone', color: colors.success, icon: faCircleCheck, defaultOpen: false },
 };
 
 const Wrapper = styled(Card)`
@@ -170,7 +170,7 @@ const AdvisoryPanel = ({ findings, onJumpTo }: Props): ReactNode => {
   return (
     <Wrapper>
       <Heading as="h2" align="left" color={colors.primary}>
-        Advisory
+        Podsumowanie i zalecenia
       </Heading>
       {visible.map((sev) => {
         const meta = META[sev];

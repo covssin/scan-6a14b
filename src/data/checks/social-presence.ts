@@ -1,29 +1,20 @@
 import type { Check } from '.';
 
 export default {
-  title: 'Social Presence',
+  title: 'Obecność w mediach społecznościowych',
   categories: ['security'],
-  summary: 'Social accounts the site claims, and whether they link back',
+  summary: 'Profile społecznościowe powiązane ze stroną oraz weryfikacja linków zwrotnych',
   description:
-    'Finds the social accounts a site says are its own, by reading its meta tags, ' +
-    'structured data and rel="me" links, then looks each one up on the network itself. ' +
-    'Bluesky is also checked against the domain directly, because there a handle can be ' +
-    'the domain name. Every lookup uses free, public endpoints, so no API keys or ' +
-    'accounts are needed.',
+    'Wyszukuje konta w mediach społecznościowych wskazane w meta tagach, danych strukturalnych i linkach ' +
+    'rel="me", a następnie sprawdza ich istnienie oraz obecność odnośnika zwrotnego do badanej witryny.',
   use:
-    'Confirms that the accounts a website points to actually exist, and that they point ' +
-    'back to the website in return. A mismatch is worth knowing about: phishing pages ' +
-    'routinely claim the social accounts of the brand they impersonate, and a link that ' +
-    'only goes one way proves nothing about who owns the account.',
+    'Potwierdza autentyczność powiązania między stroną a profilami społecznościowymi. Strony phishingowe ' +
+    'często linkują do oficjalnych kont marki, ale nie posiadają potwierdzenia zwrotnego.',
   resources: [
     { title: 'IndieWeb: rel-me', link: 'https://indieweb.org/rel-me' },
     {
-      title: 'Mastodon link verification',
+      title: 'Weryfikacja linków w Mastodon',
       link: 'https://docs.joinmastodon.org/user/profile/#verification',
-    },
-    {
-      title: 'Bluesky domain handles',
-      link: 'https://bsky.social/about/blog/4-28-2023-domain-handle-tutorial',
     },
     { title: 'Schema.org sameAs', link: 'https://schema.org/sameAs' },
   ],

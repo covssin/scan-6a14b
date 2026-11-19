@@ -1,15 +1,14 @@
 import type { Analyzer } from '../types';
 
-// Lack of a detectable WAF is a hardening gap, not a hard fail
 const firewall: Analyzer = (d) => {
   if (d.hasWaf) {
-    return [{ severity: 'pass', title: `WAF detected: ${d.waf || 'unknown'}` }];
+    return [{ severity: 'pass', title: `Wykryto WAF: ${d.waf || 'nieznany'}` }];
   }
   return [
     {
       severity: 'warning',
-      title: 'No web application firewall detected',
-      detail: 'Consider Cloudflare, AWS WAF or similar to filter malicious traffic',
+      title: 'Nie wykryto zapory aplikacji sieciowych (WAF)',
+      detail: 'Rozważ wdrożenie Cloudflare, AWS WAF lub podobnego rozwiązania do filtrowania ruchu',
     },
   ];
 };

@@ -11,16 +11,16 @@ const SecurityTxtCard = (props: { data: any; title: string; actionButtons: any }
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
       <Row
-        lbl="Present"
+        lbl="Obecny"
         val={!!isPresent}
         status={isPresent ? 'pass' : 'warning'}
         term="security-txt"
       />
       {isPresent && (
         <>
-          <Row lbl="File Location" val={foundIn} />
+          <Row lbl="Lokalizacja pliku" val={foundIn} />
           <Row
-            lbl="PGP Signed"
+            lbl="Podpis PGP"
             val={!!isPgpSigned}
             status={isPgpSigned ? 'pass' : 'info'}
             term="security-txt-signature"
@@ -28,7 +28,7 @@ const SecurityTxtCard = (props: { data: any; title: string; actionButtons: any }
           {contact && (
             <Row
               lbl="Contact"
-              val="Missing"
+              val="Brak"
               term="security-txt-contact"
               {...fromFinding(contact)}
             />
@@ -36,7 +36,7 @@ const SecurityTxtCard = (props: { data: any; title: string; actionButtons: any }
           {!getField(fields, 'expires') && (
             <Row
               lbl="Expires"
-              val="Missing"
+              val="Brak"
               term="security-txt-expires"
               {...fromFinding(expires)}
             />
@@ -54,15 +54,15 @@ const SecurityTxtCard = (props: { data: any; title: string; actionButtons: any }
               />
             );
           })}
-          <Section title="View Full Policy" collapsible>
+          <Section title="Pokaż pełną treść pliku" collapsible>
             <Row plaintext={content} />
           </Section>
         </>
       )}
       {!isPresent && (
         <Note>
-          Having a security.txt ensures security researchers know how and where to safely report
-          vulnerabilities.
+          Plik security.txt ułatwia badaczom bezpieczeństwa bezpieczne zgłaszanie wykrytych
+          podatności.
         </Note>
       )}
     </Card>

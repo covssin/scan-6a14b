@@ -26,14 +26,14 @@ const RedirectsCard = (props: { data: any; title: string; actionButtons: any }):
   return (
     <Card heading={props.title} actionButtons={props.actionButtons} styles={cardStyles}>
       <Row
-        lbl="Redirects Followed"
-        val={count || 'None'}
+        lbl="Liczba przekierowań"
+        val={count || 'Brak'}
         term="redirects"
         {...fromFinding(checkHops(chain))}
       />
       {upgrade && (
         <Row
-          lbl="Redirects to HTTPS"
+          lbl="Przekierowanie na HTTPS"
           val={upgrade.severity === 'pass'}
           term="https-redirect"
           {...fromFinding(upgrade)}

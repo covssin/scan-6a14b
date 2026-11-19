@@ -1,17 +1,15 @@
-export const checksIntro = 'Web Check gathers the data. Interpreting it is still your job.';
+export const checksIntro = 'SCAN_KMucha zbiera dane — ich właściwa interpretacja należy do Ciebie.';
 
 export const about = [
-  'Web-Check gathers information about a website or host and puts it in one place. Give it a ' +
-    'URL, and it collects, collates and presents whatever it can find in the open.',
+  'SCAN_KMucha gromadzi informacje o dowolnej stronie internetowej lub hoście w jednym miejscu. ' +
+    'Wystarczy podać adres URL, a narzędzie zbierze, uporządkuje i zaprezentuje wszystkie publicznie dostępne dane.',
 
-  'The report covers potential attack vectors, the security measures already in place, and ' +
-    "the connections between the parts of a site's architecture. The same data is just as " +
-    'useful for the everyday jobs: tuning server responses, untangling redirects, auditing ' +
-    'cookies, checking DNS records.',
+  'Raport obejmuje potencjalne wektory ataku, wdrożone mechanizmy bezpieczeństwa oraz powiązania ' +
+    'między elementami architektury witryny. Te same informacje przydają się w codziennej pracy: ' +
+    'przy optymalizacji odpowiedzi serwera, porządkowaniu przekierowań, audycie plików cookie czy weryfikacji rekordów DNS.',
 
-  "Whether you're a developer, sysadmin, security researcher, penetration tester, or simply " +
-    'curious about how a particular site is put together, there should be something here ' +
-    'worth knowing.',
+  'Niezależnie od tego, czy jesteś programistą, administratorem systemów, badaczem bezpieczeństwa, ' +
+    'pentesterem, czy po prostu chcesz sprawdzić, jak zbudowana jest dana strona — znajdziesz tu wartościowe informacje.',
 ];
 
 export const license = `The MIT License (MIT)
@@ -36,38 +34,20 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 `;
 
 export const supportUs = [
-  'Web-Check is free to use without restriction.',
-  "All the code is open source, so you're also free to deploy your own instance, as well as " +
-    'fork, modify and distribute the code in both private and commercial settings.',
-  "Running web-check does cost me a small amount of money each month, so if you're finding " +
-    "the app useful, consider <a href='https://github.com/sponsors/Lissy93'>sponsoring me on " +
-    "GitHub</a> if you're able to. Even just $1 or $2/month would be a huge help in " +
-    'supporting the ongoing project running costs.',
-  'Otherwise, there are other ways you can help out, like submitting or reviewing a pull ' +
-    "request to the <a href='https://github.com/Lissy93/web-check'>GitHub repo</a>, upvoting " +
-    "us on <a href='https://www.producthunt.com/posts/web-check'>Product Hunt</a>, or by " +
-    'sharing with your network.',
-  "But don't feel obliged to do anything, as this app (and all my other projects) will always " +
-    'remain 100% free and open source, and I will do my best to ensure the managed instances ' +
-    'remain up and available for as long as possible :)',
+  'SCAN_KMucha jest narzędziem bezpłatnym, opartym na otwartym kodzie źródłowym.',
+  'Możesz również wdrożyć własną instancję aplikacji oraz modyfikować ją i wykorzystywać zarówno do celów prywatnych, jak i komercyjnych.',
+  "Więcej informacji o projektach i działalności autora znajdziesz na stronie <a href='https://kmucha.pl'>kmucha.pl</a>.",
 ];
 
 export const privacy = [
-  'Analytics are used on the managed instance, via a self-hosted Plausible instance. This ' +
-    "records only the URL you visited, and no personal data. There's also basic error logging, " +
-    'via a self-hosted GlitchTip instance, which is only used to help fix bugs.',
-  'Neither your IP address, browser, OS or hardware info, nor any other data will ever be ' +
-    'collected or logged. You can verify that yourself, either by inspecting the source code or ' +
-    'by using your browser devtools.',
+  'W przypadku włączenia statystyk ruchu rejestrowana jest wyłącznie podstawowa liczba odsłon bez gromadzenia danych osobowych.',
+  'Twój adres IP, informacje o przeglądarce, systemie operacyjnym czy sprzęcie nie są gromadzone ani sprzedawane podmiotom trzecim. ' +
+    'W ustawieniach aplikacji możesz w każdej chwili wyłączyć statystyki oraz wyczyścić wszystkie dane zapisane lokalnie w przeglądarce.',
 ];
 
 export const fairUse = [
-  'Please use this tool responsibly. Do not use it for hosts you do not have permission to ' +
-    'scan. Do not use it as part of a scheme to attack or disrupt services.',
-  'Requests may be rate-limited to prevent abuse. If you need more bandwidth, please deploy ' +
-    'your own instance.',
-  'There is no guarantee of uptime or availability. If you need to make sure the service is ' +
-    'available, please deploy your own instance.',
-  'Please use fairly, as excessive use will quickly deplete the lambda function credits, ' +
-    'making the service unavailable for others (and/or empty my bank account!).',
+  'Korzystaj z narzędzia odpowiedzialnie. Nie skanuj hostów, do których badania nie masz uprawnień, i nie używaj aplikacji do zakłócania działania usług.',
+  'Liczba zapytań może być ograniczana (rate-limiting), aby zapobiegać nadużyciom. W przypadku potrzeby wykonywania masowych skanów uruchom własną instancję.',
+  'Nie gwarantujemy ciągłej dostępności usługi publicznej — do zastosowań krytycznych zalecamy wdrożenie własnej instancji.',
+  'Prosimy o rozsądne korzystanie z zasobów, aby narzędzie pozostało szybkie i dostępne dla wszystkich użytkowników.',
 ];

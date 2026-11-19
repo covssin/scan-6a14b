@@ -25,7 +25,7 @@ const TERMS: Record<string, TermId> = {
 
 // A header's value, with the status and any problems from its findings
 const showHeader = (d: any, key: string): RowProps => ({
-  val: d[key] || (key === 'xFrameOptions' && hasFrameAncestors(d) ? 'Via CSP' : 'No'),
+  val: d[key] || (key === 'xFrameOptions' && hasFrameAncestors(d) ? 'Przez CSP' : 'Nie'),
   term: TERMS[key],
   ...fromFindings(checkHeader(d, key)),
 });

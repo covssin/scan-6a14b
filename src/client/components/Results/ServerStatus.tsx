@@ -5,22 +5,22 @@ import { checkResponseTime } from 'client/analysis/rules/status';
 import { formatNumber } from 'client/utils/format';
 
 const STEPS = [
-  ['dns', 'DNS Lookup'],
-  ['connect', 'TCP Connect'],
-  ['tls', 'TLS Handshake'],
-  ['wait', 'Server Response'],
-  ['download', 'Download'],
+  ['dns', 'Zapytanie DNS'],
+  ['connect', 'Połączenie TCP'],
+  ['tls', 'Uzgadnianie TLS'],
+  ['wait', 'Odpowiedź serwera'],
+  ['download', 'Pobieranie'],
 ];
 
 const ServerStatusCard = (props: { data: any; title: string; actionButtons: any }): JSX.Element => {
   const serverStatus = props.data;
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>
-      <Row lbl="Is Up?" val={serverStatus.isUp} yes="Online" no="Offline" />
-      <Row lbl="Status Code" val={serverStatus.responseCode} />
+      <Row lbl="Dostępność" val={serverStatus.isUp} yes="Online" no="Offline" />
+      <Row lbl="Kod statusu HTTP" val={serverStatus.responseCode} />
       {serverStatus.responseTime && (
         <Row
-          lbl="Response Time"
+          lbl="Czas odpowiedzi"
           val={`${formatNumber(serverStatus.responseTime, { digits: 0 })}ms`}
           term="response-time"
           {...fromFinding(checkResponseTime(serverStatus.responseTime))}

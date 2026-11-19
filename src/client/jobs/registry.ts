@@ -106,7 +106,7 @@ const fetchAndPoll = (path: string) =>
     6,
     30000,
     () => ({
-      error: 'Timed-out waiting for assessment',
+      error: 'Przekroczono czas oczekiwania na wynik analizy',
     }),
   );
 

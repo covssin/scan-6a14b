@@ -10,19 +10,19 @@ interface Props {
   }>;
 }
 
-// Default meta tag values
+// Domyślne wartości meta tagów
 const siteInfo = {
-  title: 'Web Check',
-  titleLong: 'Web Check - X-Ray Vision for any Website',
+  title: 'SCAN_KMucha',
+  titleLong: 'SCAN_KMucha - Prześwietl dowolną stronę internetową',
   description:
-    'Web Check is the all-in-one OSINT and security tool, for revealing the inner workings of any website',
+    'SCAN_KMucha to kompleksowe narzędzie OSINT i bezpieczeństwa pozwalające przeanalizować budowę oraz konfigurację dowolnej strony internetowej',
   keywords:
-    'web check, OSINT, website security, security audit, DNS lookup, SSL check, ' +
-    'tech stack detection, website analyzer, web tools, open source',
-  themeColor: '#c1fb41',
-  author: 'Alicia Sykes',
-  twitter: '@Lissy_Sykes',
-  site: (import.meta.env.SITE_URL || 'https://web-check.xyz').replace(/\/+$/, ''),
+    'SCAN_KMucha, OSINT, bezpieczeństwo stron, audyt bezpieczeństwa, rekordy DNS, certyfikat SSL, ' +
+    'stos technologiczny, analiza strony, narzędzia sieciowe',
+  themeColor: '#467099',
+  author: 'kmucha.pl',
+  twitter: '',
+  site: (import.meta.env.SITE_URL || 'https://kmucha.pl').replace(/\/+$/, ''),
   analytics: {
     enable: import.meta.env.ENABLE_ANALYTICS,
     domain: 'web-check.as93.net',
@@ -30,7 +30,6 @@ const siteInfo = {
   },
 };
 
-// Resolve per-page values, falling back to siteInfo defaults
 const { title, description, keywords, breadcrumbs, customSchemaJson } = Astro.props;
 const pageTitle = title ?? siteInfo.title;
 const ogTitle = title ?? siteInfo.titleLong;
@@ -41,7 +40,6 @@ const { site, author, twitter, analytics, themeColor } = siteInfo;
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', site).href;
 const ogImage = `${site}/banner.png`;
 
-// Given a map of breadcrumbs, return the JSON-LD for the BreadcrumbList schema
 const makeBreadcrumbs = () => {
   if (!breadcrumbs) return null;
   return {
@@ -80,7 +78,7 @@ const makeBreadcrumbs = () => {
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <link rel="manifest" href="/manifest.json" />
 
-<!-- Social media meta tags (Open Graphh + Twitter) -->
+<!-- Social media meta tags (Open Graph + Twitter) -->
 <meta property="og:site_name" content={siteInfo.title} />
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonical} />
@@ -92,8 +90,8 @@ const makeBreadcrumbs = () => {
 <meta name="twitter:title" content={ogTitle} />
 <meta name="twitter:description" content={pageDescription} />
 <meta name="twitter:image" content={ogImage} />
-<meta name="twitter:site" content={twitter} />
-<meta name="twitter:creator" content={twitter} />
+{twitter && <meta name="twitter:site" content={twitter} />}
+{twitter && <meta name="twitter:creator" content={twitter} />}
 
 <!-- Non-tracking hit counter -->
 {analytics.enable && (

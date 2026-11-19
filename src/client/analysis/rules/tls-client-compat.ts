@@ -5,7 +5,6 @@ interface Sim {
   errorCode?: number;
 }
 
-// Collect handshake-failure simulations from the SSL Labs report
 const failures = (d: any): Sim[] => {
   if (!Array.isArray(d?.endpoints)) return [];
   const out: Sim[] = [];
@@ -17,20 +16,19 @@ const failures = (d: any): Sim[] => {
   return out;
 };
 
-// Surface clients that cannot negotiate TLS with this host
 const tlsClientCompat: Analyzer = (d) => {
   const fails = failures(d);
   if (!fails.length) return [];
   const sample = fails
     .slice(0, 5)
-    .map((s) => `${s.client?.name || 'client'} ${s.client?.version || ''}`.trim())
+    .map((s) => `${s.client?.name || 'klient'} ${s.client?.version || ''}`.trim())
     .join(', ');
-  const more = fails.length > 5 ? ` (+${fails.length - 5} more)` : '';
+  const more = fails.length > 5 ? ` (+${fails.length - 5} więcej)` : '';
   return [
     {
       severity: 'warning',
-      title: `${fails.length} simulated client(s) cannot connect`,
-      detail: `${sample}${more}. Drop legacy ciphers/protocols only after weighing reach`,
+      title: `${fails.length} symulowanych klientów nie może nawiązać połączenia`,
+      detail: `${sample}${more}. Dotyczy zwykle przestarzałych systemów i przeglądarek`,
     },
   ];
 };

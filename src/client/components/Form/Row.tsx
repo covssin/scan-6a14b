@@ -145,7 +145,7 @@ const isDateLike = (value: any): boolean => {
 };
 
 // The text shown for a value, with dates formatted and booleans as yes or no
-const valueText = ({ val, yes = 'Yes', no = 'No' }: RowProps): string => {
+const valueText = ({ val, yes = 'Tak', no = 'Nie' }: RowProps): string => {
   if (typeof val === 'boolean') return val ? yes : no;
   return isDateLike(val) ? formatDate(val as string) : String(val ?? '');
 };
